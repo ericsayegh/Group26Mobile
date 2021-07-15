@@ -1,3 +1,4 @@
+import 'package:fitness_app_development/pages/run_sequence/start_run.dart';
 import 'package:fitness_app_development/pages/settings.dart';
 import 'package:fitness_app_development/pages/user_profile.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,13 @@ class _HomeState extends State<Home> {
         ),
       ),
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => StartRun()));
+          },
+          child: Icon(Icons.add),
+          backgroundColor: Colors.grey[850],
+        ),
         backgroundColor: Colors.transparent,
         body: SafeArea(
             child: LayoutBuilder(
@@ -137,6 +145,7 @@ class _HomeState extends State<Home> {
                           thickness: 2,
                           color: Colors.black,
                         ),
+
 
                       ],
                     ),

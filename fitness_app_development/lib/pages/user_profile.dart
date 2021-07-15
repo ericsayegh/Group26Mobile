@@ -36,13 +36,7 @@ class _UserState extends State<User> {
         backgroundColor: Colors.grey[850],
         elevation: 0.0,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
 
-        },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.grey[850],
-      ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
         child: Column(

@@ -130,6 +130,7 @@ class _LoginState extends State<Login> {
                             var userId = -1;
                             var jsonObject;
                             var jsonObject2;
+                            DateTime expirationDate;
 
                             try
                             {
@@ -139,7 +140,6 @@ class _LoginState extends State<Login> {
                               jsonObject = json.decode(json.encode(ret));
 
                               print(jsonObject2["totalruns"]);
-
                               decodedToken = JwtDecoder.decode(jsonObject);
 
 
@@ -226,6 +226,7 @@ class _LoginState extends State<Login> {
     GlobalData.userName = firstName + lastName;
 
   }
+
 
 }
 
