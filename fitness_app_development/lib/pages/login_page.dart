@@ -22,6 +22,8 @@ class _LoginState extends State<Login> {
 
   String message = '', newMessageText = '';
   String loginName = '', password = '';
+  String firstName = '', lastName = '';
+
 
 
 
@@ -161,14 +163,20 @@ class _LoginState extends State<Login> {
                             {
                               GlobalData.userId = userId;
                               GlobalData.firstName = decodedToken["firstName"];
+                              firstName = GlobalData.firstName!;
                               GlobalData.lastName = decodedToken["lastName"];
+                              lastName = GlobalData.lastName!;
+                              getUserName(firstName, lastName);
                               GlobalData.loginName = loginName;
                               GlobalData.password = password;
                               GlobalData.totalDistance = double.parse(jsonObject2["totaldistance"]);
                               GlobalData.totalRuns = int.parse(jsonObject2["totalruns"]);
                               GlobalData.totalTime = int.parse(jsonObject2["totaltime"]);
                               try {
+                                myController1.clear();
+                                myController2.clear();
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+
                               }catch(e) {
                                 print(e);
                               }
@@ -214,6 +222,10 @@ class _LoginState extends State<Login> {
     setState(() {
       message = newMessageText;
     });
+  }
+  void getUserName (String firstName, String lastName) {
+    GlobalData.userName = firstName + lastName;
+
   }
 
 }

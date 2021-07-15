@@ -1,3 +1,5 @@
+import 'package:fitness_app_development/pages/settings.dart';
+import 'package:fitness_app_development/utilities/user_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app_development/services/global_data.dart';
 
@@ -20,123 +22,132 @@ class _HomeState extends State<Home> {
     changeTotalRuns();
     changeTotalDistance();
     changeTotalTime();
-    print(GlobalData.totalDistance);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-          child: LayoutBuilder(
-              builder: (context, constraints) => Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      Material(color: Colors.blue[100]),
-                      Column(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              IconButton(
-                                icon: Icon(
-                                  Icons.portrait,
-                                  size: 50,
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage('https://st2.depositphotos.com/1464196/11719/v/950/depositphotos_117192392-stock-illustration-background-in-color-of-summer.jpg'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SafeArea(
+            child: LayoutBuilder(
+                builder: (context, constraints) => Stack(
+                  fit: StackFit.expand,
+
+                  children: [
+
+                    Column(
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                                icon: CircleAvatar( // can add link to users profile pictures for this
+                                  backgroundImage: NetworkImage( // PLACEHOLDER //
+                                      'https://post.greatist.com/wp-content/uploads/2020/01/Runner-training-on-running-track-732x549-thumbnail.jpg'),
+                                  radius: 40,
                                 ),
-                                onPressed: () {}
-                              ),
+                                iconSize: 40,
+                                onPressed: () {
+
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => User()));
 
 
-                              Text(
+                                }
+                            ),
+
+                            Center(
+                              child: Text(
+
                                 userName,
                                 style: TextStyle(
-                                  fontSize: 38.0,
-                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Hind',
+                                  fontSize: 50.0,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
-                              IconButton(
-                                  icon: Icon(
-                                    Icons.settings,
-                                    size: 50,
-                                  ),
-                                  onPressed: () {}
-                              ),
+                            ),
 
-                            ],
-                          ),
-                          Divider(
-                            height: 20,
-                            thickness: 2,
-                            color: Colors.black,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Column(
-                                children: [
-                                  Text('Total Runs'),
-                                  Text('$totalRuns'),
-                                ],
-                              ),
-                              Container(
-                                height: 80,
-                                child: VerticalDivider(
-                                  width: 20,
-                                  thickness: 2,
-                                  color: Colors.black,
+                            IconButton(
+                                icon: Icon(
+                                  Icons.settings,
+                                  size: 50,
                                 ),
-                              ),
-                              Column(
-                                children: [
-                                  Text('Total Distance'),
-                                  Text('$totalDistance'),
-                                ],
-                              ),
-                              Container(
-                                height: 80,
-                                child: VerticalDivider(
-                                  width: 20,
-                                  thickness: 2,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Column(
-                                children: [
-                                  Text('Total Time'),
-                                  Text('$totalTIme'),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Divider(
-                            height: 20,
-                            thickness: 2,
-                            color: Colors.black,
-                          ),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));
+                                }
+                            ),
 
-                        ],
-                      ),
-                    ],
-                  ))),
-        bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Colors.grey[450],
-            items: [
-              BottomNavigationBarItem(
-                icon: new Icon(Icons.home),
-                title: new Text('Home'),
-              ),
-              BottomNavigationBarItem(
-                icon: new Icon(Icons.search),
-                title: new Text('Search'),
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  title: Text('Profile')
-              )
-            ]
-        )
+                          ],
+                        ),
+                        Divider(
+                          height: 20,
+                          thickness: 2,
+                          color: Colors.black,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: [
+                                Text('Total Runs'),
+                                Text('$totalRuns'),
+                              ],
+                            ),
+                            Container(
+                              height: 80,
+                              child: VerticalDivider(
+                                width: 20,
+                                thickness: 2,
+                                color: Colors.black,
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                Text('Total Distance'),
+                                Text('$totalDistance'),
+                              ],
+                            ),
+                            Container(
+                              height: 80,
+                              child: VerticalDivider(
+                                width: 20,
+                                thickness: 2,
+                                color: Colors.black,
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                Text('Total Time'),
+                                Text('$totalTIme'),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Divider(
+                          height: 20,
+                          thickness: 2,
+                          color: Colors.black,
+                        ),
+
+                      ],
+                    ),
+                  ],
+                ))),
+
+      ),
+
     );
+
+
   }
   void changeText() {
     setState(() {
