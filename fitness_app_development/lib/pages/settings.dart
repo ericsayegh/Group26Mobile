@@ -17,6 +17,7 @@ class _SettingsState extends State<Settings> {
         child: ElevatedButton(
           child: Text('LOGOUT'),
           onPressed: (){
+
             Navigator.of(context).popUntil((route) => route.isFirst);
           },
 

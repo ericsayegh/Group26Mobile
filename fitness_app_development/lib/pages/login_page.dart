@@ -8,6 +8,8 @@ import 'package:fitness_app_development/services/get_api.dart';
 import 'package:fitness_app_development/services/global_data.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
+import 'forgot_password.dart';
+
 
 class Login extends StatefulWidget {
 
@@ -90,12 +92,7 @@ class _LoginState extends State<Login> {
 
                       ),
                     ),
-                    TextButton( // forgot username button
-                      onPressed: () {},
-                      child: Text(
-                        'Forgot Username'
-                      ),
-                    ),
+
                     SizedBox(height: 15.0),
                     TextField( // password field
                       controller: myController2,
@@ -107,7 +104,9 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     TextButton( // forgot password button
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Forgot()));
+                      },
                       child: Text(
                           'Forgot Password',
                       ),

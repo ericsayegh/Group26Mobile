@@ -1,5 +1,5 @@
 import 'package:fitness_app_development/pages/settings.dart';
-import 'package:fitness_app_development/utilities/user_profile.dart';
+import 'package:fitness_app_development/pages/user_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app_development/services/global_data.dart';
 
