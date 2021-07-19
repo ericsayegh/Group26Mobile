@@ -1,3 +1,7 @@
+import 'package:fitness_app_development/pages/change_email.dart';
+import 'package:fitness_app_development/pages/change_name.dart';
+import 'package:fitness_app_development/pages/change_pass.dart';
+import 'package:fitness_app_development/pages/forgot_password.dart';
 import 'package:fitness_app_development/services/global_data.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app_development/services/global_data.dart';
@@ -55,7 +59,7 @@ class _SettingsState extends State<Settings> {
                     title: Text('Change Email'),
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () {
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChangeEmail()));
                     },
                   ),
                   ListTile(
@@ -63,7 +67,7 @@ class _SettingsState extends State<Settings> {
                     title: Text('Change Username'),
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () {
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChangeName()));
                     },
                   ),
                   ListTile(
@@ -71,7 +75,7 @@ class _SettingsState extends State<Settings> {
                     title: Text('Change Password'),
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () {
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePass()));
                     },
                   ),
                 ],
