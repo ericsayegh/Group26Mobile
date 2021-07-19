@@ -4,6 +4,8 @@ import 'package:fitness_app_development/pages/user_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app_development/services/global_data.dart';
 
+import 'package:fitness_app_development/pages/friends.dart';
+
 
 class Home extends StatefulWidget {
   @override
@@ -144,6 +146,14 @@ class _HomeState extends State<Home> {
                           height: 20,
                           thickness: 2,
                           color: Colors.black,
+                        ),
+                        ElevatedButton( // temp button to get to friends page
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => FriendsScreen()));
+                          },
+                          child: Text(
+                            'GO TO FRIENDS PAGE (TEMP)'
+                          ),
                         ),
 
 

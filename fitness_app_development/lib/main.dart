@@ -1,4 +1,5 @@
 import 'package:fitness_app_development/pages/forgot_password.dart';
+import 'package:fitness_app_development/pages/friends.dart';
 import 'package:fitness_app_development/pages/home_page.dart';
 import 'package:fitness_app_development/pages/run_sequence/resume_end_run.dart';
 import 'package:fitness_app_development/pages/run_sequence/run_completed.dart';
@@ -24,6 +25,7 @@ void main() => runApp(MaterialApp(
     '/resumeOrEnd' : (context) => ResumeOrEnd(),
     '/run_completed' : (context) => Completed(),
     '/home_page' : (context) => Home(),
+    '/friends_page' : (context) => FriendsScreen(),
   },
 
 ));
