@@ -4,7 +4,7 @@ import 'package:fitness_app_development/pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app_development/pages/home_page.dart';
 import 'dart:convert';
-import 'package:fitness_app_development/services/global_data.dart';
+import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import '../main.dart';
 import 'pass_reset/forgot_password.dart';

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:fitness_app_development/services/global_data.dart';
+import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
 

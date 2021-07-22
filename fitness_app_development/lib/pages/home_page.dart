@@ -2,7 +2,7 @@ import 'package:fitness_app_development/pages/run_sequence/start_run.dart';
 import 'package:fitness_app_development/pages/settings.dart';
 import 'package:fitness_app_development/pages/user_profile.dart';
 import 'package:flutter/material.dart';
-import 'package:fitness_app_development/services/global_data.dart';
+import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:fitness_app_development/pages/friends.dart';
 

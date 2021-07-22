@@ -1,7 +1,7 @@
 import 'package:fitness_app_development/pages/change_email.dart';
 import 'package:fitness_app_development/pages/change_name.dart';
 import 'package:fitness_app_development/pages/change_pass.dart';
-import 'package:fitness_app_development/services/global_data.dart';
+import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:flutter/material.dart';
 
 class Settings extends StatefulWidget {
@@ -56,6 +56,7 @@ class _SettingsState extends State<Settings> {
                     title: Text('Change Email'),
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () {
+                      Navigator.of(context).popUntil((route) => route.isFirst);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => ChangeEmail()));
                     },
                   ),
@@ -64,6 +65,7 @@ class _SettingsState extends State<Settings> {
                     title: Text('Change Username'),
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () {
+                      Navigator.of(context).popUntil((route) => route.isFirst);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => ChangeName()));
                     },
                   ),

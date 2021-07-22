@@ -1,7 +1,8 @@
 import 'dart:convert';
 
+import 'package:fitness_app_development/pages/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:fitness_app_development/services/global_data.dart';
+import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 
 
@@ -83,6 +84,7 @@ class _ChangeEmailState extends State<ChangeEmail> {
                           var ret = await GetAPI.editUser();
                           var jsonObject = json.decode(ret.body);
                           print(jsonObject);
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
                         } catch(e)
                         {
                           print(e);

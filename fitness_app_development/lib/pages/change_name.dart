@@ -1,8 +1,10 @@
 import 'dart:convert';
 
-import 'package:fitness_app_development/services/global_data.dart';
+import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
+
+import 'home_page.dart';
 
 //WORK IN PROGRESS
 
@@ -66,7 +68,7 @@ class _ChangeNameState extends State<ChangeName> {
                       ),
                     ),
                     TextField(
-                      //controller: ,
+                      controller: fnController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'First Name',
@@ -79,7 +81,7 @@ class _ChangeNameState extends State<ChangeName> {
                       ),
                     ),
                     TextField(
-                      //controller: ,
+                      controller: lnController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Last Name',
@@ -97,15 +99,21 @@ class _ChangeNameState extends State<ChangeName> {
                         GlobalData.firstName = firstName;
                         GlobalData.lastName = lastName;
 
+                        if(GlobalData.firstName != null && GlobalData.lastName != null){
+                          try{
+                            var ret = await GetAPI.editUser();
+                            var jsonObject = json.decode(ret.body);
 
-                        try{
-                          var ret = await GetAPI.editUser();
-                          var jsonObject = json.decode(ret.body);
-                          print(jsonObject);
-                        } catch(e)
-                        {
-                          print(e);
+                            print(jsonObject);
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                          } catch(e)
+                          {
+                            print(e);
+                          }
                         }
+
+
+
 
 
                       },
