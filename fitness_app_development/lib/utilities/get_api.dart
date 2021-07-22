@@ -48,8 +48,7 @@ class GetAPI{
   }
 
 
-  //NOT WORKING
-  // need to talk to api ppl about handling userId as a string
+  //WORKING
   static Future<http.Response> editUser() async {
     var jwt = await storage.read(key: "jwt");
 
@@ -87,15 +86,14 @@ class GetAPI{
 
 
 
-  // not working
-  static Future<void> verify (int userId, String pin) async {
+  //working
+  static Future<void> verify (String pin) async {
     var res = await http.post(
         Uri.parse('$SERVER_IP/verifyuser'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, String>{
-          'userId': '$userId',
           'text': '$pin',
           })
 
@@ -126,7 +124,7 @@ class GetAPI{
     }
     return res;
   }
-
+  //working
   static Future<http.Response> deleteUsers() async {
     var jwt = await storage.read(key: "jwt");
     var res;

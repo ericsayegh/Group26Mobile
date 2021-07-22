@@ -4,7 +4,7 @@ import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
 
-//NOT WORKING/////////////////////////////////////////////////////////////
+//working
 
 
 
@@ -27,7 +27,6 @@ class _VerifyState extends State<Verify> {
 
   @override
   void initState() {
-
     super.initState();
   }
 
@@ -89,11 +88,11 @@ class _VerifyState extends State<Verify> {
                     ),
                     SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () async { // connect to the reset password api or whatever here
+                      onPressed: () async {
 
                         String pin = myController1.text;
-                        changeUserId();
-                        GetAPI.verify(userId, pin);
+                        GetAPI.verify(pin);
+                        Navigator.of(context).popUntil((route) => route.isFirst);
                       },
                       child: Text('Enter'),
                     ),
@@ -116,30 +115,6 @@ class _VerifyState extends State<Verify> {
   }
 
 
-  Future<void> changeUserId() async {
 
-    int index = 0;
-    email = GlobalData.email!;
-
-
-    var ret = await GetAPI.searchUsers(email);
-    var jsonObject = json.decode(ret.body);
-
-    var userIdArray = jsonObject["userId"];
-    print(userIdArray);
-    var emailArray = jsonObject["email"];
-
-    for(int i=0; i < userIdArray.length; i++){
-      if(emailArray[i] == email){
-        index = i;
-      }
-    }
-
-
-    setState(() {
-      userId = userIdArray[index];
-      GlobalData.userId = userId;
-    });
-  }
 
 }

@@ -104,7 +104,8 @@ class _Forgot2State extends State<Forgot2> {
                         String passkey = keyController.text;
                         String pass = passController.text;
                         var ret = GetAPI.passwordreset(passkey, pass);
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => Forgot3()));
+                        print(ret);
+                        Navigator.of(context).popUntil((route) => route.isFirst);
                       },
                       child: Text('Submit'),
                     ),

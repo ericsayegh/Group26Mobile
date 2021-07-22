@@ -1,4 +1,6 @@
 
+import 'package:fitness_app_development/pages/settings.dart';
+import 'package:fitness_app_development/pages/verify_user.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
@@ -154,7 +156,7 @@ class _RegisterState extends State<Register> {
 
 
                             try {
-                              Navigator.pop(context);
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => Verify()));
                             }catch(e){
                               print(e);
                             }
