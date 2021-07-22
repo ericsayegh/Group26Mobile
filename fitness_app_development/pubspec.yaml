@@ -31,6 +31,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^0.13.3
   jwt_decoder: ^2.0.1
+  flutter_secure_storage: ^4.2.0
 
 dev_dependencies:
   flutter_test:

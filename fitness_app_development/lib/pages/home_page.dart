@@ -3,8 +3,9 @@ import 'package:fitness_app_development/pages/settings.dart';
 import 'package:fitness_app_development/pages/user_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app_development/services/global_data.dart';
-
+import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:fitness_app_development/pages/friends.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 
 class Home extends StatefulWidget {
@@ -22,9 +23,9 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     changeText();
-    changeTotalRuns();
-    changeTotalDistance();
-    changeTotalTime();
+    //changeTotalRuns();
+   // changeTotalDistance();
+    //changeTotalTime();
     super.initState();
   }
 
@@ -153,6 +154,19 @@ class _HomeState extends State<Home> {
                           },
                           child: Text(
                             'GO TO FRIENDS PAGE (TEMP)'
+                          ),
+                        ),
+                        ElevatedButton( // temp button to get to friends page
+                          onPressed: () async {
+                            int t = 0;
+                            t = 701;
+                            var ret = await GetAPI.searchUsers('adam1');
+                            print(ret.body);
+
+
+                          },
+                          child: Text(
+                              'search mm'
                           ),
                         ),
 

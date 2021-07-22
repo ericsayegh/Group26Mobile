@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:fitness_app_development/pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app_development/pages/home_page.dart';
@@ -7,7 +7,8 @@ import 'dart:convert';
 import 'package:fitness_app_development/services/get_api.dart';
 import 'package:fitness_app_development/services/global_data.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../main.dart';
 import 'forgot_password.dart';
 
 
@@ -127,24 +128,34 @@ class _LoginState extends State<Login> {
 
 
                             print(payload);
-                            var userId = -1;
+
                             var jsonObject;
-                            var jsonObject2;
-                            DateTime expirationDate;
+
 
                             try
                             {
                               String url = 'http://cop4331-2021.herokuapp.com/api/login';
-                              var ret = await CardsData.getJson(url, payload);
-                              jsonObject2 = json.decode(ret);
-                              jsonObject = json.decode(json.encode(ret));
+                              var ret = await GetAPI.login(loginName, password);
+                              print("done");
+                              jsonObject = json.decode(ret);
+                              var accessToken = jsonObject["token"];
+                              var jwt = accessToken["accessToken"];
+                              await storage.write(key: "jwt", value: jwt);
 
-                              print(jsonObject2["totalruns"]);
-                              decodedToken = JwtDecoder.decode(jsonObject);
-
-
+                              decodedToken = JwtDecoder.decode(ret);
+                              print(jsonObject);
                               print(decodedToken);
-                              userId = decodedToken["userId"];
+                              print(jwt);
+                              GlobalData.userId = decodedToken["userId"];
+                              GlobalData.firstName = decodedToken["firstName"];
+                              GlobalData.lastName = decodedToken["lastName"];
+                              firstName = GlobalData.firstName!;
+                              lastName = GlobalData.lastName!;
+
+                              getUserName(firstName, lastName);
+                              GlobalData.loginName = loginName;
+                              GlobalData.password = password;
+
 
                             }catch(e)
                             {
@@ -153,24 +164,7 @@ class _LoginState extends State<Login> {
                               changeText();
                               return;
                             }
-                            if( userId <= 0 )
-                            {
-                              newMessageText = "Incorrect Login/Password";
-                              changeText();
-                            }
-                            else
-                            {
-                              GlobalData.userId = userId;
-                              GlobalData.firstName = decodedToken["firstName"];
-                              firstName = GlobalData.firstName!;
-                              GlobalData.lastName = decodedToken["lastName"];
-                              lastName = GlobalData.lastName!;
-                              getUserName(firstName, lastName);
-                              GlobalData.loginName = loginName;
-                              GlobalData.password = password;
-                              GlobalData.totalDistance = double.parse(jsonObject2["totaldistance"]);
-                              GlobalData.totalRuns = int.parse(jsonObject2["totalruns"]);
-                              GlobalData.totalTime = int.parse(jsonObject2["totaltime"]);
+
                               try {
                                 myController1.clear();
                                 myController2.clear();
@@ -179,8 +173,6 @@ class _LoginState extends State<Login> {
                               }catch(e) {
                                 print(e);
                               }
-
-                            }
 
                             },
                           child: Text('Login'),

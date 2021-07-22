@@ -6,6 +6,7 @@ class GlobalData
   static String? userName;
   static String? loginName;
   static String? password;
+  static String? email;
   static int? totalRuns;
   static double? totalDistance;
   static int? totalTime;

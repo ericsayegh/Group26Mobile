@@ -1,6 +1,9 @@
 import 'dart:convert';
 
+import 'package:fitness_app_development/pages/verify_user.dart';
 import 'package:fitness_app_development/services/get_api.dart';
+import 'package:fitness_app_development/services/global_data.dart';
+import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
@@ -19,7 +22,7 @@ class _RegisterState extends State<Register> {
   final lnController = TextEditingController();
 
   String email = '';
-  String username = '';
+  String login = '';
   String password = '';
   String firstName = '';
   String lastName = '';
@@ -127,20 +130,25 @@ class _RegisterState extends State<Register> {
                           onPressed: () async {
 
                             email = emailController.text;
-                            username = userNameController.text;
+                            login = userNameController.text;
                             password = passController.text;
                             firstName = fnController.text;
                             lastName = lnController.text;
                             var jsonObject;
 
-                            String payload = '{"email":"' + email.trim() + '","firstname":"'
-                                            + firstName.trim() + '","lastname":"' + lastName.trim()
-                                            + '","login":"' + username.trim()
-                                            + '","password":"' + password.trim() + '"}';
+
 
                             try{
-                            String url = 'http://cop4331-2021.herokuapp.com/api/register';
-                            String ret = await CardsData.getJson(url, payload);
+                            int ret = await GetAPI.register(email, firstName, lastName, login, password);
+                            GlobalData.loginName = login;
+                            GlobalData.lastName = lastName;
+                            GlobalData.firstName = firstName;
+                            GlobalData.email = email;
+                            if(ret == 200) {
+                              print('Register Successful');
+
+                            }
+                            else print('Error');
 
                             }
                             catch(e){
@@ -162,15 +170,13 @@ class _RegisterState extends State<Register> {
                         TextButton(
 
                           onPressed: () {
-                            /*showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  content: Text(myController1.text),
-                                );
-                              },
-                            );*/
+
                             try {
+                              emailController.clear();
+                              userNameController.clear();
+                              passController.clear();
+                              fnController.clear();
+                              lnController.clear();
                               Navigator.pop(context);
                             }catch(e){
                               print(e);

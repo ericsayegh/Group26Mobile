@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:fitness_app_development/services/global_data.dart';
+import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
 
 class User extends StatefulWidget {
@@ -169,9 +172,29 @@ class _UserState extends State<User> {
       runCompleted = 3;
     });
   }
-  void changeEmail() {
+  Future<void> changeEmail() async {
+
+    int userId = 0;
+    int index = 0;
+    userId = GlobalData.userId!;
+    String search = '';
+    search = GlobalData.loginName!;
+
+
+    var ret = await GetAPI.searchUsers(search);
+    var jsonObject = json.decode(ret.body);
+    var userIdArray = jsonObject["userId"];
+    var emailArray = jsonObject["email"];
+    print(jsonObject);
+    for(int i=0; i < userIdArray.length; i++){
+      if(userIdArray[i] == userId){
+        index = i;
+      }
+    }
+    GlobalData.email = emailArray[index];
+
     setState(() {
-      //email = GlobalData.email;    set up to grab email from login api
+      email = emailArray[index];
     });
   }
 
