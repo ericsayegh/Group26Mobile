@@ -24,6 +24,12 @@ class _ChangeEmailState extends State<ChangeEmail> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Edit Email'),
+          leading: new IconButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+            },
+            icon: new Icon(Icons.arrow_back, color: Colors.orange),
+          ),
         ),
         body: Stack(
           children: [

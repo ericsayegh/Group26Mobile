@@ -25,6 +25,12 @@ class _ChangeNameState extends State<ChangeName> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Edit Name'),
+          leading: new IconButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+              },
+              icon: new Icon(Icons.arrow_back, color: Colors.orange),
+          ),
         ),
         body: Stack(
           children: [

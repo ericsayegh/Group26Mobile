@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:fitness_app_development/pages/change_email.dart';
 import 'package:fitness_app_development/pages/change_name.dart';
 import 'package:fitness_app_development/pages/change_pass.dart';
+import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:flutter/material.dart';
 
@@ -70,11 +73,16 @@ class _SettingsState extends State<Settings> {
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.lock_outline),
-                    title: Text('Change Password'),
+                    leading: Icon(Icons.clear),
+                    tileColor: Colors.red,
+                    title: Text('Delete User'),
                     trailing: Icon(Icons.keyboard_arrow_right),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePass()));
+                    onTap: () async {
+                      var ret = await GetAPI.deleteUsers();
+
+                      //var jsonObject = json.decode(ret.body);
+                      //print(jsonObject);
+                      Navigator.of(context).popUntil((route) => route.isFirst);
                     },
                   ),
                 ],

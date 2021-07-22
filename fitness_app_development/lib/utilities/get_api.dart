@@ -126,6 +126,32 @@ class GetAPI{
     }
     return res;
   }
+
+  static Future<http.Response> deleteUsers() async {
+    var jwt = await storage.read(key: "jwt");
+    var res;
+    int userId = -1;
+    userId = GlobalData.userId!;
+    res = await http.post(
+        Uri.parse('$SERVER_IP/deleteuser'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'userId' : '$userId',
+          'jwtToken' : '$jwt',
+        })
+    );
+
+    if(res.statusCode == 200){
+      print(res.statusCode);
+      return res;
+
+    }
+    return res;
+  }
+
+
   //WORKING
   static Future<http.Response> sendPasswordEmail(String email) async {
     var res;
