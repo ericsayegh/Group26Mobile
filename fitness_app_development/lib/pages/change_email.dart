@@ -1,4 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:fitness_app_development/services/global_data.dart';
+import 'package:fitness_app_development/utilities/get_api.dart';
+
+
+//WORK IN PROGRESS
 
 class ChangeEmail extends StatefulWidget {
   const ChangeEmail({Key? key}) : super(key: key);
@@ -8,6 +15,9 @@ class ChangeEmail extends StatefulWidget {
 }
 
 class _ChangeEmailState extends State<ChangeEmail> {
+  final emailController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +66,7 @@ class _ChangeEmailState extends State<ChangeEmail> {
                       ),
                     ),
                     TextField(
-                      //controller: ,
+                      controller: emailController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Email Address',
@@ -64,7 +74,20 @@ class _ChangeEmailState extends State<ChangeEmail> {
                     ),
                     SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () { // connect to the reset email api or whatever here
+                      onPressed: () async { // connect to the reset email api or whatever here
+
+                        String email = emailController.text;
+                        GlobalData.email = email;
+
+                        try{
+                          var ret = await GetAPI.editUser();
+                          var jsonObject = json.decode(ret.body);
+                          print(jsonObject);
+                        } catch(e)
+                        {
+                          print(e);
+                        }
+
 
                       },
                       child: Text('Change'),

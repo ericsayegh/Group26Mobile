@@ -1,15 +1,13 @@
-import 'dart:io';
+
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:fitness_app_development/pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app_development/pages/home_page.dart';
 import 'dart:convert';
-import 'package:fitness_app_development/services/get_api.dart';
 import 'package:fitness_app_development/services/global_data.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../main.dart';
-import 'forgot_password.dart';
+import 'pass_reset/forgot_password.dart';
 
 
 class Login extends StatefulWidget {
@@ -134,18 +132,13 @@ class _LoginState extends State<Login> {
 
                             try
                             {
-                              String url = 'http://cop4331-2021.herokuapp.com/api/login';
                               var ret = await GetAPI.login(loginName, password);
-                              print("done");
                               jsonObject = json.decode(ret);
                               var accessToken = jsonObject["token"];
                               var jwt = accessToken["accessToken"];
                               await storage.write(key: "jwt", value: jwt);
 
                               decodedToken = JwtDecoder.decode(ret);
-                              print(jsonObject);
-                              print(decodedToken);
-                              print(jwt);
                               GlobalData.userId = decodedToken["userId"];
                               GlobalData.firstName = decodedToken["firstName"];
                               GlobalData.lastName = decodedToken["lastName"];

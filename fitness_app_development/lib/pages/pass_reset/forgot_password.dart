@@ -1,31 +1,34 @@
+import 'package:fitness_app_development/main.dart';
+import 'package:fitness_app_development/pages/pass_reset/forgot_password_2.dart';
+import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
 
 
-////WORK IN PROGRESS
+//WORK IN PROGRESS
 
-class ChangePass extends StatefulWidget {
-  const ChangePass({Key? key}) : super(key: key);
+class Forgot extends StatefulWidget {
 
   @override
-  _ChangePassState createState() => _ChangePassState();
+  _ForgotState createState() => _ForgotState();
 }
 
-class _ChangePassState extends State<ChangePass> {
-  final passController = TextEditingController();
+class _ForgotState extends State<Forgot> {
+  final emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Edit Email'),
-        ),
+
         body: Stack(
           children: [
             Container(
               height: double.infinity,
               width: double.infinity,
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  image: const DecorationImage(
+                    image: NetworkImage('https://www.verywellfit.com/thmb/LeBe7RNtzbJwyKRmH8ditmJ1NKg=/1500x1020/filters:no_upscale():max_bytes(150000):strip_icc()/Snapwire-Running-27-66babd0b2be44d9595f99d03fd5827fd.jpg'),
+                    fit: BoxFit.cover,
+                  ),
                   border: Border.all(
                     color: Colors.blue,
                     width: 8,
@@ -47,7 +50,7 @@ class _ChangePassState extends State<ChangePass> {
                       ),
                     ),
                     Text(
-                      'Edit Password',
+                      'Password Recovery',
                       style: TextStyle(
 
                       ),
@@ -55,24 +58,32 @@ class _ChangePassState extends State<ChangePass> {
                     SizedBox(height: 200),
 
                     Text(
-                      'Enter the pin sent to #email@email.com#',
+                      'Please enter the email associated with your account',
                       style: TextStyle(
 
                       ),
                     ),
                     TextField(
-                      //controller: ,
+                      controller: emailController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'pin',
+                        labelText: 'Email Address',
                       ),
                     ),
                     SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () { // connect to the reset email api or whatever here
-
+                      onPressed: () async { // connect to the reset password api or whatever here
+                        String email = emailController.text;
+                        var ret = GetAPI.sendPasswordEmail(email);
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Forgot2()));
                       },
-                      child: Text('Continue'),
+                      child: Text('Reset'),
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('Cancel'),
                     ),
 
                   ],

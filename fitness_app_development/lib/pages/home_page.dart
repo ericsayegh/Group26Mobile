@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:fitness_app_development/services/global_data.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:fitness_app_development/pages/friends.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
 
 
 class Home extends StatefulWidget {
@@ -19,6 +18,39 @@ class _HomeState extends State<Home> {
   int totalRuns = 0, newRun = 0;
   double totalDistance = 0, newDistance = 0;
   int totalTIme = 0, newTime = 0;
+
+  List<String> runs = [
+    "run to the moon",
+    "run to the sun",
+    "dont run?",
+    "something about running",
+    "run to the moon",
+    "run to the sun",
+    "dont run?",
+    "something about running",
+    "run to the moon",
+    "run to the sun",
+    "dont run?",
+    "something about running",
+    "run to the moon",
+    "run to the sun",
+    "dont run?",
+    "something about running",
+    "run to the moon",
+    "run to the sun",
+    "dont run?",
+    "something about running",
+    "run to the moon",
+    "run to the sun",
+    "dont run?",
+    "something about running",
+    "run to the moon",
+    "run to the sun",
+    "dont run?",
+    "something about running",
+
+  ];
+
 
   @override
   void initState() {
@@ -148,6 +180,38 @@ class _HomeState extends State<Home> {
                           thickness: 2,
                           color: Colors.black,
                         ),
+                        FractionallySizedBox(
+                          alignment: Alignment.topCenter,
+                          widthFactor: 0.99,
+                          child: Container(
+                            height: 375,
+                            child: ListView.builder(
+                                itemCount: runs.length,
+                                itemBuilder: (context, index){
+                                  return Card(
+                                    child: ListTile(
+                                      onTap: () {
+
+                                      },
+                                      title: Text(runs[index]),
+                                      leading: Text('$index'),
+                                      trailing: Icon(Icons.arrow_forward_ios),
+
+
+                                    ),
+                                  );
+
+                                }
+                            ),
+
+
+                          ),
+                        ),
+
+
+
+
+
                         ElevatedButton( // temp button to get to friends page
                           onPressed: () {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => FriendsScreen()));
@@ -158,8 +222,6 @@ class _HomeState extends State<Home> {
                         ),
                         ElevatedButton( // temp button to get to friends page
                           onPressed: () async {
-                            int t = 0;
-                            t = 701;
                             var ret = await GetAPI.searchUsers('adam1');
                             print(ret.body);
 

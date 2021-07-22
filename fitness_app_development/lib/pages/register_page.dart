@@ -1,11 +1,7 @@
-import 'dart:convert';
 
-import 'package:fitness_app_development/pages/verify_user.dart';
-import 'package:fitness_app_development/services/get_api.dart';
 import 'package:fitness_app_development/services/global_data.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
 
 class Register extends StatefulWidget {
 
@@ -134,7 +130,6 @@ class _RegisterState extends State<Register> {
                             password = passController.text;
                             firstName = fnController.text;
                             lastName = lnController.text;
-                            var jsonObject;
 
 
 

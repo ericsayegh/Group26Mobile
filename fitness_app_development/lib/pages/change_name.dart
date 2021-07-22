@@ -1,4 +1,10 @@
+import 'dart:convert';
+
+import 'package:fitness_app_development/services/global_data.dart';
+import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
+
+//WORK IN PROGRESS
 
 class ChangeName extends StatefulWidget {
   const ChangeName({Key? key}) : super(key: key);
@@ -8,6 +14,10 @@ class ChangeName extends StatefulWidget {
 }
 
 class _ChangeNameState extends State<ChangeName> {
+
+  final fnController = TextEditingController();
+  final lnController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +87,26 @@ class _ChangeNameState extends State<ChangeName> {
                     ),
                     SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () { // connect to the reset email api or whatever here
+                      onPressed: () async {
+
+
+
+
+                        String firstName = fnController.text;
+                        String lastName = lnController.text;
+                        GlobalData.firstName = firstName;
+                        GlobalData.lastName = lastName;
+
+
+                        try{
+                          var ret = await GetAPI.editUser();
+                          var jsonObject = json.decode(ret.body);
+                          print(jsonObject);
+                        } catch(e)
+                        {
+                          print(e);
+                        }
+
 
                       },
                       child: Text('Apply'),

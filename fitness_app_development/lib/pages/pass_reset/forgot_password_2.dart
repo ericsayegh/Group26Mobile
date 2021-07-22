@@ -1,12 +1,36 @@
+import 'package:fitness_app_development/pages/pass_reset/forgot_password_3.dart';
+import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
 
-class Forgot extends StatefulWidget {
+import '../../main.dart';
+
+//WORK IN PROGRESS
+
+class Forgot2 extends StatefulWidget {
 
   @override
-  _ForgotState createState() => _ForgotState();
+  _Forgot2State createState() => _Forgot2State();
 }
 
-class _ForgotState extends State<Forgot> {
+class _Forgot2State extends State<Forgot2> {
+
+  final keyController = TextEditingController();
+  final passController = TextEditingController();
+  String email = '';
+
+  void changeEmail(){
+    setState(() async {
+      email = (await storage.read(key: "email"))!;
+    });
+  }
+
+  @override
+  void initState() {
+
+    super.initState();
+    //changeEmail();
+    //print(email);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,32 +72,47 @@ class _ForgotState extends State<Forgot> {
                       ),
                     ),
                     SizedBox(height: 200),
-
                     Text(
-                      'Please enter the email associated with your account',
+                      'Please enter the key that was sent to $email',
                       style: TextStyle(
 
                       ),
                     ),
                     TextField(
-                      //controller: ,
+                      controller: keyController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Email Address',
+                        labelText: 'Key',
+                      ),
+                    ),
+                    Text(
+                      'Please enter new password',
+                      style: TextStyle(
+
+                      ),
+                    ),
+                    TextField(
+                      controller: passController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'password',
                       ),
                     ),
                     SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () { // connect to the reset password api or whatever here
-
+                      onPressed: () async { // connect to the reset password api or whatever here
+                        String passkey = keyController.text;
+                        String pass = passController.text;
+                        var ret = GetAPI.passwordreset(passkey, pass);
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Forgot3()));
                       },
-                      child: Text('Reset'),
+                      child: Text('Submit'),
                     ),
                     TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text('Cancel'),
+                      onPressed: () {
+                        Navigator.of(context).popUntil((route) => route.isFirst);
+                      },
+                      child: Text('Cancel'),
                     ),
 
                   ],

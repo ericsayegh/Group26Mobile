@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fitness_app_development/main.dart';
-import '../home_page.dart';
 
 class Completed extends StatefulWidget {
 

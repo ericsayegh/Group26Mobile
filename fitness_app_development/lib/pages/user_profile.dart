@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:fitness_app_development/main.dart';
 import 'package:fitness_app_development/services/global_data.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
@@ -185,6 +185,11 @@ class _UserState extends State<User> {
     var jsonObject = json.decode(ret.body);
     var userIdArray = jsonObject["userId"];
     var emailArray = jsonObject["email"];
+    var refreshedJwt = jsonObject["jwtToken"];
+    await storage.delete(key: "jwt");
+    await storage.write(key: "jwt", value: '$refreshedJwt');
+    var test = await storage.read(key: "jwt");
+    print(test);
     print(jsonObject);
     for(int i=0; i < userIdArray.length; i++){
       if(userIdArray[i] == userId){
