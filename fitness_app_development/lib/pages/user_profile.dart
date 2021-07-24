@@ -182,7 +182,21 @@ class _UserState extends State<User> {
 
 
     var ret = await GetAPI.searchUsers(search);
+
+
     var jsonObject = json.decode(ret.body);
+    //List<dynamic> obj = jsonObject != null ? List.from(jsonObject) : null;
+   // print(obj![0]["_id"]);
+    //List<dynamic> jsonList =
+    //var resultsArray = jsonObject["results_array"];
+
+    //print(jsonObject);
+    //print(jsonObject["results_array"]);
+    //print(resultsArray[0]);
+    //print(resultsArray["Email"]);
+   // Map<dynamic, String> results = resultsArray;
+   // print(results);
+    /*
     var userIdArray = jsonObject["userId"];
     var emailArray = jsonObject["email"];
     var refreshedJwt = jsonObject["jwtToken"];
@@ -190,16 +204,18 @@ class _UserState extends State<User> {
     await storage.write(key: "jwt", value: '$refreshedJwt');
     var test = await storage.read(key: "jwt");
     print(test);
-    print(jsonObject);
+
     for(int i=0; i < userIdArray.length; i++){
       if(userIdArray[i] == userId){
         index = i;
       }
     }
-    GlobalData.email = emailArray[index];
+
+     */
+   // GlobalData.email = emailArray[index];
 
     setState(() {
-      email = emailArray[index];
+     // email = emailArray[index];
     });
   }
 

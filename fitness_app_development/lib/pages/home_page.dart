@@ -1,4 +1,5 @@
 import 'package:fitness_app_development/pages/run_sequence/start_run.dart';
+import 'package:fitness_app_development/pages/search_user.dart';
 import 'package:fitness_app_development/pages/settings.dart';
 import 'package:fitness_app_development/pages/user_profile.dart';
 import 'package:flutter/material.dart';
@@ -208,29 +209,42 @@ class _HomeState extends State<Home> {
                           ),
                         ),
 
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => SearchUser()));
+                              },
+                              icon: Icon(Icons.search),
+                              iconSize: 55,
+
+                            ),
+
+                            ElevatedButton( // temp button to get to friends page
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => FriendsScreen()));
+                              },
+                              child: Text(
+                                  'GO TO FRIENDS PAGE (TEMP)'
+                              ),
+                            ),
+                            ElevatedButton( // temp button to get to friends page
+                              onPressed: () async {
+                                var ret = await GetAPI.searchUsers('adam1');
+                                print(ret.body);
 
 
-
-
-                        ElevatedButton( // temp button to get to friends page
-                          onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => FriendsScreen()));
-                          },
-                          child: Text(
-                            'GO TO FRIENDS PAGE (TEMP)'
-                          ),
+                              },
+                              child: Text(
+                                  'search mm'
+                              ),
+                            ),
+                          ],
                         ),
-                        ElevatedButton( // temp button to get to friends page
-                          onPressed: () async {
-                            var ret = await GetAPI.searchUsers('adam1');
-                            print(ret.body);
 
 
-                          },
-                          child: Text(
-                              'search mm'
-                          ),
-                        ),
+
+
 
 
                       ],

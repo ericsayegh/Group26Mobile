@@ -194,6 +194,81 @@ class GetAPI{
     return res;
   }
 
+  static Future<http.Response> addRun(int runNumber) async { // need to grab refreshed jwt token
+    var res;
+    var jwt = await storage.read(key: "jwt");
+    String run = 'Run $runNumber';
+    int userId = GlobalData.userId!;
+    res = await http.post(
+        Uri.parse('$SERVER_IP/addrun'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'userId' : '$userId',
+          'run' : '$run',
+          'jwtToken' : '$jwt',
+        })
+    );
+
+    if(res.statusCode == 200){
+      print(res.statusCode);
+      return res;
+
+    }
+    return res;
+  }
+  static Future<http.Response> deleteRun(int runNumber) async {
+    var res;
+    var jwt = await storage.read(key: "jwt");
+    String run = 'Run $runNumber';
+
+    res = await http.post(
+        Uri.parse('$SERVER_IP/deleterun'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'run' : '$run',
+          'jwtToken' : '$jwt',
+        })
+    );
+
+    if(res.statusCode == 200){
+      print(res.statusCode);
+      return res;
+
+    }
+    return res;
+  }
+
+  static Future<http.Response> searchRun(String search) async {
+    var res;
+    var jwt = await storage.read(key: "jwt");
+    int userId = GlobalData.userId!;
+    res = await http.post(
+        Uri.parse('$SERVER_IP/addrun'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'userId' : '$userId',
+          'search' : '$search',
+          'jwtToken' : '$jwt',
+        })
+    );
+
+    if(res.statusCode == 200){
+      print(res.statusCode);
+      return res;
+
+    }
+    return res;
+  }
+
+
+
+
 }
 
 
