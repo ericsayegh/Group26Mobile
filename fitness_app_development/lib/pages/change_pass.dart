@@ -1,4 +1,7 @@
+import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
+
+import 'home_page.dart';
 
 
 ////WORK IN PROGRESS
@@ -11,13 +14,20 @@ class ChangePass extends StatefulWidget {
 }
 
 class _ChangePassState extends State<ChangePass> {
-  final passController = TextEditingController();
+  final oldPassController = TextEditingController();
+  final newPassController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Edit Email'),
+          title: Text('Edit Password'),
+          leading: new IconButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+            },
+            icon: new Icon(Icons.arrow_back, color: Colors.orange),
+          ),
         ),
         body: Stack(
           children: [
@@ -54,23 +64,29 @@ class _ChangePassState extends State<ChangePass> {
                     ),
                     SizedBox(height: 200),
 
-                    Text(
-                      'Enter the pin sent to #email@email.com#',
-                      style: TextStyle(
-
-                      ),
-                    ),
                     TextField(
-                      //controller: ,
+                      controller: oldPassController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'pin',
+                        labelText: 'Old Password',
                       ),
                     ),
                     SizedBox(height: 20),
+                    TextField(
+                      controller: newPassController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'New Password',
+                      ),
+                    ),
                     ElevatedButton(
-                      onPressed: () { // connect to the reset email api or whatever here
+                      onPressed: () async { // connect to the reset email api or whatever here
+                        String oldPass = oldPassController.text;
+                        String newPass = newPassController.text;
+                        if(oldPass != "" && newPass != ""){
+                          var jsonObject = await GetAPI.editPassword(oldPass, newPass);
 
+                        }
                       },
                       child: Text('Continue'),
                     ),

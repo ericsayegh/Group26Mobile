@@ -87,7 +87,7 @@ class _ChangeEmailState extends State<ChangeEmail> {
                         GlobalData.email = email;
 
                         try{
-                          var ret = await GetAPI.editUser();
+                          var ret = await GetAPI.editUser(email: email);
                           var jsonObject = json.decode(ret.body);
                           print(jsonObject);
                           Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));

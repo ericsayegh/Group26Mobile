@@ -49,18 +49,9 @@ class GetAPI{
 
 
   //WORKING
-  static Future<http.Response> editUser() async {
+  static Future<http.Response> editUser({String firstname = '', String lastname = '', String email = '', String username = ''}) async {
     var jwt = await storage.read(key: "jwt");
-
-    int userId = -1;
-    String firstname = '';
-    String lastname = '';
-    String email = '';
-
-    userId = GlobalData.userId!;
-    firstname = GlobalData.firstName!;
-    lastname = GlobalData.lastName!;
-    email = GlobalData.email!;
+    int userId = GlobalData.userId!;
 
     print("$userId $firstname  $lastname  $email");
 
@@ -70,10 +61,38 @@ class GetAPI{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, String>{
-          'userId': '$userId',  // ask adam about int thing
+          'userId': '$userId',
           'firstname': '$firstname',
           'lastname': '$lastname',
+          'username' : '$username',
           'email': '$email',
+          'jwtToken': '$jwt'})
+
+    );
+    if(res.statusCode == 200){
+      return res;
+
+    }
+    return res;
+  }
+
+  static Future<http.Response> editPassword( String oldPass, String newPass) async {
+    var jwt = await storage.read(key: "jwt");
+    int userId = -1;
+    userId = GlobalData.userId!;
+
+
+
+
+    var res = await http.post(
+        Uri.parse('$SERVER_IP/editPassword'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'userId' : '$userId',
+          'existing_password': '$oldPass',
+          'new_password': '$newPass',
           'jwtToken': '$jwt'})
 
     );
@@ -254,6 +273,108 @@ class GetAPI{
         body: jsonEncode(<String, String>{
           'userId' : '$userId',
           'search' : '$search',
+          'jwtToken' : '$jwt',
+        })
+    );
+
+    if(res.statusCode == 200){
+      print(res.statusCode);
+      return res;
+
+    }
+    return res;
+  }
+
+  static Future<http.Response> addfriend(int userId_toadd) async {
+    var res;
+    var jwt = await storage.read(key: "jwt");
+    int userId = GlobalData.userId!;
+
+
+    res = await http.post(
+        Uri.parse('$SERVER_IP/addfriend'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'userId' : '$userId',
+          'userId_toadd' : '$userId_toadd',
+          'jwtToken' : '$jwt',
+        })
+    );
+
+    if(res.statusCode == 200){
+      print(res.statusCode);
+      return res;
+
+    }
+    return res;
+  }
+
+  static Future<http.Response> searchfriend(String name) async {
+    var res;
+    var jwt = await storage.read(key: "jwt");
+    int userId = GlobalData.userId!;
+
+
+    res = await http.post(
+        Uri.parse('$SERVER_IP/searchfriends'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'userId' : '$userId',
+          'search' : '$name',
+        })
+    );
+
+    if(res.statusCode == 200){
+      print(res.statusCode);
+      return res;
+
+    }
+    return res;
+  }
+
+  static Future<http.Response> removefriend(int userId_toremove) async {
+    var res;
+    var jwt = await storage.read(key: "jwt");
+    int userId = GlobalData.userId!;
+
+
+    res = await http.post(
+        Uri.parse('$SERVER_IP/removefriend'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'userId' : '$userId',
+          'userId_toremove' : '$userId_toremove',
+          'jwtToken' : '$jwt',
+        })
+    );
+
+    if(res.statusCode == 200){
+      print(res.statusCode);
+      return res;
+
+    }
+    return res;
+  }
+
+  static Future<http.Response> listfriends() async {
+    var res;
+    var jwt = await storage.read(key: "jwt");
+    int userId = GlobalData.userId!;
+
+
+    res = await http.post(
+        Uri.parse('$SERVER_IP/listfriends'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'userId' : '$userId',
           'jwtToken' : '$jwt',
         })
     );

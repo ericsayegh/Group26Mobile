@@ -102,13 +102,16 @@ class _ChangeNameState extends State<ChangeName> {
 
                         String firstName = fnController.text;
                         String lastName = lnController.text;
-                        GlobalData.firstName = firstName;
-                        GlobalData.lastName = lastName;
+
 
                         if(GlobalData.firstName != null && GlobalData.lastName != null){
                           try{
-                            var ret = await GetAPI.editUser();
+                            var ret = await GetAPI.editUser(firstname: firstName, lastname: lastName);
                             var jsonObject = json.decode(ret.body);
+                            if(ret.statusCode == 200){
+                              GlobalData.firstName = firstName;
+                              GlobalData.lastName = lastName;
+                            }
 
                             print(jsonObject);
                             Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));

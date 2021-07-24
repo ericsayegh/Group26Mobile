@@ -186,7 +186,7 @@ class _UserState extends State<User> {
 
     var jsonObject = json.decode(ret.body);
     //List<dynamic> obj = jsonObject != null ? List.from(jsonObject) : null;
-   // print(obj![0]["_id"]);
+    print(jsonObject);
     //List<dynamic> jsonList =
     //var resultsArray = jsonObject["results_array"];
 

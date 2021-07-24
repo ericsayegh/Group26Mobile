@@ -73,6 +73,25 @@ class _SettingsState extends State<Settings> {
                     },
                   ),
                   ListTile(
+                    leading: Icon(Icons.lock),
+                    title: Text('Change Password'),
+                    trailing: Icon(Icons.keyboard_arrow_right),
+                    onTap: () {
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePass()));
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.logout),
+                    //tileColor: ,
+                    title: Text('Log out'),
+                    trailing: Icon(Icons.keyboard_arrow_right),
+                    onTap: () async {
+
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                    },
+                  ),
+                  ListTile(
                     leading: Icon(Icons.clear),
                     tileColor: Colors.red,
                     title: Text('Delete User'),
@@ -85,18 +104,11 @@ class _SettingsState extends State<Settings> {
                       Navigator.of(context).popUntil((route) => route.isFirst);
                     },
                   ),
+
                 ],
               ),
             ),
-            ElevatedButton(
-              child: Text('LOGOUT'),
-              onPressed: (){
 
-                Navigator.of(context).popUntil((route) => route.isFirst);
-              },
-
-
-            ),
           ],
         ),
       ),
