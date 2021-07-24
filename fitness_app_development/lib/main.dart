@@ -1,3 +1,5 @@
+
+
 import 'package:fitness_app_development/pages/pass_reset/forgot_password.dart';
 import 'package:fitness_app_development/pages/friends.dart';
 import 'package:fitness_app_development/pages/home_page.dart';
@@ -16,6 +18,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 const SERVER_IP = 'http://cop4331-2021.herokuapp.com/api';
 final storage = FlutterSecureStorage();
+
+
 
 
 void main() => runApp(MaterialApp(

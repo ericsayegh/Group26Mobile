@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:fitness_app_development/pages/change_email.dart';
 import 'package:fitness_app_development/pages/change_name.dart';
 import 'package:fitness_app_development/pages/change_pass.dart';
+import 'package:fitness_app_development/pages/change_username.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:flutter/material.dart';
@@ -65,11 +66,20 @@ class _SettingsState extends State<Settings> {
                   ),
                   ListTile(
                     leading: Icon(Icons.portrait),
-                    title: Text('Change Username'),
+                    title: Text('Change Name'),
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () {
                       Navigator.of(context).popUntil((route) => route.isFirst);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => ChangeName()));
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.portrait),
+                    title: Text('Change Username'),
+                    trailing: Icon(Icons.keyboard_arrow_right),
+                    onTap: () {
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChangeUserName()));
                     },
                   ),
                   ListTile(
@@ -87,7 +97,15 @@ class _SettingsState extends State<Settings> {
                     title: Text('Log out'),
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () async {
-
+                      GlobalData.userId = -1;
+                      GlobalData.userName = '';
+                      GlobalData.firstName = '';
+                      GlobalData.lastName = '';
+                      GlobalData.email = '';
+                      GlobalData.totalDistance = 0;
+                      GlobalData.totalTime = 0;
+                      GlobalData.fullName = '';
+                      GlobalData.totalRuns = 0;
                       Navigator.of(context).popUntil((route) => route.isFirst);
                     },
                   ),

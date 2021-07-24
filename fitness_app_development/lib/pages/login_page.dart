@@ -69,7 +69,7 @@ class _LoginState extends State<Login> {
             Container(
               child: SingleChildScrollView(
                 physics: AlwaysScrollableScrollPhysics(),
-                padding: EdgeInsets.symmetric(vertical: 120.0, horizontal: 40.0),
+                padding: EdgeInsets.symmetric(vertical: (MediaQuery.of(context).size.height) * .2, horizontal: (MediaQuery.of(context).size.width) * .1),
 
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -145,9 +145,8 @@ class _LoginState extends State<Login> {
                               firstName = GlobalData.firstName!;
                               lastName = GlobalData.lastName!;
 
-                              getUserName(firstName, lastName);
-                              GlobalData.loginName = loginName;
-                              GlobalData.password = password;
+                              getFullName(firstName, lastName);
+                              GlobalData.userName = loginName;
 
 
                             }catch(e)
@@ -207,8 +206,8 @@ class _LoginState extends State<Login> {
       message = newMessageText;
     });
   }
-  void getUserName (String firstName, String lastName) {
-    GlobalData.userName = firstName + lastName;
+  void getFullName (String firstName, String lastName) {
+    GlobalData.fullName = firstName + lastName;
 
   }
 

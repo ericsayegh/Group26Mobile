@@ -22,19 +22,7 @@ class _StartRunState extends State<StartRun> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                height: 250,
-                child:  MapboxMap(
-                  accessToken: mapBoxApiKey,
-                  initialCameraPosition: CameraPosition(
-                    zoom: 8.0,
-                    target: LatLng(34.052235,-118.243683),
-                  ),
-                ),
-              ),
-            ),
+
             Divider(
               height: 20,
               thickness: 2,

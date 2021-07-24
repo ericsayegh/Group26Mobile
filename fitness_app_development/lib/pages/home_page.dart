@@ -72,13 +72,7 @@ class _HomeState extends State<Home> {
         ),
       ),
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => StartRun()));
-          },
-          child: Icon(Icons.add),
-          backgroundColor: Colors.grey[850],
-        ),
+
         backgroundColor: Colors.transparent,
         body: SafeArea(
             child: LayoutBuilder(
@@ -99,7 +93,7 @@ class _HomeState extends State<Home> {
                                       'https://post.greatist.com/wp-content/uploads/2020/01/Runner-training-on-running-track-732x549-thumbnail.jpg'),
                                   radius: 40,
                                 ),
-                                iconSize: 40,
+                                iconSize: (MediaQuery.of(context).size.height) * .05,
                                 onPressed: () {
 
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => User()));
@@ -123,8 +117,9 @@ class _HomeState extends State<Home> {
                             IconButton(
                                 icon: Icon(
                                   Icons.settings,
-                                  size: 50,
                                 ),
+                                iconSize: (MediaQuery.of(context).size.height) * .05,
+
                                 onPressed: () {
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));
                                 }
@@ -147,7 +142,7 @@ class _HomeState extends State<Home> {
                               ],
                             ),
                             Container(
-                              height: 80,
+                              height: (MediaQuery.of(context).size.height) * .09,
                               child: VerticalDivider(
                                 width: 20,
                                 thickness: 2,
@@ -161,7 +156,7 @@ class _HomeState extends State<Home> {
                               ],
                             ),
                             Container(
-                              height: 80,
+                              height: (MediaQuery.of(context).size.height) * .09,
                               child: VerticalDivider(
                                 width: 20,
                                 thickness: 2,
@@ -185,7 +180,7 @@ class _HomeState extends State<Home> {
                           alignment: Alignment.topCenter,
                           widthFactor: 0.99,
                           child: Container(
-                            height: 375,
+                            height: (MediaQuery.of(context).size.height) * .7,
                             child: ListView.builder(
                                 itemCount: runs.length,
                                 itemBuilder: (context, index){
@@ -208,39 +203,73 @@ class _HomeState extends State<Home> {
 
                           ),
                         ),
+                        Expanded(
+                          child: Align(
+                            alignment:  FractionalOffset.bottomCenter,
+                            child: SizedBox(
+                              height: (MediaQuery.of(context).size.height) * .077,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.blue[200],
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        Navigator.of(context).popUntil((route) => route.isFirst);
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                                      },
+                                      icon: Icon(Icons.home),
+                                      iconSize: (MediaQuery.of(context).size.height) * .06,
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        Navigator.of(context).popUntil((route) => route.isFirst);
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => SearchUser()));
+                                      },
+                                      icon: Icon(Icons.search),
+                                      iconSize: (MediaQuery.of(context).size.height) * .06,
 
-                        Row(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => SearchUser()));
-                              },
-                              icon: Icon(Icons.search),
-                              iconSize: 55,
+                                    ),
+                                    FloatingActionButton(
+                                      onPressed: () {
+                                        Navigator.of(context).popUntil((route) => route.isFirst);
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => StartRun()));
+                                      },
+                                      child: Icon(Icons.add),
+                                      backgroundColor: Colors.green,
+                                      elevation: 10,
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        Navigator.of(context).popUntil((route) => route.isFirst);
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => FriendsScreen()));
+                                      },
+                                      icon: Icon(Icons.contact_page_rounded),
+                                      iconSize: (MediaQuery.of(context).size.height) * .06,
 
-                            ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        Navigator.of(context).popUntil((route) => route.isFirst);
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => User()));
+                                      },
+                                      icon: Icon(Icons.portrait_rounded),
+                                      iconSize: (MediaQuery.of(context).size.height) * .06,
 
-                            ElevatedButton( // temp button to get to friends page
-                              onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => FriendsScreen()));
-                              },
-                              child: Text(
-                                  'GO TO FRIENDS PAGE (TEMP)'
+                                    ),
+
+                                  ],
+                                ),
                               ),
-                            ),
-                            ElevatedButton( // temp button to get to friends page
-                              onPressed: () async {
-                                var ret = await GetAPI.searchUsers('adam1');
-                                print(ret.body);
 
 
-                              },
-                              child: Text(
-                                  'search mm'
-                              ),
                             ),
-                          ],
-                        ),
+                          ),
+                        )
+
 
 
 
@@ -260,7 +289,7 @@ class _HomeState extends State<Home> {
   }
   void changeText() {
     setState(() {
-      userName = GlobalData.firstName!;
+      userName = GlobalData.userName!;
     });
   }
 

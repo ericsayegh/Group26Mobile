@@ -62,7 +62,7 @@ class _RegisterState extends State<Register> {
             Container(
               child: SingleChildScrollView(
                 physics: AlwaysScrollableScrollPhysics(),
-                padding: EdgeInsets.symmetric(vertical: 80.0, horizontal: 40.0),
+                padding: EdgeInsets.symmetric(vertical: (MediaQuery.of(context).size.height) * .2, horizontal: (MediaQuery.of(context).size.width) * .1),
 
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -137,7 +137,7 @@ class _RegisterState extends State<Register> {
 
                             try{
                             int ret = await GetAPI.register(email, firstName, lastName, login, password);
-                            GlobalData.loginName = login;
+                            GlobalData.userName = login;
                             GlobalData.lastName = lastName;
                             GlobalData.firstName = firstName;
                             GlobalData.email = email;

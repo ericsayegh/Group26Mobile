@@ -1,4 +1,6 @@
+import 'package:fitness_app_development/friends_util/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 
 class Completed extends StatefulWidget {
 
@@ -14,6 +16,19 @@ class _CompletedState extends State<Completed> {
       body: SafeArea(
         child: Column(
           children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: 250,
+                child:  MapboxMap(
+                  accessToken: mapBoxApiKey,
+                  initialCameraPosition: CameraPosition(
+                    zoom: 8.0,
+                    target: LatLng(34.052235,-118.243683),
+                  ),
+                ),
+              ),
+            ),
             Text('Run #'),
             SizedBox(height: 288),
             Divider(

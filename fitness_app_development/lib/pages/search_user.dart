@@ -1,4 +1,9 @@
+import 'package:fitness_app_development/pages/run_sequence/start_run.dart';
+import 'package:fitness_app_development/pages/user_profile.dart';
 import 'package:flutter/material.dart';
+
+import 'friends.dart';
+import 'home_page.dart';
 
 class SearchUser extends StatefulWidget {
 
@@ -15,7 +20,7 @@ class _SearchUserState extends State<SearchUser> {
     return SafeArea(
 
       child: Scaffold(
-
+          appBar: AppBar(),
           body: Stack(
             children: [
               Container(
@@ -58,6 +63,72 @@ class _SearchUserState extends State<SearchUser> {
                 ),
 
               ),
+              Expanded(
+                child: Align(
+                  alignment:  FractionalOffset.bottomCenter,
+                  child: SizedBox(
+                    height: (MediaQuery.of(context).size.height) * .077,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.blue[200],
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context).popUntil((route) => route.isFirst);
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                            },
+                            icon: Icon(Icons.home),
+                            iconSize: (MediaQuery.of(context).size.height) * .06,
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context).popUntil((route) => route.isFirst);
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => SearchUser()));
+                            },
+                            icon: Icon(Icons.search),
+                            iconSize: (MediaQuery.of(context).size.height) * .06,
+
+                          ),
+                          FloatingActionButton(
+                            onPressed: () {
+                              Navigator.of(context).popUntil((route) => route.isFirst);
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => StartRun()));
+                            },
+                            child: Icon(Icons.add),
+                            backgroundColor: Colors.green,
+                            elevation: 10,
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context).popUntil((route) => route.isFirst);
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => FriendsScreen()));
+                            },
+                            icon: Icon(Icons.contact_page_rounded),
+                            iconSize: (MediaQuery.of(context).size.height) * .06,
+
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context).popUntil((route) => route.isFirst);
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => User()));
+                            },
+                            icon: Icon(Icons.portrait_rounded),
+                            iconSize: (MediaQuery.of(context).size.height) * .06,
+
+                          ),
+
+                        ],
+                      ),
+                    ),
+
+
+                  ),
+                ),
+              )
             ],
           )
 
