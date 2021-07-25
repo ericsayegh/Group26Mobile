@@ -47,7 +47,7 @@ class _UserState extends State<User> {
         elevation: 0.0,
         leading: IconButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
 
           },
           icon: Icon(Icons.arrow_back, color: Colors.orange),
@@ -197,16 +197,14 @@ class _UserState extends State<User> {
                     children: [
                       IconButton(
                         onPressed: () {
-                          Navigator.of(context).popUntil((route) => route.isFirst);
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
                         },
                         icon: Icon(Icons.home),
                         iconSize: (MediaQuery.of(context).size.height) * .06,
                       ),
                       IconButton(
                         onPressed: () {
-                          Navigator.of(context).popUntil((route) => route.isFirst);
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SearchUser()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SearchUser()));
                         },
                         icon: Icon(Icons.search),
                         iconSize: (MediaQuery.of(context).size.height) * .06,
@@ -214,8 +212,7 @@ class _UserState extends State<User> {
                       ),
                       FloatingActionButton(
                         onPressed: () {
-                          Navigator.of(context).popUntil((route) => route.isFirst);
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => StartRun()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StartRun()));
                         },
                         child: Icon(Icons.add),
                         backgroundColor: Colors.green,
@@ -223,8 +220,7 @@ class _UserState extends State<User> {
                       ),
                       IconButton(
                         onPressed: () {
-                          Navigator.of(context).popUntil((route) => route.isFirst);
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => FriendsScreen()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FriendsScreen()));
                         },
                         icon: Icon(Icons.contact_page_rounded),
                         iconSize: (MediaQuery.of(context).size.height) * .06,
@@ -232,8 +228,7 @@ class _UserState extends State<User> {
                       ),
                       IconButton(
                         onPressed: () {
-                          Navigator.of(context).popUntil((route) => route.isFirst);
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => User()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => User()));
                         },
                         icon: Icon(Icons.portrait_rounded),
                         iconSize: (MediaQuery.of(context).size.height) * .06,

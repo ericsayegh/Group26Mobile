@@ -58,7 +58,7 @@ class _ResumeOrEndState extends State<ResumeOrEnd> {
                     iconSize: 100,
                     onPressed: () {
 
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Completed()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Completed()));
 
 
                     }

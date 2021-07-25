@@ -160,7 +160,7 @@ class _LoginState extends State<Login> {
                               try {
                                 myController1.clear();
                                 myController2.clear();
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
 
                               }catch(e) {
                                 print(e);
@@ -174,7 +174,7 @@ class _LoginState extends State<Login> {
 
                           onPressed: () {
                             try {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Register()));
                             }catch(e){
                               print(e);
                             }

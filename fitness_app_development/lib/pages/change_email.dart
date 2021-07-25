@@ -17,7 +17,12 @@ class ChangeEmail extends StatefulWidget {
 
 class _ChangeEmailState extends State<ChangeEmail> {
   final emailController = TextEditingController();
+  @override
+  void dispose(){ // dispose controller when page is disposed
+    emailController.dispose();
 
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +31,7 @@ class _ChangeEmailState extends State<ChangeEmail> {
           title: Text('Edit Email'),
           leading: new IconButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
             },
             icon: new Icon(Icons.arrow_back, color: Colors.orange),
           ),
@@ -90,7 +95,7 @@ class _ChangeEmailState extends State<ChangeEmail> {
                           var ret = await GetAPI.editUser(email: email);
                           var jsonObject = json.decode(ret.body);
                           print(jsonObject);
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
                         } catch(e)
                         {
                           print(e);

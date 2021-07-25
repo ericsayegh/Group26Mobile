@@ -15,12 +15,29 @@ class _SearchUserState extends State<SearchUser> {
 
   final myController1 = TextEditingController();
 
+
+  @override
+  void dispose() {
+    super.dispose();
+    myController1.dispose();
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
 
       child: Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            title: Text('Edit Email'),
+            leading: new IconButton(
+              onPressed: () {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+              },
+              icon: new Icon(Icons.arrow_back, color: Colors.orange),
+            ),
+          ),
           body: Stack(
             children: [
               Container(
@@ -78,16 +95,14 @@ class _SearchUserState extends State<SearchUser> {
                         children: [
                           IconButton(
                             onPressed: () {
-                              Navigator.of(context).popUntil((route) => route.isFirst);
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
                             },
                             icon: Icon(Icons.home),
                             iconSize: (MediaQuery.of(context).size.height) * .06,
                           ),
                           IconButton(
                             onPressed: () {
-                              Navigator.of(context).popUntil((route) => route.isFirst);
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => SearchUser()));
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SearchUser()));
                             },
                             icon: Icon(Icons.search),
                             iconSize: (MediaQuery.of(context).size.height) * .06,
@@ -95,8 +110,7 @@ class _SearchUserState extends State<SearchUser> {
                           ),
                           FloatingActionButton(
                             onPressed: () {
-                              Navigator.of(context).popUntil((route) => route.isFirst);
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => StartRun()));
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StartRun()));
                             },
                             child: Icon(Icons.add),
                             backgroundColor: Colors.green,
@@ -104,8 +118,7 @@ class _SearchUserState extends State<SearchUser> {
                           ),
                           IconButton(
                             onPressed: () {
-                              Navigator.of(context).popUntil((route) => route.isFirst);
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => FriendsScreen()));
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FriendsScreen()));
                             },
                             icon: Icon(Icons.contact_page_rounded),
                             iconSize: (MediaQuery.of(context).size.height) * .06,
@@ -113,8 +126,7 @@ class _SearchUserState extends State<SearchUser> {
                           ),
                           IconButton(
                             onPressed: () {
-                              Navigator.of(context).popUntil((route) => route.isFirst);
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => User()));
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => User()));
                             },
                             icon: Icon(Icons.portrait_rounded),
                             iconSize: (MediaQuery.of(context).size.height) * .06,

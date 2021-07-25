@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fitness_app_development/pages/settings.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
@@ -21,13 +22,20 @@ class _ChangeNameState extends State<ChangeName> {
   final lnController = TextEditingController();
 
   @override
+  void dispose(){ // dispose controller when page is disposed
+    fnController.dispose();
+    lnController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text('Edit Name'),
           leading: new IconButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Settings()));
               },
               icon: new Icon(Icons.arrow_back, color: Colors.orange),
           ),
@@ -114,7 +122,7 @@ class _ChangeNameState extends State<ChangeName> {
                             }
 
                             print(jsonObject);
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
                           } catch(e)
                           {
                             print(e);

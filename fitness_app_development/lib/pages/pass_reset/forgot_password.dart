@@ -1,4 +1,5 @@
-import 'package:fitness_app_development/main.dart';
+
+import 'package:fitness_app_development/pages/login_page.dart';
 import 'package:fitness_app_development/pages/pass_reset/forgot_password_2.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,12 @@ class Forgot extends StatefulWidget {
 
 class _ForgotState extends State<Forgot> {
   final emailController = TextEditingController();
+
+  @override
+  void dispose(){ // dispose controller when page is disposed
+    emailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,14 +81,14 @@ class _ForgotState extends State<Forgot> {
                     ElevatedButton(
                       onPressed: () async { // connect to the reset password api or whatever here
                         String email = emailController.text;
-                        var ret = GetAPI.sendPasswordEmail(email);
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => Forgot2()));
+                        GetAPI.sendPasswordEmail(email);
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Forgot2()));
                       },
                       child: Text('Reset'),
                     ),
                     TextButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
                         },
                         child: Text('Cancel'),
                     ),

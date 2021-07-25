@@ -4,7 +4,6 @@ import 'package:fitness_app_development/pages/settings.dart';
 import 'package:fitness_app_development/pages/user_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
-import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:fitness_app_development/pages/friends.dart';
 
 
@@ -93,10 +92,10 @@ class _HomeState extends State<Home> {
                                       'https://post.greatist.com/wp-content/uploads/2020/01/Runner-training-on-running-track-732x549-thumbnail.jpg'),
                                   radius: 40,
                                 ),
-                                iconSize: (MediaQuery.of(context).size.height) * .05,
+                                iconSize: (MediaQuery.of(context).size.height) * .08,
                                 onPressed: () {
 
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => User()));
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => User()));
 
 
                                 }
@@ -107,9 +106,8 @@ class _HomeState extends State<Home> {
 
                                 userName,
                                 style: TextStyle(
-                                  fontFamily: 'Hind',
-                                  fontSize: 50.0,
-                                  fontWeight: FontWeight.w500,
+                                  fontSize: 80.0,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
@@ -118,18 +116,18 @@ class _HomeState extends State<Home> {
                                 icon: Icon(
                                   Icons.settings,
                                 ),
-                                iconSize: (MediaQuery.of(context).size.height) * .05,
+                                iconSize: (MediaQuery.of(context).size.height) * .08,
 
                                 onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Settings()));
                                 }
                             ),
 
                           ],
                         ),
                         Divider(
-                          height: 20,
-                          thickness: 2,
+                          height: 21,
+                          thickness: 5,
                           color: Colors.black,
                         ),
                         Row(
@@ -137,50 +135,68 @@ class _HomeState extends State<Home> {
                           children: [
                             Column(
                               children: [
-                                Text('Total Runs'),
-                                Text('$totalRuns'),
+                                Text('Total Runs',style: const TextStyle(
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.bold,
+                                ),),
+                                Text('$totalRuns',style: const TextStyle(
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.bold,
+                                ),),
                               ],
                             ),
                             Container(
                               height: (MediaQuery.of(context).size.height) * .09,
                               child: VerticalDivider(
                                 width: 20,
-                                thickness: 2,
+                                thickness: 5,
                                 color: Colors.black,
                               ),
                             ),
                             Column(
                               children: [
-                                Text('Total Distance'),
-                                Text('$totalDistance'),
+                                Text('Total Distance',style: const TextStyle(
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.bold,
+                                ),),
+                                Text('$totalDistance',style: const TextStyle(
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.bold,
+                                ),),
                               ],
                             ),
                             Container(
                               height: (MediaQuery.of(context).size.height) * .09,
                               child: VerticalDivider(
                                 width: 20,
-                                thickness: 2,
+                                thickness: 5,
                                 color: Colors.black,
                               ),
                             ),
                             Column(
                               children: [
-                                Text('Total Time'),
-                                Text('$totalTIme'),
+                                Text('Total Time',style: const TextStyle(
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.bold,
+                                ),),
+                                Text('$totalTIme',style: const TextStyle(
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.bold,
+                                ),),
                               ],
                             ),
                           ],
                         ),
                         Divider(
                           height: 20,
-                          thickness: 2,
+                          thickness: 5,
                           color: Colors.black,
                         ),
                         FractionallySizedBox(
                           alignment: Alignment.topCenter,
                           widthFactor: 0.99,
                           child: Container(
-                            height: (MediaQuery.of(context).size.height) * .7,
+                            height: (MediaQuery.of(context).size.height) * .67,
                             child: ListView.builder(
                                 itemCount: runs.length,
                                 itemBuilder: (context, index){
@@ -189,8 +205,16 @@ class _HomeState extends State<Home> {
                                       onTap: () {
 
                                       },
-                                      title: Text(runs[index]),
-                                      leading: Text('$index'),
+                                       tileColor: Colors.lightBlueAccent[200],
+                                      minVerticalPadding: (MediaQuery.of(context).size.height) * .02,
+                                      title: Text(runs[index],style: const TextStyle(
+                                        fontSize: 40.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),),
+                                      leading: Text((index+1).toString(),style: const TextStyle(
+                                        fontSize: 40.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),),
                                       trailing: Icon(Icons.arrow_forward_ios),
 
 
@@ -218,16 +242,14 @@ class _HomeState extends State<Home> {
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        Navigator.of(context).popUntil((route) => route.isFirst);
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
                                       },
                                       icon: Icon(Icons.home),
                                       iconSize: (MediaQuery.of(context).size.height) * .06,
                                     ),
                                     IconButton(
                                       onPressed: () {
-                                        Navigator.of(context).popUntil((route) => route.isFirst);
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => SearchUser()));
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SearchUser()));
                                       },
                                       icon: Icon(Icons.search),
                                       iconSize: (MediaQuery.of(context).size.height) * .06,
@@ -235,8 +257,7 @@ class _HomeState extends State<Home> {
                                     ),
                                     FloatingActionButton(
                                       onPressed: () {
-                                        Navigator.of(context).popUntil((route) => route.isFirst);
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => StartRun()));
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StartRun()));
                                       },
                                       child: Icon(Icons.add),
                                       backgroundColor: Colors.green,
@@ -244,8 +265,7 @@ class _HomeState extends State<Home> {
                                     ),
                                     IconButton(
                                       onPressed: () {
-                                        Navigator.of(context).popUntil((route) => route.isFirst);
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => FriendsScreen()));
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FriendsScreen()));
                                       },
                                       icon: Icon(Icons.contact_page_rounded),
                                       iconSize: (MediaQuery.of(context).size.height) * .06,
@@ -253,8 +273,7 @@ class _HomeState extends State<Home> {
                                     ),
                                     IconButton(
                                       onPressed: () {
-                                        Navigator.of(context).popUntil((route) => route.isFirst);
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => User()));
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => User()));
                                       },
                                       icon: Icon(Icons.portrait_rounded),
                                       iconSize: (MediaQuery.of(context).size.height) * .06,

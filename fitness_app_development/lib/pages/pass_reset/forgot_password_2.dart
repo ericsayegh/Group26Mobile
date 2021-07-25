@@ -1,4 +1,5 @@
-import 'package:fitness_app_development/pages/pass_reset/forgot_password_3.dart';
+
+import 'package:fitness_app_development/pages/login_page.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,14 @@ class _Forgot2State extends State<Forgot2> {
     setState(() async {
       email = (await storage.read(key: "email"))!;
     });
+  }
+
+
+  @override
+  void dispose(){ // dispose controller when page is disposed
+    keyController.dispose();
+    passController.dispose();
+    super.dispose();
   }
 
   @override
@@ -106,12 +115,14 @@ class _Forgot2State extends State<Forgot2> {
                         var ret = GetAPI.passwordreset(passkey, pass);
                         print(ret);
                         Navigator.of(context).popUntil((route) => route.isFirst);
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
                       },
                       child: Text('Submit'),
                     ),
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).popUntil((route) => route.isFirst);
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
                       },
                       child: Text('Cancel'),
                     ),

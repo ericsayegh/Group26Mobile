@@ -1,3 +1,4 @@
+import 'package:fitness_app_development/pages/settings.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,14 @@ class _ChangePassState extends State<ChangePass> {
   final oldPassController = TextEditingController();
   final newPassController = TextEditingController();
 
+
+  @override
+  void dispose(){ // dispose controller when page is disposed
+    oldPassController.dispose();
+    newPassController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +33,7 @@ class _ChangePassState extends State<ChangePass> {
           title: Text('Edit Password'),
           leading: new IconButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Settings()));
             },
             icon: new Icon(Icons.arrow_back, color: Colors.orange),
           ),
@@ -84,11 +93,11 @@ class _ChangePassState extends State<ChangePass> {
                         String oldPass = oldPassController.text;
                         String newPass = newPassController.text;
                         if(oldPass != "" && newPass != ""){
-                          var jsonObject = await GetAPI.editPassword(oldPass, newPass);
-
+                          await GetAPI.editPassword(oldPass, newPass);
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
                         }
                       },
-                      child: Text('Continue'),
+                      child: Text('Change'),
                     ),
 
                   ],

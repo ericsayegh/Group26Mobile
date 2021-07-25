@@ -1,5 +1,5 @@
 
-import 'package:fitness_app_development/pages/settings.dart';
+import 'package:fitness_app_development/pages/login_page.dart';
 import 'package:fitness_app_development/pages/verify_user.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
@@ -156,7 +156,7 @@ class _RegisterState extends State<Register> {
 
 
                             try {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => Verify()));
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Verify()));
                             }catch(e){
                               print(e);
                             }
@@ -174,7 +174,7 @@ class _RegisterState extends State<Register> {
                               passController.clear();
                               fnController.clear();
                               lnController.clear();
-                              Navigator.pop(context);
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
                             }catch(e){
                               print(e);
                             }

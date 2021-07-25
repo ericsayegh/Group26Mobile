@@ -1,5 +1,4 @@
 
-import 'dart:convert';
 
 //SearchFriendResponse searchFriendResponseFromJson(String str) => SearchFriendResponse.fromJson(json.decode(str));
 //

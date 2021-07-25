@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fitness_app_development/pages/settings.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,11 @@ class ChangeUserName extends StatefulWidget {
 
 class _ChangeUserNameState extends State<ChangeUserName> {
   final userController = TextEditingController();
-
+  @override
+  void dispose(){ // dispose controller when page is disposed
+   userController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +29,7 @@ class _ChangeUserNameState extends State<ChangeUserName> {
           title: Text('Edit Username'),
           leading: new IconButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Settings()));
             },
             icon: new Icon(Icons.arrow_back, color: Colors.orange),
           ),
@@ -89,7 +94,7 @@ class _ChangeUserNameState extends State<ChangeUserName> {
                           GlobalData.userName = username;
                           var jsonObject = json.decode(ret.body);
                           print(jsonObject);
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
                         } catch(e)
                         {
                           print(e);

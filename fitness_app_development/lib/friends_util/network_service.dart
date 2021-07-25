@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:fitness_app_development/friends_util/search_friend_response.dart';
-import 'package:fitness_app_development/friends_util/ApiHelperClass.dart';
 import 'package:http/http.dart';
 
 class NetworkService{

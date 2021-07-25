@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fitness_app_development/pages/login_page.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,14 @@ class _VerifyState extends State<Verify> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    myController1.dispose();
+
+
   }
 
 
@@ -92,7 +101,7 @@ class _VerifyState extends State<Verify> {
 
                         String pin = myController1.text;
                         GetAPI.verify(pin);
-                        Navigator.of(context).popUntil((route) => route.isFirst);
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
                       },
                       child: Text('Enter'),
                     ),

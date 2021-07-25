@@ -3,7 +3,6 @@ import 'package:fitness_app_development/friends_util/search_friend_response.dart
 import 'package:fitness_app_development/friends_util/network_service.dart';
 import 'package:fitness_app_development/friends_util/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 class MainViewModel with ChangeNotifier {
 
 

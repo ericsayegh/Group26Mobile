@@ -4,9 +4,12 @@ import 'package:fitness_app_development/pages/change_email.dart';
 import 'package:fitness_app_development/pages/change_name.dart';
 import 'package:fitness_app_development/pages/change_pass.dart';
 import 'package:fitness_app_development/pages/change_username.dart';
+import 'package:fitness_app_development/pages/login_page.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:flutter/material.dart';
+
+import 'home_page.dart';
 
 class Settings extends StatefulWidget {
 
@@ -29,7 +32,13 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: Text('Edit Password'),
+        leading: new IconButton(
+          onPressed: () {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+          },
+          icon: new Icon(Icons.arrow_back, color: Colors.orange),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -60,8 +69,7 @@ class _SettingsState extends State<Settings> {
                     title: Text('Change Email'),
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () {
-                      Navigator.of(context).popUntil((route) => route.isFirst);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChangeEmail()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ChangeEmail()));
                     },
                   ),
                   ListTile(
@@ -69,8 +77,7 @@ class _SettingsState extends State<Settings> {
                     title: Text('Change Name'),
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () {
-                      Navigator.of(context).popUntil((route) => route.isFirst);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChangeName()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ChangeName()));
                     },
                   ),
                   ListTile(
@@ -78,8 +85,7 @@ class _SettingsState extends State<Settings> {
                     title: Text('Change Username'),
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () {
-                      Navigator.of(context).popUntil((route) => route.isFirst);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChangeUserName()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ChangeUserName()));
                     },
                   ),
                   ListTile(
@@ -87,8 +93,7 @@ class _SettingsState extends State<Settings> {
                     title: Text('Change Password'),
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () {
-                      Navigator.of(context).popUntil((route) => route.isFirst);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePass()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ChangePass()));
                     },
                   ),
                   ListTile(
@@ -106,7 +111,7 @@ class _SettingsState extends State<Settings> {
                       GlobalData.totalTime = 0;
                       GlobalData.fullName = '';
                       GlobalData.totalRuns = 0;
-                      Navigator.of(context).popUntil((route) => route.isFirst);
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
                     },
                   ),
                   ListTile(
@@ -116,10 +121,18 @@ class _SettingsState extends State<Settings> {
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () async {
                       var ret = await GetAPI.deleteUsers();
-
+                      GlobalData.userId = -1;
+                      GlobalData.userName = '';
+                      GlobalData.firstName = '';
+                      GlobalData.lastName = '';
+                      GlobalData.email = '';
+                      GlobalData.totalDistance = 0;
+                      GlobalData.totalTime = 0;
+                      GlobalData.fullName = '';
+                      GlobalData.totalRuns = 0;
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
                       //var jsonObject = json.decode(ret.body);
                       //print(jsonObject);
-                      Navigator.of(context).popUntil((route) => route.isFirst);
                     },
                   ),
 
