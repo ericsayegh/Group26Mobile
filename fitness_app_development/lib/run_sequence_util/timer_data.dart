@@ -1,3 +1,4 @@
+import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
 class TimerData
@@ -9,9 +10,14 @@ class TimerData
   static double? totalDistance;
   static double? pace;
   static String? displayTime;
+  static late  Map<int, double> latitude;
+  static late Map<int, double> longitude;
+  static String? hi;
+  static late List<LatLng> cordies;
 
 
 
 
 
 }
+

@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 class SearchBar extends StatelessWidget {
   final Function(String)? onTextReadyForSearch;
   final Function(String)? onChangeTextForSearch;
+  final String? hintText;
+
   final TextEditingController eCtrl = new TextEditingController();
 
-  SearchBar({Key? key, @required this.onTextReadyForSearch, @required this.onChangeTextForSearch}) : super(key: key);
+  SearchBar({Key? key,@required this.hintText, @required this.onTextReadyForSearch, @required this.onChangeTextForSearch}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class SearchBar extends StatelessWidget {
               fillColor: Colors.white,
               filled: true,
 
-              hintText: "Search friends",
+              hintText: hintText,
               hintStyle: TextStyle(color: Colors.black26),
               border: OutlineInputBorder(),
               //border: InputBorder.none,

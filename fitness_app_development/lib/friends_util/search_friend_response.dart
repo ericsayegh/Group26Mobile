@@ -1,4 +1,5 @@
 
+import 'dart:convert';
 
 //SearchFriendResponse searchFriendResponseFromJson(String str) => SearchFriendResponse.fromJson(json.decode(str));
 //
@@ -32,23 +33,25 @@ class Result {
     required this.firstName,
     required this.lastName,
     required this.fullName,
+    required this.totalRuns,
   });
 
   String id;
   String email;
-  int userId;
+  num userId;
   String firstName;
   String lastName;
   String fullName;
+  num totalRuns;
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
-    id: json["_id"],
-    email: json["Email"],
-    userId: json["UserId"],
-    firstName: json["FirstName"],
-    lastName: json["LastName"],
-    fullName: json["FullName"],
-
+      id: json["_id"],
+      email: json["Email"],
+      userId: json["UserId"],
+      firstName: json["FirstName"],
+      lastName: json["LastName"],
+      fullName: json["FullName"],
+      totalRuns:json['TotalRuns']
   );
 
   Map<String, dynamic> toJson() => {
@@ -58,6 +61,6 @@ class Result {
     "FirstName": firstName,
     "LastName": lastName,
     "FullName": fullName,
-
+    'TotalRuns':totalRuns
   };
 }

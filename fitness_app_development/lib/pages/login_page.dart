@@ -134,6 +134,7 @@ class _LoginState extends State<Login> {
                             {
                               var ret = await GetAPI.login(loginName, password);
                               jsonObject = json.decode(ret);
+                              print(ret);
                               var accessToken = jsonObject["token"];
                               var jwt = accessToken["accessToken"];
                               await storage.write(key: "jwt", value: jwt);

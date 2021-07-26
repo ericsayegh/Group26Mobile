@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:fitness_app_development/pages/run_sequence/start_run.dart';
 import 'package:fitness_app_development/pages/search_user.dart';
 import 'package:fitness_app_development/pages/settings.dart';
 import 'package:fitness_app_development/pages/user_profile.dart';
+import 'package:fitness_app_development/pages/users_page.dart';
+import 'package:fitness_app_development/utilities/get_api.dart';
+import 'package:fitness_app_development/utilities/results.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/pages/friends.dart';
@@ -18,6 +23,8 @@ class _HomeState extends State<Home> {
   int totalRuns = 0, newRun = 0;
   double totalDistance = 0, newDistance = 0;
   int totalTIme = 0, newTime = 0;
+
+
 
   List<String> runs = [
     "run to the moon",
@@ -55,11 +62,35 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     changeText();
-    //changeTotalRuns();
-   // changeTotalDistance();
-    //changeTotalTime();
+    getTotalData();
+    changeTotalRuns();
+    changeTotalDistance();
+    changeTotalTime();
     super.initState();
   }
+
+  Future<void> getTotalData() async {
+    var ret = await GetAPI.searchUsers(GlobalData.firstName!);
+    //print(ret.body);
+    var results = json.decode(ret.body)['results'];
+    print(results);
+
+
+    var resultObjsJson = jsonDecode(ret.body)['results'] as List;
+    List<GetResults> resultObjs = resultObjsJson.map((resultJson) => GetResults.fromJson(resultJson)).toList();
+
+
+    GlobalData.totalDistance = resultObjs[0].TotalDistance;
+    GlobalData.totalRuns = resultObjs[0].TotalRuns;
+    GlobalData.totalTime = resultObjs[0].TotalTime;
+    print(resultObjs[0]);
+
+
+
+
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -159,7 +190,7 @@ class _HomeState extends State<Home> {
                                   fontSize: 25.0,
                                   fontWeight: FontWeight.bold,
                                 ),),
-                                Text('$totalDistance',style: const TextStyle(
+                                Text(totalDistance.toStringAsFixed(2),style: const TextStyle(
                                   fontSize: 25.0,
                                   fontWeight: FontWeight.bold,
                                 ),),
@@ -249,7 +280,7 @@ class _HomeState extends State<Home> {
                                     ),
                                     IconButton(
                                       onPressed: () {
-                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SearchUser()));
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UsersScreen()));
                                       },
                                       icon: Icon(Icons.search),
                                       iconSize: (MediaQuery.of(context).size.height) * .06,

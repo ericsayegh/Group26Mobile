@@ -1,4 +1,6 @@
 
+import 'package:fitness_app_development/run_sequence_util/coordiantes.dart';
+import 'package:fitness_app_development/run_sequence_util/timer_data.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 
 import '../main.dart';
@@ -12,16 +14,17 @@ class GetAPI{
 
   //WORKING
   static Future<String> login(String login, String password) async {
-    String outgoing = '{"login":"' + login.trim() + '","password":"' + password.trim() + '"}';
+    storage.deleteAll();
     var res = await http.post(
         Uri.parse('$SERVER_IP/login'),
-        body: utf8.encode(outgoing),
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-        },
 
-        encoding: Encoding.getByName("utf-8")
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'login': '$login',
+          'password': '$password'}),
+
     );
     if(res.statusCode == 200) return res.body;
     return 'null';
@@ -217,14 +220,35 @@ class GetAPI{
     var res;
     var jwt = await storage.read(key: "jwt");
     String run = 'Run $runNumber';
+
+    final Map<String, dynamic> coords = {
+      "latitude" : TimerData.latitude,
+      "longitude" : TimerData.longitude,
+    };
+   // List<Coords> coords =
+   // Map<String, dynamic> data = coords;
+   // print(coords);
+   // var lat = coords["latitude"];
+    //print(lat);
+   // print(json.encode(lat));
+    double pace = 0.0;
+    String hi = '';
+    hi = TimerData.hi!;
+    var distance = TimerData.totalDistance;
+    var time = TimerData.rawTime;
     int userId = GlobalData.userId!;
+    pace = TimerData.pace!;
     res = await http.post(
         Uri.parse('$SERVER_IP/addrun'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(<String, String>{
+        body: jsonEncode(<String, dynamic>{
           'userId' : '$userId',
+          'time' : '$time',
+          'distance' : distance,
+          'pace' : '$pace',
+          'coordinates' : '$hi',
           'run' : '$run',
           'jwtToken' : '$jwt',
         })

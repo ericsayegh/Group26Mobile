@@ -1,11 +1,15 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math'show cos, sqrt, asin;
 import 'package:fitness_app_development/pages/run_sequence/resume_end_run.dart';
 import 'package:fitness_app_development/pages/run_sequence/run_completed.dart';
+import 'package:fitness_app_development/run_sequence_util/coordiantes.dart';
 import 'package:fitness_app_development/run_sequence_util/timer_data.dart';
+import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
 
@@ -22,16 +26,27 @@ class _RunInProgressState extends State<RunInProgress> {
 
   late Position userLocation;
 
-
+  List<Coords> coords = [];
+  List<LatLng> coordsForMap = [];
   late Map<String, double> currentLocation;
+
   Map<int, double> lat = new Map();
   Map<int, double> lon = new Map();
   double totalDistance = 0.0;
+  double totalDistanceInMIles = 0.0;
+
+
+
+
+  double pace = 0.0;
   String display = '';
   int i = 0;
   late StreamSubscription _getPositionSubscription;
   bool stop = false;
   int timeInMilli = 0;
+  int minutesInt = 0;
+  int secondsInt = 0;
+  String paceT = '';
 
   @override
   void initState() {
@@ -41,69 +56,68 @@ class _RunInProgressState extends State<RunInProgress> {
 
 
     _stopWatchTimer.onExecute.add(StopWatchExecute.start);
-    _getPositionSubscription = Geolocator.getPositionStream(intervalDuration: Duration(seconds: 4), desiredAccuracy: LocationAccuracy.best).listen((position) {
+    _getPositionSubscription = Geolocator.getPositionStream(intervalDuration: Duration(seconds: 1), desiredAccuracy: LocationAccuracy.best).listen((position) {
 
       userLocation = position;
       lat[i] = 0.0;
       lon[i] = 0.0;
 
       if(i==0){
-          lat[i] = userLocation.latitude;lon[i] = userLocation.longitude;
+          lat[i] = userLocation.latitude;
+          lon[i] = userLocation.longitude;
+          coords.add(Coords(userLocation.latitude, userLocation.longitude));
+          coordsForMap.add(LatLng(userLocation.latitude, userLocation.longitude));
           i++;
       }
       else{
 
-        totalDistance = Geolocator.distanceBetween(lat[i-1]!, lon[i-1]!, userLocation.latitude, userLocation.longitude);
-        lat[i] = userLocation.latitude;
+        totalDistance = Geolocator.distanceBetween(lat[i-1]!, lon[i-1]!, userLocation.latitude - (i * .0001), userLocation.longitude);
+
+        lat[i] = userLocation.latitude - (i * .0001);
         lon[i] = userLocation.longitude;
+        coords.add(Coords(userLocation.latitude - (i * .0001), userLocation.longitude));
+        coordsForMap.add(LatLng(userLocation.latitude - (i * .0001), userLocation.longitude));
         i++;
       }
       setState(() {
-        display = lat[i].toString() + lon[i].toString();
+        totalDistanceInMIles += getDistanceInMiles(totalDistance);
+        pace = _stopWatchTimer.rawTime.value / (totalDistanceInMIles*60000);
+
+
+        double minutes = pace.floorToDouble();
+
+        double deciSeconds = pace - minutes;
+
+        double seconds = deciSeconds*60.0;
+
+        minutesInt = minutes.toInt();
+        secondsInt = seconds.toInt();
+
+        if(secondsInt < 10){
+          paceT ='$minutesInt:0$secondsInt';
+        }
+        else{
+          paceT ='$minutesInt:$secondsInt';
+        }
+
+
       });
 
-
-
     });
-
-
-
-    /* testing
-    _getPositionSubscription = Geolocator.getPositionStream(intervalDuration: Duration(seconds: 4), desiredAccuracy: LocationAccuracy.best).listen((position) {
-
-      userLocation = position;
-      lat[i] = 0.0;
-      lon[i] = 0.0;
-
-      if(i==0){
-        lat[i] = userLocation.latitude;
-        lon[i] = userLocation.longitude;
-        i++;
-      }
-      else{
-
-        setState(() {
-          totalDistance += Geolocator.distanceBetween(lat[i-1]!, lon[i-1]!  - .000001, userLocation.latitude+ i.toDouble(), userLocation.longitude+ i.toDouble() - .000001);
-        });
-        lat[i] = userLocation.latitude - .000001;
-        lon[i] = userLocation.longitude  - .000001;
-        i++;
-      }
-
-      print('hi');
-
-      // Do something here
-    });
-  */
   }
 
   @override
   void dispose() {
     _stopWatchTimer.dispose();
-    _getPositionSubscription.cancel();
+
     super.dispose();
   }
+  double getDistanceInMiles(double distanceInMeters){
 
+    double distanceInMiles = distanceInMeters/1609.34;
+
+    return distanceInMiles;
+  }
   double calculateDistance(lat1, lon1, lat2, lon2) {
     var p = 0.017453292519943295;
     var c = cos;
@@ -141,17 +155,6 @@ class _RunInProgressState extends State<RunInProgress> {
                   final displayTime = StopWatchTimer.getDisplayTime(
                       value!, hours: false);
                   timeInMilli = value;
-                  //if(compare == 0){
-
-                  //print(lat[0]);
-                  //updateDistance(count).asStream();
-                  //count++;
-
-
-                  // }
-
-                  //print(value);
-
                   TimerData.displayTime = displayTime;
                   return Text(
                     displayTime,
@@ -171,7 +174,7 @@ class _RunInProgressState extends State<RunInProgress> {
               fontSize: 80.0,
               fontWeight: FontWeight.bold,
             ),),
-            Text('$totalDistance',style: const TextStyle(
+            Text(totalDistanceInMIles.toStringAsFixed(2),style: const TextStyle(
               fontSize: 80.0,
               fontWeight: FontWeight.bold,
             ),),
@@ -187,7 +190,7 @@ class _RunInProgressState extends State<RunInProgress> {
               fontSize: 80.0,
               fontWeight: FontWeight.bold,
             ),),
-            Text('0:00',style: const TextStyle(
+            Text(paceT,style: const TextStyle(
               fontSize: 80.0,
               fontWeight: FontWeight.bold,
             ),),
@@ -207,16 +210,26 @@ class _RunInProgressState extends State<RunInProgress> {
                 iconSize: 100,
                 onPressed: () async {
                   _stopWatchTimer.onExecute.add(StopWatchExecute.stop);
+                  _getPositionSubscription.cancel();
+
                   TimerData.stopWatchTimer = _stopWatchTimer;
                   TimerData.rawTime = _stopWatchTimer.rawTime.value;
                   TimerData.secondTime = _stopWatchTimer.secondTime.value;
                   TimerData.minuteTime = _stopWatchTimer.minuteTime.value;
-
-                  TimerData.totalDistance = totalDistance;
+                  TimerData.totalDistance = totalDistanceInMIles;
+                  TimerData.latitude = lat;
+                  TimerData.longitude = lon;
+                  TimerData.pace = pace;
 
                   print('lat + $lat');
                   print('lon + $lon');
-                  stop = true;
+                  String hi = jsonEncode(coords);
+                  print("hi");
+                  print(hi);
+                  TimerData.hi = hi;
+                  TimerData.cordies = List.from(coordsForMap);
+
+                  await GetAPI.addRun(3);
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => Completed()));
                 }
