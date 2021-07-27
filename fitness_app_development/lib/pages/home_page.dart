@@ -78,55 +78,60 @@ class _HomeState extends State<Home> {
 
                     Column(
                       children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Center(
-                              child: Text(
+                        FittedBox(
+                          fit: BoxFit.fill,
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Center(
+                                child: Text(
 
-                                GlobalData.fullName,
-                                style: TextStyle(
-                                  fontSize: 70.0,
-                                  fontWeight: FontWeight.bold,
+                                  GlobalData.fullName,
+                                  style: TextStyle(
+                                    fontSize: 70.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            ),
 
-                            IconButton(
-                                icon: CircleAvatar( // can add link to users profile pictures for this
-                                  backgroundImage: getImage(),
-                                  radius: 40,
-                                ),
-                                iconSize: (MediaQuery.of(context).size.height) * .08,
-                                onPressed: () {
+                              IconButton(
+                                  icon: CircleAvatar( // can add link to users profile pictures for this
+                                    backgroundImage: getImage(),
+                                    radius: 40,
+                                  ),
+                                  iconSize: (MediaQuery.of(context).size.height) * .08,
+                                  onPressed: () {
 
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => User()));
-
-
-                                }
-                            ),
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => User()));
 
 
+                                  }
+                              ),
 
-                            /*IconButton(
-                                icon: Icon(
-                                  Icons.settings,
-                                ),
-                                iconSize: (MediaQuery.of(context).size.height) * .08,
 
-                                onPressed: () {
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Settings()));
-                                }
-                            ),*/
 
-                          ],
+                              /*IconButton(
+                                  icon: Icon(
+                                    Icons.settings,
+                                  ),
+                                  iconSize: (MediaQuery.of(context).size.height) * .08,
+
+                                  onPressed: () {
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Settings()));
+                                  }
+                              ),*/
+
+                            ],
+                          ),
                         ),
                         Divider(
                           height: 21,
                           thickness: 5,
                           color: Colors.black,
                         ),
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -193,7 +198,87 @@ class _HomeState extends State<Home> {
                           alignment: Alignment.topCenter,
                           widthFactor: 0.99,
                           child: Container(
-                            height: (MediaQuery.of(context).size.height) * .67,
+                            height: 100,
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                physics: ClampingScrollPhysics(),
+                                itemCount: GlobalData.resultObjs.length,
+                                itemBuilder: (context, index){
+                                  return Card(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Column(
+                                          children: [
+                                            Text('Total Runs',style: const TextStyle(
+                                              fontSize: 25.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),),
+                                            Text('$totalRuns',style: const TextStyle(
+                                              fontSize: 25.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),),
+                                          ],
+                                        ),
+                                        Container(
+                                          height: (MediaQuery.of(context).size.height) * .09,
+                                          child: VerticalDivider(
+                                            width: 20,
+                                            thickness: 5,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        Column(
+                                          children: [
+                                            Text('Total Distance',style: const TextStyle(
+                                              fontSize: 25.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),),
+                                            Text(totalDistance.toStringAsFixed(2),style: const TextStyle(
+                                              fontSize: 25.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),),
+                                          ],
+                                        ),
+                                        Container(
+                                          height: (MediaQuery.of(context).size.height) * .09,
+                                          child: VerticalDivider(
+                                            width: 20,
+                                            thickness: 5,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        Column(
+                                          children: [
+                                            Text('Total Time',style: const TextStyle(
+                                              fontSize: 25.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),),
+                                            Text('$totalTIme',style: const TextStyle(
+                                              fontSize: 25.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }
+                            ),
+                          ),
+                        ),
+
+                        Divider(
+                          height: 20,
+                          thickness: 5,
+                          color: Colors.black,
+                        ),
+                        FractionallySizedBox(
+                          alignment: Alignment.topCenter,
+                          widthFactor: 0.99,
+                          child: Container(
+                            height: (MediaQuery.of(context).size.height) * .54,
                             child: ListView.builder(
                                 itemCount: GlobalData.resultObjs.length,
                                 itemBuilder: (context, index){
@@ -208,10 +293,13 @@ class _HomeState extends State<Home> {
                                       },
                                        tileColor: Colors.lightBlueAccent.shade700,
                                       minVerticalPadding: (MediaQuery.of(context).size.height) * .025,
-                                      title: Text('${GlobalData.resultObjs[index].runName}           ${GlobalData.resultObjs[index].dateCreated}',style: const TextStyle(
-                                        fontSize: 20.7,
-                                        fontWeight: FontWeight.bold,
-                                      ),),
+                                      title: FittedBox(
+                                        fit: BoxFit.fill,
+                                        child: Text('${GlobalData.resultObjs[index].runName}           ${GlobalData.resultObjs[index].dateCreated}',style: const TextStyle(
+                                          fontSize: 20.7,
+                                          fontWeight: FontWeight.bold,
+                                        ),),
+                                      ),
                                       //leading: Text((index+1).toString(),style: const TextStyle(
                                        // fontSize: 30.0,
                                        // fontWeight: FontWeight.bold,

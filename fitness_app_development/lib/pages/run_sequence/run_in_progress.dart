@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math'show cos, sqrt, asin;
+import 'dart:math'show Random, asin, cos, sqrt;
 import 'package:fitness_app_development/pages/run_sequence/run_completed.dart';
 import 'package:fitness_app_development/run_sequence_util/coordiantes.dart';
 import 'package:fitness_app_development/run_sequence_util/timer_data.dart';
@@ -56,6 +56,25 @@ class _RunInProgressState extends State<RunInProgress> {
     _stopWatchTimer.onExecute.add(StopWatchExecute.start);
     _getPositionSubscription = Geolocator.getPositionStream(intervalDuration: Duration(seconds: 1), desiredAccuracy: LocationAccuracy.best).listen((position) {
 
+
+
+      Random random = new Random();
+      int randomNumber = random.nextInt(6000000);
+      int randomNumber2 = random.nextInt(30000);
+      int theseNuts = -1;
+
+
+
+
+      if(randomNumber2 % 3 == 0){
+        randomNumber2 *= -1;
+      }else if(randomNumber2 % 2 == 0){
+        randomNumber2 *= -1;
+      }else if(randomNumber2 % 5 == 0) {
+        randomNumber2 *= -1;
+      }
+      else randomNumber2 *= 1;
+
       userLocation = position;
       lat[i] = 0.0;
       lon[i] = 0.0;
@@ -69,12 +88,12 @@ class _RunInProgressState extends State<RunInProgress> {
       }
       else{
 
-        totalDistance = Geolocator.distanceBetween(lat[i-1]!, lon[i-1]!, userLocation.latitude - (i * .0001), userLocation.longitude);
+        totalDistance = Geolocator.distanceBetween(lat[i-1]!, lon[i-1]!, userLocation.latitude - (randomNumber * .000000007), userLocation.longitude- (randomNumber2 * .000001));
 
-        lat[i] = userLocation.latitude - (i * .0001);
-        lon[i] = userLocation.longitude;
-        coords.add(Coords(userLocation.latitude - (i * .0001), userLocation.longitude));
-        coordsForMap.add(LatLng(userLocation.latitude - (i * .0001), userLocation.longitude));
+        lat[i] = userLocation.latitude - (randomNumber * .000000007);
+        lon[i] = userLocation.longitude- (randomNumber2 * .000001);
+        coords.add(Coords(userLocation.latitude - (randomNumber * .000000007), userLocation.longitude- (randomNumber2 * .000001)));
+        coordsForMap.add(LatLng(userLocation.latitude - (randomNumber * .000000007), userLocation.longitude- (randomNumber2 * .000001)));
         i++;
       }
       setState(() {

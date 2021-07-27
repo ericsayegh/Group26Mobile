@@ -110,7 +110,7 @@ class _ChangeNameState extends State<ChangeName> {
                         String firstName = fnController.text;
                         String lastName = lnController.text;
 
-
+                        GlobalData.fullName = '$firstName $lastName';
                         if(GlobalData.firstName != null && GlobalData.lastName != null){
                           try{
                             var ret = await GetAPI.editUser(firstname: firstName, lastname: lastName);
