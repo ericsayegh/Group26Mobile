@@ -52,7 +52,7 @@ class GetAPI{
   //WORKING
   static Future<http.Response> editUser({String firstname = '', String lastname = '', String email = '', String username = ''}) async {
     var jwt = await storage.read(key: "jwt");
-    int userId = GlobalData.userId!;
+    int userId = GlobalData.userId;
 
     print("$userId $firstname  $lastname  $email");
 
@@ -80,7 +80,7 @@ class GetAPI{
   static Future<http.Response> editPassword( String oldPass, String newPass) async {
     var jwt = await storage.read(key: "jwt");
     int userId = -1;
-    userId = GlobalData.userId!;
+    userId = GlobalData.userId;
 
 
 
@@ -124,7 +124,7 @@ class GetAPI{
 
   //WORKING
   // in: userId, search or -1, search
-  static Future<http.Response> searchUsers(String search) async {
+  static Future<http.Response> searchUsers({String search = ''}) async {
     var jwt = await storage.read(key: "jwt");
     var res;
 
@@ -151,7 +151,7 @@ class GetAPI{
     var jwt = await storage.read(key: "jwt");
     var res;
     int userId = -1;
-    userId = GlobalData.userId!;
+    userId = GlobalData.userId;
     res = await http.post(
         Uri.parse('$SERVER_IP/deleteuser'),
         headers: <String, String>{
@@ -227,7 +227,7 @@ class GetAPI{
     hi = TimerData.hi!;
     var distance = TimerData.totalDistance;
     var time = TimerData.rawTime;
-    int userId = GlobalData.userId!;
+    int userId = GlobalData.userId;
     pace = TimerData.pace!;
     res = await http.post(
         Uri.parse('$SERVER_IP/addrun'),
@@ -280,7 +280,7 @@ class GetAPI{
   static Future<http.Response> searchRun({String search = ''}) async {
     var res;
     var jwt = await storage.read(key: "jwt");
-    int userId = GlobalData.userId!;
+    int userId = GlobalData.userId;
     res = await http.post(
         Uri.parse('$SERVER_IP/searchruns'),
         headers: <String, String>{
@@ -304,7 +304,7 @@ class GetAPI{
   static Future<http.Response> addfriend(int userId_toadd) async {
     var res;
     var jwt = await storage.read(key: "jwt");
-    int userId = GlobalData.userId!;
+    int userId = GlobalData.userId;
 
 
     res = await http.post(
@@ -329,7 +329,7 @@ class GetAPI{
 
   static Future<http.Response> searchfriend(String name) async {
     var res;
-    int userId = GlobalData.userId!;
+    int userId = GlobalData.userId;
 
 
     res = await http.post(
@@ -354,7 +354,7 @@ class GetAPI{
   static Future<http.Response> removefriend(int userId_toremove) async {
     var res;
     var jwt = await storage.read(key: "jwt");
-    int userId = GlobalData.userId!;
+    int userId = GlobalData.userId;
 
 
     res = await http.post(
@@ -380,7 +380,7 @@ class GetAPI{
   static Future<http.Response> listfriends() async {
     var res;
     var jwt = await storage.read(key: "jwt");
-    int userId = GlobalData.userId!;
+    int userId = GlobalData.userId;
 
 
     res = await http.post(

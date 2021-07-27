@@ -54,7 +54,7 @@ class _RunInProgressState extends State<RunInProgress> {
 
 
     _stopWatchTimer.onExecute.add(StopWatchExecute.start);
-    _getPositionSubscription = Geolocator.getPositionStream(intervalDuration: Duration(seconds: 1), desiredAccuracy: LocationAccuracy.best).listen((position) {
+    _getPositionSubscription = Geolocator.getPositionStream(intervalDuration: Duration(seconds: 4), desiredAccuracy: LocationAccuracy.best).listen((position) {
 
 
 

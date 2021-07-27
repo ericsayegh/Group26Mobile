@@ -99,7 +99,7 @@ class _CompletedState extends State<Completed> {
                 child: MapboxMap(
                   accessToken: mapBoxApiKey,
                   initialCameraPosition: CameraPosition(
-                  zoom: 15,
+                  zoom: 5,
                   target: LatLng(TimerData.latitude[0], TimerData.longitude[0]),
                   ),
                   onMapCreated: (MapboxMapController controller) async {
@@ -254,7 +254,7 @@ class _CompletedState extends State<Completed> {
   }
 
   Future<void> getTotalData() async {
-    var ret = await GetAPI.searchUsers(GlobalData.firstName!);
+    var ret = await GetAPI.searchUsers(search: GlobalData.firstName!);
 
 
     var resultObjsJson = jsonDecode(ret.body)['results'] as List;

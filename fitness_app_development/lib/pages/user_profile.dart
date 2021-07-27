@@ -60,6 +60,7 @@ class _UserState extends State<User> {
         leading: IconButton(
           onPressed: () {
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
 
           },
           icon: Icon(Icons.arrow_back, color: Colors.orange),
@@ -308,7 +309,7 @@ class _UserState extends State<User> {
     search = GlobalData.fullName;
 
 
-    await GetAPI.searchUsers(search);
+    await GetAPI.searchUsers(search: search);
 
 
 

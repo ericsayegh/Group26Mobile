@@ -89,7 +89,7 @@ class _OldRunState extends State<OldRun> {
                 child: MapboxMap(
                     accessToken: mapBoxApiKey,
                     initialCameraPosition: CameraPosition(
-                      zoom: 15,
+                      zoom: 13,
                       target: LatLng(GlobalData.resultObjs[RunData.index].coordinates[0][1], GlobalData.resultObjs[RunData.index].coordinates[0][0]),
                     ),
                     onMapCreated: (MapboxMapController controller) async {
@@ -98,7 +98,6 @@ class _OldRunState extends State<OldRun> {
                       // causes a sudden movement from the initial to 'new' camera position,
                       // while animateCamera gives a smooth animated transition
                       await controller.animateCamera(
-
                         CameraUpdate.newLatLng(LatLng(GlobalData.resultObjs[RunData.index].coordinates[GlobalData.resultObjs[RunData.index].coordinates.length-1][1], GlobalData.resultObjs[RunData.index].coordinates[GlobalData.resultObjs[RunData.index].coordinates.length-1][0])),
 
 
@@ -109,12 +108,13 @@ class _OldRunState extends State<OldRun> {
                           geometry: cordies,
 
                           lineColor: "#ff0000",
-                          lineWidth: 14.0,
-                          lineOpacity: 0.5,
-                          draggable: true,
+                          lineWidth: 9.0,
+                          lineOpacity: .8,
+                          draggable: false,
                         ),
 
                       );
+
 
                       //Add a circle denoting current user location
                       await controller.addCircle(
@@ -232,7 +232,7 @@ class _OldRunState extends State<OldRun> {
   }
 
   Future<void> getTotalData() async {
-    var ret = await GetAPI.searchUsers(GlobalData.firstName!);
+    var ret = await GetAPI.searchUsers(search: GlobalData.firstName!);
 
 
     var resultObjsJson = jsonDecode(ret.body)['results'] as List;

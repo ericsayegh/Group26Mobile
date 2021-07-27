@@ -194,74 +194,107 @@ class _HomeState extends State<Home> {
                           thickness: 5,
                           color: Colors.black,
                         ),
+                        Text('LeaderBoard',style: const TextStyle(
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
+                        ),),
                         FractionallySizedBox(
                           alignment: Alignment.topCenter,
                           widthFactor: 0.99,
                           child: Container(
-                            height: 100,
+                            height: 50,
                             child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 shrinkWrap: true,
                                 physics: ClampingScrollPhysics(),
-                                itemCount: GlobalData.resultObjs.length,
+                                itemCount: GlobalData.resultObjsBoo.length,
                                 itemBuilder: (context, index){
-                                  return Card(
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Column(
+                                  return FittedBox(
+                                    fit: BoxFit.contain,
+
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(3.0),
+                                      child: Card(
+                                        elevation: 2.0,
+                                        color: Colors.deepPurple,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            Text('Total Runs',style: const TextStyle(
-                                              fontSize: 25.0,
+
+
+                                            Text('${index+ 1}.',style: const TextStyle(
+                                              fontSize: 15.0,
                                               fontWeight: FontWeight.bold,
                                             ),),
-                                            Text('$totalRuns',style: const TextStyle(
-                                              fontSize: 25.0,
+                                            SizedBox(width: 10),
+                                            Text('${GlobalData.resultObjsBoo[GlobalData.orginalIndex[index]].fullName}',style: const TextStyle(
+                                              fontSize: 15.0,
                                               fontWeight: FontWeight.bold,
                                             ),),
-                                          ],
+                                            SizedBox(width: 10),
+                                            Text(GlobalData.resultObjsBoo[GlobalData.orginalIndex[index]].TotalDistance.toStringAsFixed(2) + ' Mi',style: const TextStyle(
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),),
+
+                                            /*Column(
+                                              children: [
+                                                Text('Name',style: const TextStyle(
+                                                  fontSize: 25.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),),
+                                                Text('${GlobalData.resultObjsBoo[GlobalData.orginalIndex[index]].firstName}',style: const TextStyle(
+                                                  fontSize: 25.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),),
+                                              ],
+                                            ),
+                                            Container(
+                                              height: (MediaQuery.of(context).size.height) * .09,
+                                              child: VerticalDivider(
+                                                width: 20,
+                                                thickness: 5,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            Column(
+                                              children: [
+                                                Text('Total Distance',style: const TextStyle(
+                                                  fontSize: 25.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),),
+                                                Text(GlobalData.resultObjsBoo[GlobalData.orginalIndex[index]].TotalDistance.toStringAsFixed(2),style: const TextStyle(
+                                                  fontSize: 25.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),),
+                                              ],
+                                            ),
+                                            Container(
+                                              height: (MediaQuery.of(context).size.height) * .09,
+                                              child: VerticalDivider(
+                                                width: 20,
+                                                thickness: 5,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            Column(
+                                              children: [
+                                                Text('Total Time',style: const TextStyle(
+                                                  fontSize: 25.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),),
+                                                Text('$totalTIme',style: const TextStyle(
+                                                  fontSize: 25.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),),
+                                              ],
+
+                                            ),*/
+
+                                          ]
                                         ),
-                                        Container(
-                                          height: (MediaQuery.of(context).size.height) * .09,
-                                          child: VerticalDivider(
-                                            width: 20,
-                                            thickness: 5,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        Column(
-                                          children: [
-                                            Text('Total Distance',style: const TextStyle(
-                                              fontSize: 25.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),),
-                                            Text(totalDistance.toStringAsFixed(2),style: const TextStyle(
-                                              fontSize: 25.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),),
-                                          ],
-                                        ),
-                                        Container(
-                                          height: (MediaQuery.of(context).size.height) * .09,
-                                          child: VerticalDivider(
-                                            width: 20,
-                                            thickness: 5,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        Column(
-                                          children: [
-                                            Text('Total Time',style: const TextStyle(
-                                              fontSize: 25.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),),
-                                            Text('$totalTIme',style: const TextStyle(
-                                              fontSize: 25.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),),
-                                          ],
-                                        ),
-                                      ],
+                                      ),
                                     ),
                                   );
                                 }
