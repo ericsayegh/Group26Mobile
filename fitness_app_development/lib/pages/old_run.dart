@@ -21,7 +21,8 @@ class _OldRunState extends State<OldRun> {
 
   String _displayTime = '';
   double totalDistance = 0.0;
-  String pace = '';
+  double pace = 0.0;
+  String paceT = '';
   String runName = '';
 
   late List<LatLng> cordies = [];
@@ -41,6 +42,24 @@ class _OldRunState extends State<OldRun> {
     for(int i = 0; i<GlobalData.resultObjs[RunData.index].coordinates.length; i++){
       cordies.add(LatLng(GlobalData.resultObjs[RunData.index].coordinates[i][1], GlobalData.resultObjs[RunData.index].coordinates[i][0]));
     }
+    double minutes = pace.floorToDouble();
+
+    double deciSeconds = pace - minutes;
+
+    double seconds = deciSeconds*60.0;
+
+    int minutesInt = minutes.toInt();
+    int secondsInt = seconds.toInt();
+
+    if(secondsInt < 10){
+      paceT ='$minutesInt:0$secondsInt';
+    }
+    else{
+      paceT ='$minutesInt:$secondsInt';
+    }
+
+
+
 
     super.initState();
   }
@@ -187,7 +206,7 @@ class _OldRunState extends State<OldRun> {
                 fontSize: 40.0,
                 fontWeight: FontWeight.bold,
               ),),
-              Text(totalDistance.toStringAsFixed(2),style: const TextStyle(
+              Text(totalDistance.toStringAsFixed(2) + ' Mi',style: const TextStyle(
                 fontSize: 40.0,
                 fontWeight: FontWeight.bold,
               ),),
@@ -201,7 +220,7 @@ class _OldRunState extends State<OldRun> {
                 fontSize: 40.0,
                 fontWeight: FontWeight.bold,
               ),),
-              Text('$pace',style: const TextStyle(
+              Text('$paceT',style: const TextStyle(
                 fontSize: 40.0,
                 fontWeight: FontWeight.bold,
               ),),

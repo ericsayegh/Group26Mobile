@@ -239,7 +239,7 @@ class GetAPI{
           'run' : '$run',
           'time' : '$time',
           'distance' : distance,
-          'pace' : '$pace',
+          'pace' : pace,
           'coordinates' : '$hi',
           'jwtToken' : '$jwt',
         })

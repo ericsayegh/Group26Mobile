@@ -209,7 +209,7 @@ class _HomeState extends State<Home> {
                                 physics: ClampingScrollPhysics(),
                                 itemCount: GlobalData.resultObjsBoo.length,
                                 itemBuilder: (context, index){
-                                  return FittedBox(
+                                  if(GlobalData.resultObjsBoo[GlobalData.orginalIndex[index]].TotalDistance > .01 ) return FittedBox(
                                     fit: BoxFit.contain,
 
                                     child: Padding(
@@ -297,6 +297,7 @@ class _HomeState extends State<Home> {
                                       ),
                                     ),
                                   );
+                                  else return Text('');
                                 }
                             ),
                           ),

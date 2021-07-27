@@ -7,7 +7,7 @@ class GetResults2 {
   late String dateCreated;
   late int time;
   late double distance;
-  late String pace;
+  late double pace;
   late List<dynamic> coordinates;
 
   GetResults2(this.id, this.runName, this.userId, this.runId, this.dateCreated, this.time, this.distance, this.pace, this.coordinates);
@@ -22,7 +22,7 @@ class GetResults2 {
       json['DateCreated'] as String,
       json['Time'] as int,
       json['Distance'] as double,
-      json['Pace'] as String,
+      json['Pace'] as double,
       json['Coordinates'] as List<dynamic>,
 
     );
