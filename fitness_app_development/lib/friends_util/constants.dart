@@ -5,7 +5,7 @@ const String path = "/api/";
 
 const String searchFriendCall = baseUrl + "/searchfriends";
 
-const String searchUserApiCall = baseUrl + "/searchusers";
+const String searchUserApiCall = baseUrl + "/searchuserswofriends";
 
 const String addFriendsApiCall = baseUrl + "/addfriend";
 

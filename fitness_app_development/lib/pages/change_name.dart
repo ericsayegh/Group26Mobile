@@ -46,11 +46,11 @@ class _ChangeNameState extends State<ChangeName> {
               height: double.infinity,
               width: double.infinity,
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                    color: Colors.blue,
-                    width: 8,
-                  )
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: [0.5, 1],
+                      colors: [Colors.cyan, Colors.blueAccent.shade700])
               ),
             ),
             Container(
@@ -62,43 +62,42 @@ class _ChangeNameState extends State<ChangeName> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      'Fitness APP',
-                      style: TextStyle(
-
-                      ),
+                      'Fitness APP', style: TextStyle(
+                        color: Colors.blue[800],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20)
                     ),
                     Text(
-                      'Edit Name',
-                      style: TextStyle(
-
-                      ),
+                      'Edit Name', style: TextStyle(
+                        color: Colors.blue[800],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20)
                     ),
                     SizedBox(height: 200),
 
-                    Text(
-                      'Enter First Name',
-                      style: TextStyle(
 
-                      ),
-                    ),
                     TextField(
                       controller: fnController,
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'First Name',
+                          border: OutlineInputBorder(),
+                          labelText: 'Enter First Name',
+                          labelStyle: TextStyle(
+                              color: Colors.blue[800],
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20)
                       ),
                     ),
-                    Text(
-                      'Enter Last Name',
-                      style: TextStyle(
+                    SizedBox(height: 30.0),
 
-                      ),
-                    ),
                     TextField(
                       controller: lnController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Last Name',
+                        labelText: 'Enter Last Name',
+                          labelStyle: TextStyle(
+                              color: Colors.blue[800],
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20)
                       ),
                     ),
                     SizedBox(height: 20),

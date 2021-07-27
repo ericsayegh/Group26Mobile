@@ -4,6 +4,7 @@ import 'package:stop_watch_timer/stop_watch_timer.dart';
 class TimerData
 {
   static StopWatchTimer? stopWatchTimer;
+  static late String runName;
   static int? rawTime;
   static int? secondTime;
   static int? minuteTime;

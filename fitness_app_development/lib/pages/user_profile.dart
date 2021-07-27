@@ -1,8 +1,7 @@
-import 'dart:convert';
-import 'package:fitness_app_development/main.dart';
+
 import 'package:fitness_app_development/pages/run_sequence/start_run.dart';
-import 'package:fitness_app_development/pages/search_user.dart';
 import 'package:fitness_app_development/pages/settings.dart';
+import 'package:fitness_app_development/pages/users_page.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/cupertino.dart';
@@ -83,7 +82,7 @@ class _UserState extends State<User> {
                     child: Text("Edit User")
                 ),
                 SizedBox(height: 10),
-                
+
                 Text(
                     'USERNAME',
                     style: TextStyle(
@@ -204,7 +203,7 @@ class _UserState extends State<User> {
                       ),
                       IconButton(
                         onPressed: () {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SearchUser()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UsersScreen()));
                         },
                         icon: Icon(Icons.search),
                         iconSize: (MediaQuery.of(context).size.height) * .06,
@@ -268,50 +267,14 @@ class _UserState extends State<User> {
   }
   Future<void> changeEmail() async {
 
-    int userId = 0;
-    int index = 0;
-    userId = GlobalData.userId!;
     String search = '';
     search = GlobalData.fullName!;
 
 
-    var ret = await GetAPI.searchUsers(search);
+    await GetAPI.searchUsers(search);
 
 
-    var jsonObject = json.decode(ret.body);
-    //List<dynamic> obj = jsonObject != null ? List.from(jsonObject) : null;
-    print(jsonObject);
-    //List<dynamic> jsonList =
-    //var resultsArray = jsonObject["results_array"];
 
-    //print(jsonObject);
-    //print(jsonObject["results_array"]);
-    //print(resultsArray[0]);
-    //print(resultsArray["Email"]);
-   // Map<dynamic, String> results = resultsArray;
-   // print(results);
-    /*
-    var userIdArray = jsonObject["userId"];
-    var emailArray = jsonObject["email"];
-    var refreshedJwt = jsonObject["jwtToken"];
-    await storage.delete(key: "jwt");
-    await storage.write(key: "jwt", value: '$refreshedJwt');
-    var test = await storage.read(key: "jwt");
-    print(test);
-
-    for(int i=0; i < userIdArray.length; i++){
-      if(userIdArray[i] == userId){
-        index = i;
-      }
-    }
-
-     */
-   // GlobalData.email = emailArray[index];
-
-    //setState(() {
-     // email = emailArray[index];
-    //});
   }
 
 }
-

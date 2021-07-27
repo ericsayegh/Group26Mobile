@@ -1,5 +1,3 @@
-
-import 'package:fitness_app_development/run_sequence_util/coordiantes.dart';
 import 'package:fitness_app_development/run_sequence_util/timer_data.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 
@@ -110,7 +108,7 @@ class GetAPI{
 
   //working
   static Future<void> verify (String pin) async {
-    var res = await http.post(
+    await http.post(
         Uri.parse('$SERVER_IP/verifyuser'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -120,6 +118,8 @@ class GetAPI{
           })
 
     );
+
+
   }
 
   //WORKING
@@ -216,21 +216,12 @@ class GetAPI{
     return res;
   }
 
-  static Future<http.Response> addRun(int runNumber) async { // need to grab refreshed jwt token
+  static Future<http.Response> addRun() async { // need to grab refreshed jwt token
     var res;
     var jwt = await storage.read(key: "jwt");
-    String run = 'Run $runNumber';
+    String run = '${TimerData.runName}';
 
-    final Map<String, dynamic> coords = {
-      "latitude" : TimerData.latitude,
-      "longitude" : TimerData.longitude,
-    };
-   // List<Coords> coords =
-   // Map<String, dynamic> data = coords;
-   // print(coords);
-   // var lat = coords["latitude"];
-    //print(lat);
-   // print(json.encode(lat));
+
     double pace = 0.0;
     String hi = '';
     hi = TimerData.hi!;
@@ -245,17 +236,18 @@ class GetAPI{
         },
         body: jsonEncode(<String, dynamic>{
           'userId' : '$userId',
+          'run' : '$run',
           'time' : '$time',
           'distance' : distance,
           'pace' : '$pace',
           'coordinates' : '$hi',
-          'run' : '$run',
           'jwtToken' : '$jwt',
         })
     );
 
     if(res.statusCode == 200){
       print(res.statusCode);
+      print(res.body);
       return res;
 
     }
@@ -285,12 +277,12 @@ class GetAPI{
     return res;
   }
 
-  static Future<http.Response> searchRun(String search) async {
+  static Future<http.Response> searchRun({String search = ''}) async {
     var res;
     var jwt = await storage.read(key: "jwt");
     int userId = GlobalData.userId!;
     res = await http.post(
-        Uri.parse('$SERVER_IP/addrun'),
+        Uri.parse('$SERVER_IP/searchruns'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -337,7 +329,6 @@ class GetAPI{
 
   static Future<http.Response> searchfriend(String name) async {
     var res;
-    var jwt = await storage.read(key: "jwt");
     int userId = GlobalData.userId!;
 
 

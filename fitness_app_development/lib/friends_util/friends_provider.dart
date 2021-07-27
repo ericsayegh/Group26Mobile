@@ -3,7 +3,6 @@
 import 'package:fitness_app_development/friends_util/search_friend_response.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 import '../main.dart';
 import 'constants.dart';

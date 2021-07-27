@@ -4,8 +4,8 @@ import 'package:fitness_app_development/friends_util/search_friend_response.dart
 import 'package:fitness_app_development/friends_util/searchBar.dart';
 import 'package:fitness_app_development/friends_util/friends_provider.dart';
 import 'package:fitness_app_development/pages/run_sequence/start_run.dart';
-import 'package:fitness_app_development/pages/search_user.dart';
 import 'package:fitness_app_development/pages/user_profile.dart';
+import 'package:fitness_app_development/pages/users_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -67,18 +67,15 @@ class _FriendsScreenState extends State<FriendsScreen> {
       body: ChangeNotifierProvider(
         create: (_) =>viewModel,
         child: Container(
-            decoration: BoxDecoration(
-                image: const DecorationImage(
-                  image: NetworkImage(
-                      'https://www.verywellfit.com/thmb/LeBe7RNtzbJwyKRmH8ditmJ1NKg=/1500x1020/filters:no_upscale():max_bytes(150000):strip_icc()/Snapwire-Running-27-66babd0b2be44d9595f99d03fd5827fd.jpg'),
-                  fit: BoxFit.cover,
-                ),
-                border: Border.all(
-                  color: Colors.blue,
-                  width: 8,
-                )),
-            width: double.infinity,
             height: double.infinity,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: [0.5, 1],
+                    colors: [Colors.cyan, Colors.blueAccent.shade700])
+            ),
             child: Column(
               children: [
                 SizedBox(
@@ -87,6 +84,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                 Padding(
                   padding: const EdgeInsets.only(left:18.0,right: 18),
                   child: SearchBar(
+                      hintText: 'Search Friends',
                       onChangeTextForSearch: (String val){
                         print("value : $val");
                         if(val.isEmpty){
@@ -125,6 +123,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                             print("data length L ${snapshot.data!.length}");
                             return ListView.builder(
                               shrinkWrap: true,
+                                physics: AlwaysScrollableScrollPhysics(),
                                 itemCount: snapshot.data!.length,
                                 itemBuilder: (BuildContext bc, int index) {
                                   return RowView("${snapshot.data![index].fullName}");
@@ -169,7 +168,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                             ),
                             IconButton(
                               onPressed: () {
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SearchUser()));
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UsersScreen()));
                               },
                               icon: Icon(Icons.search),
                               iconSize: (MediaQuery.of(context).size.height) * .06,
@@ -235,7 +234,10 @@ class RowView extends StatelessWidget {
         Expanded(
           child: Text(
             name,
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+            style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 30),
           ),
         ),
         ElevatedButton(

@@ -62,18 +62,15 @@ class _UsersScreenState extends State<UsersScreen> {
           body: ChangeNotifierProvider(
             create: (_) =>viewModel,
             child: Container(
-                decoration: BoxDecoration(
-                    image: const DecorationImage(
-                      image: NetworkImage(
-                          'https://www.verywellfit.com/thmb/LeBe7RNtzbJwyKRmH8ditmJ1NKg=/1500x1020/filters:no_upscale():max_bytes(150000):strip_icc()/Snapwire-Running-27-66babd0b2be44d9595f99d03fd5827fd.jpg'),
-                      fit: BoxFit.cover,
-                    ),
-                    border: Border.all(
-                      color: Colors.blue,
-                      width: 8,
-                    )),
-                width: double.infinity,
                 height: double.infinity,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        stops: [0.5, 1],
+                        colors: [Colors.cyan, Colors.blueAccent.shade700])
+                ),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -121,7 +118,8 @@ class _UsersScreenState extends State<UsersScreen> {
                                 } else if (snapshot.hasData) {
                                   print("data length L ${snapshot.data!.length}");
                                   return ListView.builder(
-                                    shrinkWrap: true,
+                                      shrinkWrap: true,
+                                      physics: AlwaysScrollableScrollPhysics(),
                                       itemCount: snapshot.data!.length,
                                       itemBuilder: (BuildContext bc, int index) {
                                         num userID = snapshot.data![index].userId;
@@ -141,7 +139,10 @@ class _UsersScreenState extends State<UsersScreen> {
                                                 Expanded(
                                                   child: Text(
                                                     '$userName',
-                                                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 30),
                                                   ),
                                                 ),
                                                 ElevatedButton(
@@ -160,6 +161,10 @@ class _UsersScreenState extends State<UsersScreen> {
                                                       _isLoading = false;
                                                     });
                                                     });
+
+                                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UsersScreen()));
+
+
                                                   },
                                                   child: Text("Add"),
                                                 ),

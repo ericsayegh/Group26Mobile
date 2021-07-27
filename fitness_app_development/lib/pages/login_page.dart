@@ -1,6 +1,8 @@
 
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:fitness_app_development/pages/register_page.dart';
+import 'package:fitness_app_development/utilities/results.dart';
+import 'package:fitness_app_development/utilities/results_runs.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app_development/pages/home_page.dart';
 import 'dart:convert';
@@ -41,6 +43,7 @@ class _LoginState extends State<Login> {
   void dispose(){
     myController1.dispose(); // dispose controller when page is disposed
     myController2.dispose();
+    changeText().dispose();
     super.dispose();
   }
 
@@ -161,6 +164,8 @@ class _LoginState extends State<Login> {
                               try {
                                 myController1.clear();
                                 myController2.clear();
+                                await getTotalData();
+                                await getRunData();
                                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
 
                               }catch(e) {
@@ -208,10 +213,31 @@ class _LoginState extends State<Login> {
     });
   }
   void getFullName (String firstName, String lastName) {
-    GlobalData.fullName = firstName + lastName;
+    GlobalData.fullName = firstName + ' ' + lastName;
 
   }
+  Future<void> getTotalData() async {
+    var ret = await GetAPI.searchUsers(GlobalData.firstName!);
+    var resultObjsJson = jsonDecode(ret.body)['results'] as List;
+    List<GetResults> resultObjs = resultObjsJson.map((resultJson) => GetResults.fromJson(resultJson)).toList();
 
+    try{
+      GlobalData.totalDistance = resultObjs[0].TotalDistance;
+      GlobalData.totalRuns = resultObjs[0].TotalRuns;
+      GlobalData.totalTime = resultObjs[0].TotalTime;
+    }catch(e){
+      print(e);
+    }
+  }
+
+  Future<void> getRunData() async {
+    var ret = await GetAPI.searchRun();
+    var resultObjsJson = jsonDecode(ret.body)['results'] as List;
+    GlobalData.resultObjs  = resultObjsJson.map((resultJson) => GetResults2.fromJson(resultJson)).toList();
+
+    print('${GlobalData.resultObjs} this');
+
+  }
 
 }
 

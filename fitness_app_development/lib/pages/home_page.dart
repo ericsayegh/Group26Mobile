@@ -1,12 +1,12 @@
-import 'dart:convert';
 
-import 'package:fitness_app_development/pages/run_sequence/start_run.dart';
-import 'package:fitness_app_development/pages/search_user.dart';
+
+import 'package:fitness_app_development/pages/get_run_name.dart';
+import 'package:fitness_app_development/pages/old_run.dart';
 import 'package:fitness_app_development/pages/settings.dart';
 import 'package:fitness_app_development/pages/user_profile.dart';
 import 'package:fitness_app_development/pages/users_page.dart';
-import 'package:fitness_app_development/utilities/get_api.dart';
-import 'package:fitness_app_development/utilities/results.dart';
+import 'package:fitness_app_development/utilities/personal_run_data.dart';
+import 'package:fitness_app_development/utilities/results_runs.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/pages/friends.dart';
@@ -23,83 +23,27 @@ class _HomeState extends State<Home> {
   int totalRuns = 0, newRun = 0;
   double totalDistance = 0, newDistance = 0;
   int totalTIme = 0, newTime = 0;
-
-
-
-  List<String> runs = [
-    "run to the moon",
-    "run to the sun",
-    "dont run?",
-    "something about running",
-    "run to the moon",
-    "run to the sun",
-    "dont run?",
-    "something about running",
-    "run to the moon",
-    "run to the sun",
-    "dont run?",
-    "something about running",
-    "run to the moon",
-    "run to the sun",
-    "dont run?",
-    "something about running",
-    "run to the moon",
-    "run to the sun",
-    "dont run?",
-    "something about running",
-    "run to the moon",
-    "run to the sun",
-    "dont run?",
-    "something about running",
-    "run to the moon",
-    "run to the sun",
-    "dont run?",
-    "something about running",
-
-  ];
-
+  List<GetResults2> resultObjs = [];
 
   @override
   void initState() {
     changeText();
-    getTotalData();
     changeTotalRuns();
     changeTotalDistance();
     changeTotalTime();
     super.initState();
   }
 
-  Future<void> getTotalData() async {
-    var ret = await GetAPI.searchUsers(GlobalData.firstName!);
-    //print(ret.body);
-    var results = json.decode(ret.body)['results'];
-    print(results);
-
-
-    var resultObjsJson = jsonDecode(ret.body)['results'] as List;
-    List<GetResults> resultObjs = resultObjsJson.map((resultJson) => GetResults.fromJson(resultJson)).toList();
-
-
-    GlobalData.totalDistance = resultObjs[0].TotalDistance;
-    GlobalData.totalRuns = resultObjs[0].TotalRuns;
-    GlobalData.totalTime = resultObjs[0].TotalTime;
-    print(resultObjs[0]);
-
-
-
-
-  }
-
-
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage('https://st2.depositphotos.com/1464196/11719/v/950/depositphotos_117192392-stock-illustration-background-in-color-of-summer.jpg'),
-          fit: BoxFit.cover,
-        ),
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              stops: [0.5, 1],
+              colors: [Colors.cyan, Colors.blueAccent.shade700])
       ),
       child: Scaffold(
 
@@ -117,6 +61,17 @@ class _HomeState extends State<Home> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            Center(
+                              child: Text(
+
+                                GlobalData.fullName,
+                                style: TextStyle(
+                                  fontSize: 70.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+
                             IconButton(
                                 icon: CircleAvatar( // can add link to users profile pictures for this
                                   backgroundImage: NetworkImage( // PLACEHOLDER //
@@ -132,18 +87,9 @@ class _HomeState extends State<Home> {
                                 }
                             ),
 
-                            Center(
-                              child: Text(
 
-                                userName,
-                                style: TextStyle(
-                                  fontSize: 80.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
 
-                            IconButton(
+                            /*IconButton(
                                 icon: Icon(
                                   Icons.settings,
                                 ),
@@ -152,7 +98,7 @@ class _HomeState extends State<Home> {
                                 onPressed: () {
                                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Settings()));
                                 }
-                            ),
+                            ),*/
 
                           ],
                         ),
@@ -229,33 +175,34 @@ class _HomeState extends State<Home> {
                           child: Container(
                             height: (MediaQuery.of(context).size.height) * .67,
                             child: ListView.builder(
-                                itemCount: runs.length,
+                                itemCount: GlobalData.resultObjs.length,
                                 itemBuilder: (context, index){
                                   return Card(
                                     child: ListTile(
                                       onTap: () {
+                                          RunData.index = index;
+                                          print(index);
+
+                                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OldRun()));
 
                                       },
-                                       tileColor: Colors.lightBlueAccent[200],
-                                      minVerticalPadding: (MediaQuery.of(context).size.height) * .02,
-                                      title: Text(runs[index],style: const TextStyle(
-                                        fontSize: 40.0,
+                                       tileColor: Colors.lightBlueAccent.shade700,
+                                      minVerticalPadding: (MediaQuery.of(context).size.height) * .025,
+                                      title: Text('${GlobalData.resultObjs[index].runName}           ${GlobalData.resultObjs[index].dateCreated}',style: const TextStyle(
+                                        fontSize: 20.7,
                                         fontWeight: FontWeight.bold,
                                       ),),
-                                      leading: Text((index+1).toString(),style: const TextStyle(
-                                        fontSize: 40.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),),
+                                      //leading: Text((index+1).toString(),style: const TextStyle(
+                                       // fontSize: 30.0,
+                                       // fontWeight: FontWeight.bold,
+                                     // ),),
                                       trailing: Icon(Icons.arrow_forward_ios),
 
 
                                     ),
                                   );
-
                                 }
                             ),
-
-
                           ),
                         ),
                         Expanded(
@@ -273,6 +220,8 @@ class _HomeState extends State<Home> {
                                   children: [
                                     IconButton(
                                       onPressed: () {
+                                        print('${GlobalData.resultObjs[0].coordinates[0][0]},${GlobalData.resultObjs[0].coordinates[0][1]}');
+                                        print('${GlobalData.resultObjs[0].coordinates[3][0]},${GlobalData.resultObjs[0].coordinates[3][1]}');
                                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
                                       },
                                       icon: Icon(Icons.home),
@@ -288,7 +237,7 @@ class _HomeState extends State<Home> {
                                     ),
                                     FloatingActionButton(
                                       onPressed: () {
-                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StartRun()));
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GetRunName()));
                                       },
                                       child: Icon(Icons.add),
                                       backgroundColor: Colors.green,

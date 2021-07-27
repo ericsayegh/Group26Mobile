@@ -44,11 +44,11 @@ class _ChangePassState extends State<ChangePass> {
               height: double.infinity,
               width: double.infinity,
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                    color: Colors.blue,
-                    width: 8,
-                  )
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: [0.5, 1],
+                      colors: [Colors.cyan, Colors.blueAccent.shade700])
               ),
             ),
             Container(
@@ -60,16 +60,16 @@ class _ChangePassState extends State<ChangePass> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      'Fitness APP',
-                      style: TextStyle(
-
-                      ),
+                      'Fitness APP', style: TextStyle(
+                        color: Colors.blue[800],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20)
                     ),
                     Text(
-                      'Edit Password',
-                      style: TextStyle(
-
-                      ),
+                      'Edit Password', style: TextStyle(
+                        color: Colors.blue[800],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20)
                     ),
                     SizedBox(height: 200),
 
@@ -77,15 +77,23 @@ class _ChangePassState extends State<ChangePass> {
                       controller: oldPassController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Old Password',
+                        labelText: 'Enter Old Password',
+                        labelStyle: TextStyle(
+                            color: Colors.blue[800],
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 30),
                     TextField(
                       controller: newPassController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'New Password',
+                        labelText: 'Enter New Password',
+                        labelStyle: TextStyle(
+                            color: Colors.blue[800],
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
                       ),
                     ),
                     ElevatedButton(

@@ -3,7 +3,6 @@
 import 'package:fitness_app_development/pages/pass_reset/forgot_password.dart';
 import 'package:fitness_app_development/pages/friends.dart';
 import 'package:fitness_app_development/pages/home_page.dart';
-import 'package:fitness_app_development/pages/run_sequence/resume_end_run.dart';
 import 'package:fitness_app_development/pages/run_sequence/run_completed.dart';
 import 'package:fitness_app_development/pages/run_sequence/run_in_progress.dart';
 import 'package:fitness_app_development/pages/run_sequence/start_run.dart';
@@ -32,7 +31,6 @@ void main() => runApp(MaterialApp(
     '/forgot_password' : (context) => Forgot(),
     '/start_run' : (context) => StartRun(),
     '/pause_run' : (context) => RunInProgress(),
-    '/resumeOrEnd' : (context) => ResumeOrEnd(),
     '/run_completed' : (context) => Completed(),
     '/home_page' : (context) => Home(),
     '/friends_page' : (context) => FriendsScreen(),

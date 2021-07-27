@@ -40,11 +40,11 @@ class _ChangeUserNameState extends State<ChangeUserName> {
               height: double.infinity,
               width: double.infinity,
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                    color: Colors.blue,
-                    width: 8,
-                  )
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: [0.5, 1],
+                      colors: [Colors.cyan, Colors.blueAccent.shade700])
               ),
             ),
             Container(
@@ -56,30 +56,34 @@ class _ChangeUserNameState extends State<ChangeUserName> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      'Fitness APP',
-                      style: TextStyle(
-
-                      ),
+                      'Fitness APP', style: TextStyle(
+                        color: Colors.blue[800],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20)
                     ),
                     Text(
-                      'Edit Username',
-                      style: TextStyle(
-
-                      ),
+                      'Edit Username', style: TextStyle(
+                        color: Colors.blue[800],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20)
                     ),
                     SizedBox(height: 200),
 
                     Text(
-                      'Enter New Username',
-                      style: TextStyle(
-
-                      ),
+                      'Enter New Username', style: TextStyle(
+                        color: Colors.blue[800],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20)
                     ),
                     TextField(
                       controller:userController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Username',
+                          labelStyle: TextStyle(
+                              color: Colors.blue[800],
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
                       ),
                     ),
                     SizedBox(height: 20),

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math'show cos, sqrt, asin;
-import 'package:fitness_app_development/pages/run_sequence/resume_end_run.dart';
 import 'package:fitness_app_development/pages/run_sequence/run_completed.dart';
 import 'package:fitness_app_development/run_sequence_util/coordiantes.dart';
 import 'package:fitness_app_development/run_sequence_util/timer_data.dart';
@@ -22,7 +21,6 @@ class RunInProgress extends StatefulWidget {
 
 class _RunInProgressState extends State<RunInProgress> {
   final StopWatchTimer _stopWatchTimer = StopWatchTimer();
-  final _isMinutes = true;
 
   late Position userLocation;
 
@@ -132,110 +130,130 @@ class _RunInProgressState extends State<RunInProgress> {
     return Scaffold(
 
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
-            Text('Run #',style: const TextStyle(
-              fontSize: 50.0,
-              fontWeight: FontWeight.bold,
-            ),),
-            Divider(
-              height: 20,
-              thickness: 2,
-              color: Colors.black,
+
+            Container(
+              height: double.infinity,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: [0.5, 1],
+                      colors: [Colors.cyan, Colors.blueAccent.shade700])
+              ),
             ),
-            Text('Time',style: const TextStyle(
-              fontSize: 80.0,
-              fontWeight: FontWeight.bold,
-            ),),
-            StreamBuilder<int>(
-                stream: _stopWatchTimer.rawTime.asBroadcastStream(),
-                initialData: _stopWatchTimer.rawTime.value,
-                builder: (context, snapshot) {
-                  final value = snapshot.data;
-                  final displayTime = StopWatchTimer.getDisplayTime(
-                      value!, hours: false);
-                  timeInMilli = value;
-                  TimerData.displayTime = displayTime;
-                  return Text(
-                    displayTime,
-                    style: const TextStyle(
-                      fontSize: 80.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  );
-                }),
-            SizedBox(height: 20),
-            Divider(
-              height: 20,
-              thickness: 2,
-              color: Colors.black,
-            ),
-            Text('Distance',style: const TextStyle(
-              fontSize: 80.0,
-              fontWeight: FontWeight.bold,
-            ),),
-            Text(totalDistanceInMIles.toStringAsFixed(2),style: const TextStyle(
-              fontSize: 80.0,
-              fontWeight: FontWeight.bold,
-            ),),
-            //Text('Latitude: $lat'),
-           // Text('Longitude: $lon'),
-            SizedBox(height: 20),
-            Divider(
-              height: 20,
-              thickness: 2,
-              color: Colors.black,
-            ),
-            Text('Pace',style: const TextStyle(
-              fontSize: 80.0,
-              fontWeight: FontWeight.bold,
-            ),),
-            Text(paceT,style: const TextStyle(
-              fontSize: 80.0,
-              fontWeight: FontWeight.bold,
-            ),),
-            SizedBox(height: 20),
-            Divider(
-              height: 20,
-              thickness: 2,
-              color: Colors.black,
-            ),
-            IconButton(
-                icon: CircleAvatar(
-                  backgroundImage: NetworkImage( // Stop //
-                      'https://www.pinclipart.com/picdir/middle/31-315907_red-stop-button-plain-icon-svg-clip-arts.png'
-                  ),
-                  radius: 40,
+
+            Column(
+              children: [
+                SizedBox(height: 20),
+                Text('${TimerData.runName}',style: const TextStyle(
+                  fontSize: 50.0,
+                  fontWeight: FontWeight.bold,
+                ),),
+                SizedBox(height: 15),
+                Divider(
+                  height: 20,
+                  thickness: 2,
+                  color: Colors.black,
                 ),
-                iconSize: 100,
-                onPressed: () async {
-                  _stopWatchTimer.onExecute.add(StopWatchExecute.stop);
-                  _getPositionSubscription.cancel();
+                Text('Time',style: const TextStyle(
+                  fontSize: 80.0,
+                  fontWeight: FontWeight.bold,
+                ),),
+                StreamBuilder<int>(
+                    stream: _stopWatchTimer.rawTime.asBroadcastStream(),
+                    initialData: _stopWatchTimer.rawTime.value,
+                    builder: (context, snapshot) {
+                      final value = snapshot.data;
+                      final displayTime = StopWatchTimer.getDisplayTime(
+                          value!, hours: false);
+                      timeInMilli = value;
+                      TimerData.displayTime = displayTime;
+                      return Text(
+                        displayTime,
+                        style: const TextStyle(
+                          fontSize: 80.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      );
+                    }),
+                SizedBox(height: 20),
+                Divider(
+                  height: 20,
+                  thickness: 2,
+                  color: Colors.black,
+                ),
+                Text('Distance',style: const TextStyle(
+                  fontSize: 80.0,
+                  fontWeight: FontWeight.bold,
+                ),),
+                Text(totalDistanceInMIles.toStringAsFixed(2),style: const TextStyle(
+                  fontSize: 80.0,
+                  fontWeight: FontWeight.bold,
+                ),),
+                //Text('Latitude: $lat'),
+                // Text('Longitude: $lon'),
+                SizedBox(height: 20),
+                Divider(
+                  height: 20,
+                  thickness: 2,
+                  color: Colors.black,
+                ),
+                Text('Pace',style: const TextStyle(
+                  fontSize: 80.0,
+                  fontWeight: FontWeight.bold,
+                ),),
+                Text(paceT,style: const TextStyle(
+                  fontSize: 80.0,
+                  fontWeight: FontWeight.bold,
+                ),),
+                SizedBox(height: 20),
+                Divider(
+                  height: 20,
+                  thickness: 2,
+                  color: Colors.black,
+                ),
+                SizedBox(height: 10),
+                IconButton(
+                    icon: CircleAvatar(
+                      backgroundImage: NetworkImage( // Stop //
+                          'https://www.pinclipart.com/picdir/middle/31-315907_red-stop-button-plain-icon-svg-clip-arts.png'
+                      ),
+                      radius: 40,
+                    ),
+                    iconSize: 100,
+                    onPressed: () async {
+                      _stopWatchTimer.onExecute.add(StopWatchExecute.stop);
+                      _getPositionSubscription.cancel();
 
-                  TimerData.stopWatchTimer = _stopWatchTimer;
-                  TimerData.rawTime = _stopWatchTimer.rawTime.value;
-                  TimerData.secondTime = _stopWatchTimer.secondTime.value;
-                  TimerData.minuteTime = _stopWatchTimer.minuteTime.value;
-                  TimerData.totalDistance = totalDistanceInMIles;
-                  TimerData.latitude = lat;
-                  TimerData.longitude = lon;
-                  TimerData.pace = pace;
+                      TimerData.stopWatchTimer = _stopWatchTimer;
+                      TimerData.rawTime = _stopWatchTimer.rawTime.value;
+                      TimerData.secondTime = _stopWatchTimer.secondTime.value;
+                      TimerData.minuteTime = _stopWatchTimer.minuteTime.value;
+                      TimerData.totalDistance = totalDistanceInMIles;
+                      TimerData.latitude = lat;
+                      TimerData.longitude = lon;
+                      TimerData.pace = pace;
 
-                  print('lat + $lat');
-                  print('lon + $lon');
-                  String hi = jsonEncode(coords);
-                  print("hi");
-                  print(hi);
-                  TimerData.hi = hi;
-                  TimerData.cordies = List.from(coordsForMap);
+                      print('lat + $lat');
+                      print('lon + $lon');
+                      String hi = jsonEncode(coords);
+                      print("hi");
+                      print(hi);
+                      TimerData.hi = hi;
+                      TimerData.cordies = List.from(coordsForMap);
 
-                  await GetAPI.addRun(3);
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => Completed()));
-                }
+                      await GetAPI.addRun();
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => Completed()));
+                    }
+                ),
+
+
+              ],
             ),
-
-
           ],
         ),
       ),
