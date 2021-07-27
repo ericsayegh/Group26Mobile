@@ -1,11 +1,15 @@
 
+import 'dart:io';
+
 import 'package:fitness_app_development/pages/run_sequence/start_run.dart';
 import 'package:fitness_app_development/pages/settings.dart';
 import 'package:fitness_app_development/pages/users_page.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
+import 'package:fitness_app_development/utilities/pref_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'friends.dart';
 import 'home_page.dart';
@@ -22,10 +26,12 @@ class _UserState extends State<User> {
   String username = '';
   int runCompleted = 0;
   String email = 'placeholder@gmail.com';
+  XFile? fileImg;
 
 
   @override
   void initState() {
+    refreshImage();
     changeUsername();
     changeFitnessLevel();
     changeRunsCompleted();
@@ -34,6 +40,13 @@ class _UserState extends State<User> {
     super.initState();
   }
 
+  Future<void> refreshImage() async {
+    String? imagePath = await PrefService.getProfileImage();
+    if(imagePath != null){
+      fileImg = XFile(imagePath);
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,192 +67,216 @@ class _UserState extends State<User> {
       ),
 
       body: Column(
-        mainAxisSize: MainAxisSize.max,
         children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
 
-                Center(
-                  child: CircleAvatar(// can add link to users profile pictures for this
-                    backgroundImage: NetworkImage(// PLACEHOLDER //
-                        'https://post.greatist.com/wp-content/uploads/2020/01/Runner-training-on-running-track-732x549-thumbnail.jpg'),
-                    radius: (MediaQuery.of(context).size.width) * .2,
+                  Center(
+                    child: CircleAvatar(
+                      backgroundImage: getImage(),
+                      radius: (MediaQuery.of(context).size.width) * .2,
+                    ),
                   ),
-                ),
-                Divider(
-                  height: (MediaQuery.of(context).size.height) * .08,
-                  color: Colors.grey[800],
+                  Divider(
+                    height: 30,
+                    color: Colors.grey[800],
 
 
-                ),
-                TextButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));
-                    },
-                    child: Text("Edit User")
-                ),
-                SizedBox(height: 10),
-
-                Text(
-                    'USERNAME',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      letterSpacing: 2.0,
-                    )
-                ),
-
-                Text(
-                    '$username',
-                    style: TextStyle(
-                        color: Colors.amberAccent[200],
-                        letterSpacing: 2.0,
-                        fontSize: 28.0,
-                        fontWeight: FontWeight.bold
-
-                    )
-                ),
-                SizedBox(height: 30),
-                Text(
-                    'Fitness Level',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      letterSpacing: 2.0,
-                    )
-                ),
-                SizedBox(height: 10),
-                Text(
-                    '$fitnessLevel',
-                    style: TextStyle(
-                        color: Colors.amberAccent[200],
-                        letterSpacing: 2.0,
-                        fontSize: 28.0,
-                        fontWeight: FontWeight.bold
-
-                    )
-                ),
-                SizedBox(height: 30),
-
-                Text(
-                    'Runs Completed',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      letterSpacing: 2.0,
-                    )
-                ),
-                SizedBox(height: 10),
-                Text(
-                    '$runCompleted',
-                    style: TextStyle(
-                        color: Colors.amberAccent[200],
-                        letterSpacing: 2.0,
-                        fontSize: 28.0,
-                        fontWeight: FontWeight.bold
-
-                    )
-                ),
-                SizedBox(height: 30),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.email,
-                      color: Colors.grey[400],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30),
+                    child: TextButton(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));
+                        },
+                        child: Text("Edit User")
                     ),
-                    SizedBox(width: 10.0),
-                    Text(
-                        '$email',
-                        style: TextStyle(
-                          color: Colors.grey[400],
-                          fontSize: 18,
-                          letterSpacing: 1.0,
-                        )
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 30,right: 30),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 10),
+                            Text(
+                                'USERNAME',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  letterSpacing: 2.0,
+                                )
+                            ),
+                            Text(
+                                '${GlobalData.userName}',
+                                style: TextStyle(
+                                    color: Colors.amberAccent[200],
+                                    letterSpacing: 2.0,
+                                    fontSize: 28.0,
+                                    fontWeight: FontWeight.bold
+
+                                )
+                            ),
+                            SizedBox(height: 30),
+                            Text(
+                                'Full Name',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  letterSpacing: 2.0,
+                                )
+                            ),
+                            Text(
+                                '${GlobalData.fullName}',
+                                style: TextStyle(
+                                    color: Colors.amberAccent[200],
+                                    letterSpacing: 2.0,
+                                    fontSize: 28.0,
+                                    fontWeight: FontWeight.bold
+
+                                )
+                            ),
+                            SizedBox(height: 30),
+                            Text(
+                                'Total Runs',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  letterSpacing: 2.0,
+                                )
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                                '${GlobalData.totalRuns}',
+                                style: TextStyle(
+                                    color: Colors.amberAccent[200],
+                                    letterSpacing: 2.0,
+                                    fontSize: 28.0,
+                                    fontWeight: FontWeight.bold
+
+                                )
+                            ),
+                            SizedBox(height: 30),
+                            Text(
+                                'Total Distance',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  letterSpacing: 2.0,
+                                )
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                                '${GlobalData.totalDistance!.toStringAsFixed(4)}',
+                                style: TextStyle(
+                                    color: Colors.amberAccent[200],
+                                    letterSpacing: 2.0,
+                                    fontSize: 28.0,
+                                    fontWeight: FontWeight.bold
+
+                                )
+                            ),
+                            SizedBox(height: 30),
+                            Text(
+                                'Total Time',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  letterSpacing: 2.0,
+                                )
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                                '${GlobalData.totalTime}',
+                                style: TextStyle(
+                                    color: Colors.amberAccent[200],
+                                    letterSpacing: 2.0,
+                                    fontSize: 28.0,
+                                    fontWeight: FontWeight.bold
+
+                                )
+                            ),
+
+                            SizedBox(height: 30),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.email,
+                                  color: Colors.grey[400],
+                                ),
+                                SizedBox(width: 10.0),
+                                Text(
+                                    '${(GlobalData.email == '' ? "null" : "${GlobalData.email}")}',
+                                    style: TextStyle(
+                                      color: Colors.grey[400],
+                                      fontSize: 18,
+                                      letterSpacing: 1.0,
+                                    )
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 30),
+                          ],
+                        ),
+                      ),
                     ),
-                  ],
-                ),
-                SizedBox(height: 30),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.phone,
-                      color: Colors.grey[400],
-                    ),
-                    SizedBox(width: 10.0),
-                    Text(
-                        '954-954-9544',
-                        style: TextStyle(
-                          color: Colors.grey[400],
-                          fontSize: 18,
-                          letterSpacing: 1.0,
-                        )
-                    ),
-                  ],
-                )
+                  ),
 
 
-              ],
+                ],
+              ),
             ),
           ),
-          Expanded(
-            child: Align(
-              alignment:  FractionalOffset.bottomCenter,
-              child: SizedBox(
-                height: (MediaQuery.of(context).size.height) * .077,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.blue[200],
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
-                        },
-                        icon: Icon(Icons.home),
-                        iconSize: (MediaQuery.of(context).size.height) * .06,
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UsersScreen()));
-                        },
-                        icon: Icon(Icons.search),
-                        iconSize: (MediaQuery.of(context).size.height) * .06,
+          Container(
+            height: MediaQuery.of(context).size.height/15,
+            decoration: BoxDecoration(
+              color: Colors.blue[200],
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+                  },
+                  icon: Icon(Icons.home),
+                  iconSize: (MediaQuery.of(context).size.height) * .06,
+                ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UsersScreen()));
+                  },
+                  icon: Icon(Icons.search),
+                  iconSize: (MediaQuery.of(context).size.height) * .06,
 
-                      ),
-                      FloatingActionButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StartRun()));
-                        },
-                        child: Icon(Icons.add),
-                        backgroundColor: Colors.green,
-                        elevation: 10,
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FriendsScreen()));
-                        },
-                        icon: Icon(Icons.contact_page_rounded),
-                        iconSize: (MediaQuery.of(context).size.height) * .06,
+                ),
+                FloatingActionButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StartRun()));
+                  },
+                  child: Icon(Icons.add),
+                  backgroundColor: Colors.green,
+                  elevation: 10,
+                ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FriendsScreen()));
+                  },
+                  icon: Icon(Icons.contact_page_rounded),
+                  iconSize: (MediaQuery.of(context).size.height) * .06,
 
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => User()));
-                        },
-                        icon: Icon(Icons.portrait_rounded),
-                        iconSize: (MediaQuery.of(context).size.height) * .06,
+                ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => User()));
+                  },
+                  icon: Icon(Icons.portrait_rounded),
+                  iconSize: (MediaQuery.of(context).size.height) * .06,
 
-                      ),
-
-                    ],
-                  ),
                 ),
 
-
-              ),
+              ],
             ),
           )
 
@@ -268,7 +305,7 @@ class _UserState extends State<User> {
   Future<void> changeEmail() async {
 
     String search = '';
-    search = GlobalData.fullName!;
+    search = GlobalData.fullName;
 
 
     await GetAPI.searchUsers(search);
@@ -277,4 +314,11 @@ class _UserState extends State<User> {
 
   }
 
+  ImageProvider getImage(){
+    if(fileImg == null){
+      return AssetImage('assets/images/profile_picture.jpeg');
+    }else{
+      return FileImage(File(fileImg!.path));
+    }
+  }
 }

@@ -1,15 +1,19 @@
 
 
+import 'dart:io';
+
 import 'package:fitness_app_development/pages/get_run_name.dart';
 import 'package:fitness_app_development/pages/old_run.dart';
 import 'package:fitness_app_development/pages/settings.dart';
 import 'package:fitness_app_development/pages/user_profile.dart';
 import 'package:fitness_app_development/pages/users_page.dart';
 import 'package:fitness_app_development/utilities/personal_run_data.dart';
+import 'package:fitness_app_development/utilities/pref_service.dart';
 import 'package:fitness_app_development/utilities/results_runs.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/pages/friends.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 class Home extends StatefulWidget {
@@ -24,9 +28,11 @@ class _HomeState extends State<Home> {
   double totalDistance = 0, newDistance = 0;
   int totalTIme = 0, newTime = 0;
   List<GetResults2> resultObjs = [];
+  XFile? fileImg;
 
   @override
   void initState() {
+    refreshImage();
     changeText();
     changeTotalRuns();
     changeTotalDistance();
@@ -34,6 +40,21 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
+  Future<void> refreshImage() async {
+    String? imagePath = await PrefService.getProfileImage();
+    if(imagePath != null){
+      fileImg = XFile(imagePath);
+      setState(() {});
+    }
+  }
+
+  ImageProvider getImage(){
+    if(fileImg == null){
+      return AssetImage('assets/images/profile_picture.jpeg');
+    }else{
+      return FileImage(File(fileImg!.path));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,8 +95,7 @@ class _HomeState extends State<Home> {
 
                             IconButton(
                                 icon: CircleAvatar( // can add link to users profile pictures for this
-                                  backgroundImage: NetworkImage( // PLACEHOLDER //
-                                      'https://post.greatist.com/wp-content/uploads/2020/01/Runner-training-on-running-track-732x549-thumbnail.jpg'),
+                                  backgroundImage: getImage(),
                                   radius: 40,
                                 ),
                                 iconSize: (MediaQuery.of(context).size.height) * .08,

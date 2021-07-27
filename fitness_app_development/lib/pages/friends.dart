@@ -6,6 +6,7 @@ import 'package:fitness_app_development/friends_util/friends_provider.dart';
 import 'package:fitness_app_development/pages/run_sequence/start_run.dart';
 import 'package:fitness_app_development/pages/user_profile.dart';
 import 'package:fitness_app_development/pages/users_page.dart';
+import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,10 +20,10 @@ class FriendsScreen extends StatefulWidget {
 }
 
 class _FriendsScreenState extends State<FriendsScreen> {
-
   Timer? timeHandle;
   Future<List<Result>>? list;
- var viewModel = MainViewModel();
+  var viewModel = MainViewModel();
+
   void textChanged(String val) {
     if (timeHandle != null) {
       timeHandle?.cancel();
@@ -32,6 +33,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
       viewModel.searchFriendApi(val);
     });
   }
+
   @override
   void initState() {
     //final mainViewModel = Provider.of<MainViewModel>(co, listen: false);
@@ -40,10 +42,12 @@ class _FriendsScreenState extends State<FriendsScreen> {
   }
 
   @override
-  void dispose(){ // dispose controller when page is disposed
+  void dispose() {
+    // dispose controller when page is disposed
     viewModel.dispose();
     super.dispose();
   }
+
   getUsers(String value) async {
     print("Calling now the API get user: $value");
 
@@ -59,13 +63,14 @@ class _FriendsScreenState extends State<FriendsScreen> {
         centerTitle: true,
         leading: new IconButton(
           onPressed: () {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => Home()));
           },
           icon: new Icon(Icons.arrow_back, color: Colors.orange),
         ),
       ),
       body: ChangeNotifierProvider(
-        create: (_) =>viewModel,
+        create: (_) => viewModel,
         child: Container(
             height: double.infinity,
             width: double.infinity,
@@ -74,22 +79,21 @@ class _FriendsScreenState extends State<FriendsScreen> {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     stops: [0.5, 1],
-                    colors: [Colors.cyan, Colors.blueAccent.shade700])
-            ),
+                    colors: [Colors.cyan, Colors.blueAccent.shade700])),
             child: Column(
               children: [
                 SizedBox(
                   height: 20,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left:18.0,right: 18),
+                  padding: const EdgeInsets.only(left: 18.0, right: 18),
                   child: SearchBar(
-                      hintText: 'Search Friends',
-                      onChangeTextForSearch: (String val){
-                        print("value : $val");
-                        if(val.isEmpty){
-                          viewModel.searchFriendApi('');
-                        }
+                    hintText: 'Search Friends',
+                    onChangeTextForSearch: (String val) {
+                      print("value : $val");
+                      if (val.isEmpty) {
+                        viewModel.searchFriendApi('');
+                      }
 //                        if(val.length>0){
 //                          textChanged(val);
 //                        }else{
@@ -97,36 +101,75 @@ class _FriendsScreenState extends State<FriendsScreen> {
 //                          viewModel.searchFriendApi('');
 //
 //                        }
-
-                      },
-                    onTextReadyForSearch: (String value){
+                    },
+                    onTextReadyForSearch: (String value) {
                       viewModel.searchFriendApi(value);
                     },
-
                   ),
                 ),
-
                 SizedBox(
                   height: 20,
                 ),
-
                 Consumer<MainViewModel>(
                   builder: (_, viewModel, __) => FutureBuilder<List<Result>>(
                       future: viewModel.list,
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.done) {
+                        if (snapshot.connectionState == ConnectionState.done) {
                           if (snapshot.hasError) {
                             return Text("${snapshot.error}",
                                 style: TextStyle(color: Colors.red));
                           } else if (snapshot.hasData) {
                             print("data length L ${snapshot.data!.length}");
                             return ListView.builder(
-                              shrinkWrap: true,
+                                shrinkWrap: true,
                                 physics: AlwaysScrollableScrollPhysics(),
                                 itemCount: snapshot.data!.length,
                                 itemBuilder: (BuildContext bc, int index) {
-                                  return RowView("${snapshot.data![index].fullName}");
+                                  return Row(
+                                    children: [
+                                      Expanded(
+                                          child: RowView(
+                                              "${snapshot.data![index].fullName}")),
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 10),
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                title: Text("Confirmation!"),
+                                                content: Text(
+                                                    "Are you sure you want to remove this friend?"),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                      GetAPI.removefriend(snapshot.data![index].userId.toInt()).then((value){
+                                                        viewModel.list!.then((value) => value.removeAt(index));
+                                                        setState(() {});
+                                                      });
+                                                    },
+                                                    child: Text(
+                                                      'Yes',
+                                                    ),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Text(
+                                                      'No',
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                          child: Text("Remove"),
+                                        ),
+                                      ),
+                                    ],
+                                  );
                                 });
                           } else {
                             return Text(
@@ -136,11 +179,10 @@ class _FriendsScreenState extends State<FriendsScreen> {
                           }
                         } else if (snapshot.connectionState ==
                             ConnectionState.none) {
-                          return Container(
-
-                          );
+                          return Container();
                         } else {
-                          return Center(child: CircularProgressIndicator(
+                          return Center(
+                              child: CircularProgressIndicator(
                             backgroundColor: Colors.red,
                           ));
                         }
@@ -148,7 +190,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                 ),
                 Expanded(
                   child: Align(
-                    alignment:  FractionalOffset.bottomCenter,
+                    alignment: FractionalOffset.bottomCenter,
                     child: SizedBox(
                       height: (MediaQuery.of(context).size.height) * .077,
                       child: Container(
@@ -161,22 +203,32 @@ class _FriendsScreenState extends State<FriendsScreen> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Home()));
                               },
                               icon: Icon(Icons.home),
-                              iconSize: (MediaQuery.of(context).size.height) * .06,
+                              iconSize:
+                                  (MediaQuery.of(context).size.height) * .06,
                             ),
                             IconButton(
                               onPressed: () {
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UsersScreen()));
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => UsersScreen()));
                               },
                               icon: Icon(Icons.search),
-                              iconSize: (MediaQuery.of(context).size.height) * .06,
-
+                              iconSize:
+                                  (MediaQuery.of(context).size.height) * .06,
                             ),
                             FloatingActionButton(
                               onPressed: () {
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StartRun()));
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => StartRun()));
                               },
                               child: Icon(Icons.add),
                               backgroundColor: Colors.green,
@@ -184,26 +236,29 @@ class _FriendsScreenState extends State<FriendsScreen> {
                             ),
                             IconButton(
                               onPressed: () {
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FriendsScreen()));
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => FriendsScreen()));
                               },
                               icon: Icon(Icons.contact_page_rounded),
-                              iconSize: (MediaQuery.of(context).size.height) * .06,
-
+                              iconSize:
+                                  (MediaQuery.of(context).size.height) * .06,
                             ),
                             IconButton(
                               onPressed: () {
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => User()));
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => User()));
                               },
                               icon: Icon(Icons.portrait_rounded),
-                              iconSize: (MediaQuery.of(context).size.height) * .06,
-
+                              iconSize:
+                                  (MediaQuery.of(context).size.height) * .06,
                             ),
-
                           ],
                         ),
                       ),
-
-
                     ),
                   ),
                 )
@@ -217,8 +272,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
 class RowView extends StatelessWidget {
   String name;
 
-  RowView(this.name, {Key? key})
-      : super(key: key);
+  RowView(this.name, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -226,25 +280,24 @@ class RowView extends StatelessWidget {
       width: double.infinity,
       height: 50,
       child: Padding(
-        padding: const EdgeInsets.only(left:18.0,right: 18.0),
+        padding: const EdgeInsets.only(left: 18.0, right: 18.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-        Expanded(
-          child: Text(
-            name,
-            style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 30),
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {},
-          child: Text("Profile"),
-        ),
-
+            Expanded(
+              child: Text(
+                name,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text("Profile"),
+            ),
           ],
         ),
       ),
