@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:fitness_app_development/pages/home_page/home_screen.dart';
 import 'package:fitness_app_development/pages/settings.dart';
+import 'package:fitness_app_development/utilities/asset_res.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'home_page2.dart';
 
@@ -26,71 +28,94 @@ class _ChangeUserNameState extends State<ChangeUserName> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Edit Username'),
-          leading: new IconButton(
-            onPressed: () {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Settings()));
-            },
-            icon: new Icon(Icons.arrow_back, color: Colors.orange),
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+          Container(
+            height: Get.height,
+            width: Get.width,
           ),
-        ),
-        body: Stack(
-          children: [
-            Container(
-              height: double.infinity,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      stops: [0.5, 1],
-                      colors: [Colors.cyan, Colors.blueAccent.shade700])
-              ),
+          Positioned(
+            top: 0,
+            left: 0,
+            child: Stack(
+              alignment: AlignmentDirectional(0,0),
+              children: [
+                Container(
+                  height: Get.height/4,
+                  width: Get.width,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(25),
+                      bottomRight: Radius.circular(25),
+                    ),
+                    child: Image.asset(AssetRes.backGroundImage,fit: BoxFit.cover,),
+                  ),
+                ),
+                Text("Free Runner",style: TextStyle(color: Colors.white,fontSize: 24,fontFamily: "Constantia",fontWeight: FontWeight.w500),),
+              ],
             ),
-            Container(
-              child: SingleChildScrollView(
-                physics: AlwaysScrollableScrollPhysics(),
-                padding: EdgeInsets.symmetric(vertical: 80.0, horizontal: 40.0),
-
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Fitness APP', style: TextStyle(
-                        color: Colors.blue[800],
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20)
+          ),
+          //Text("Free Runner",style: TextStyle(color: Colors.white,fontSize: 24,fontFamily: "Constantia",fontWeight: FontWeight.w500),),
+          SingleChildScrollView(
+            child: Container(
+              margin: EdgeInsets.only(top: Get.height / 4.8, left: 20, right: 20),
+              padding: EdgeInsets.symmetric(horizontal: 30),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(35),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xFF4695A2).withOpacity(0.5),
+                    offset: Offset(0, 0),
+                    blurRadius: 5,
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 80),
+                  Center(
+                    child: Text(
+                      "Edit Username",
+                      style: TextStyle(
+                          color: Color(0xFF4695A2),
+                          fontSize: 31,
+                          fontWeight: FontWeight.w600),
                     ),
-                    Text(
-                      'Edit Username', style: TextStyle(
-                        color: Colors.blue[800],
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20)
-                    ),
-                    SizedBox(height: 200),
-
-                    Text(
-                      'Enter New Username', style: TextStyle(
-                        color: Colors.blue[800],
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20)
-                    ),
-                    TextField(
-                      controller:userController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Username',
-                          labelStyle: TextStyle(
-                              color: Colors.blue[800],
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
+                  ),
+                  SizedBox(height: 80),
+                  Text("    Enter New Username",style: TextStyle(color: Color(0xFF5B5B5B),fontSize: 13),),
+                  SizedBox(height: 10),
+                  Container(
+                    height: 55,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(50),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            offset: Offset(0, 0),
+                            blurRadius: 3,
+                          ),
+                        ]),
+                    child: Center(
+                      child: TextField(
+                        controller: userController,
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.only(left: 20),
+                            hintText: "Username",
+                            hintStyle: TextStyle(color: Color(0xFF4695A2))),
                       ),
                     ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () async { // connect to the reset email api or whatever here
-
+                  ),
+                  SizedBox(height: 40),
+                  Center(
+                    child: InkWell(
+                      onTap: () async {
                         String username = userController.text;
 
 
@@ -104,19 +129,46 @@ class _ChangeUserNameState extends State<ChangeUserName> {
                         {
                           print(e);
                         }
-
-
                       },
-                      child: Text('Change'),
+                      child: Container(
+                        height: 45,
+                        width: 120,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          gradient: LinearGradient(colors: [
+                            Color(0xFF4297FE),
+                            Color(0xFF76DDFF),
+                          ]),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Change",
+                            style: TextStyle(color: Colors.white,fontSize: 15),
+                          ),
+                        ),
+                      ),
                     ),
-
-                  ],
-                ),
+                  ),
+                  SizedBox(height: (Get.height/3)),
+                ],
               ),
-
             ),
-          ],
-        )
+          ),
+          Positioned(
+            top: 50,
+            left: 15,
+            child: InkWell(
+              onTap: (){
+                Get.back();
+              },
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Icon(Icons.arrow_back,color: Colors.white,size: 27,),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

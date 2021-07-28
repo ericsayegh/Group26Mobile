@@ -23,18 +23,34 @@ class _UserState extends State<ProfilePage> {
   @override
   void initState() {
     /// default values to use in displaying
-    _email = widget.userEmail;
+
+    if(isEmail(widget.userEmail!) == false){
+      _email = "${widget.userEmail}@gmail.com";
+    }else if(widget.userEmail == null){
+      _email = "example@gmail.com";
+    }else{
+      _email = widget.userEmail;
+    }
     _gravatar = Gravatar(_email!);
+  }
+
+  bool isEmail(String em) {
+
+    String p = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+
+    RegExp regExp = new RegExp(p);
+
+    return regExp.hasMatch(em);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[900],
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('User Profile'),
         centerTitle: true,
-        backgroundColor: Colors.grey[850],
+        backgroundColor: Color(0xFF4294A2),
         elevation: 0.0,
       ),
       body: Padding(
@@ -56,41 +72,41 @@ class _UserState extends State<ProfilePage> {
               height: 60.0,
               color: Colors.grey[800],
             ),
-            Text('USERNAME',
+            Text('Username',
                 style: TextStyle(
-                  color: Colors.grey,
+                  color: Color(0xFF5B5B5B),
                   letterSpacing: 2.0,
                 )),
             SizedBox(height: 10),
             Text('${widget.userName}',
                 style: TextStyle(
-                    color: Colors.amberAccent[200],
+                    color: Color(0xFF4395A1),
                     letterSpacing: 2.0,
                     fontSize: 28.0,
                     fontWeight: FontWeight.bold)),
             SizedBox(height: 30),
             Text('Fitness Level',
                 style: TextStyle(
-                  color: Colors.grey,
+                  color: Color(0xFF5B5B5B),
                   letterSpacing: 2.0,
                 )),
             SizedBox(height: 10),
             Text('3',
                 style: TextStyle(
-                    color: Colors.amberAccent[200],
+                    color: Color(0xFF4395A1),
                     letterSpacing: 2.0,
                     fontSize: 28.0,
                     fontWeight: FontWeight.bold)),
             SizedBox(height: 30),
             Text('Runs Completed',
                 style: TextStyle(
-                  color: Colors.grey,
+                  color: Color(0xFF5B5B5B),
                   letterSpacing: 2.0,
                 )),
             SizedBox(height: 10),
             Text('${widget.totalRun}',
                 style: TextStyle(
-                    color: Colors.amberAccent[200],
+                    color: Color(0xFF4395A1),
                     letterSpacing: 2.0,
                     fontSize: 28.0,
                     fontWeight: FontWeight.bold)),
@@ -99,12 +115,12 @@ class _UserState extends State<ProfilePage> {
               children: [
                 Icon(
                   Icons.email,
-                  color: Colors.grey[400],
+                  color: Color(0xFF5B5B5B),
                 ),
                 SizedBox(width: 10.0),
                 Text('${widget.userEmail}',
                     style: TextStyle(
-                      color: Colors.grey[400],
+                      color: Color(0xFF4395A1),
                       fontSize: 18,
                       letterSpacing: 1.0,
                     )),

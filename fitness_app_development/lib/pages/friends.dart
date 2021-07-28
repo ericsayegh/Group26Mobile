@@ -4,6 +4,7 @@ import 'package:fitness_app_development/friends_util/search_friend_response.dart
 import 'package:fitness_app_development/friends_util/searchBar.dart';
 import 'package:fitness_app_development/friends_util/friends_provider.dart';
 import 'package:fitness_app_development/pages/home_page/home_screen.dart';
+import 'package:fitness_app_development/pages/profile_page.dart';
 import 'package:fitness_app_development/pages/run_sequence/start_run.dart';
 import 'package:fitness_app_development/pages/user_profile.dart';
 import 'package:fitness_app_development/pages/users_page.dart';
@@ -58,6 +59,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0.0,
         title: Text("Friends Page"),
@@ -78,7 +80,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
             width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.white,
-                /*gradient: LinearGradient(
+              /*gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     stops: [0.5, 1],
@@ -131,18 +133,103 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                   itemCount: snapshot.data!.length,
                                   itemBuilder: (BuildContext bc, int index) {
                                     return Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Expanded(
-                                            child: RowView(
-                                                "${snapshot.data![index].fullName}")),
+                                            child: Container(
+                                          width: double.infinity,
+                                          height: 50,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 18.0,
+                                                right: 10.0,
+                                                bottom: 10),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Expanded(
+                                                  child: Container(
+                                                    height: 50,
+                                                    margin: EdgeInsets.only(
+                                                        right: 20),
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFF4395A1),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50),
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        '${snapshot.data![index].fullName}',
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 14),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) => ProfilePage(
+                                                                userName: snapshot
+                                                                    .data![
+                                                                        index]
+                                                                    .fullName,
+                                                                userEmail:
+                                                                    snapshot
+                                                                        .data![
+                                                                            index]
+                                                                        .email,
+                                                                totalRun: snapshot
+                                                                    .data![
+                                                                        index]
+                                                                    .totalRuns)));
+                                                  },
+                                                  child: Container(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 16,
+                                                            vertical: 10),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50),
+                                                      border: Border.all(
+                                                        width: 2,
+                                                        color:
+                                                            Color(0xFF4395A1),
+                                                      ),
+                                                    ),
+                                                    child: Text(
+                                                      "Profiles",
+                                                      style: TextStyle(
+                                                          color:
+                                                              Color(0xFF4395A1),
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )),
                                         Padding(
-                                          padding: const EdgeInsets.only(right: 10),
+                                          padding:
+                                              const EdgeInsets.only(right: 10),
                                           child: InkWell(
                                             onTap: () {
                                               showDialog(
                                                 context: context,
-                                                builder: (context) => AlertDialog(
+                                                builder: (context) =>
+                                                    AlertDialog(
                                                   title: Text("Confirmation!"),
                                                   content: Text(
                                                       "Are you sure you want to remove this friend?"),
@@ -150,8 +237,17 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                                     TextButton(
                                                       onPressed: () {
                                                         Navigator.pop(context);
-                                                        GetAPI.removefriend(snapshot.data![index].userId.toInt()).then((value){
-                                                          viewModel.list!.then((value) => value.removeAt(index));
+                                                        GetAPI.removefriend(
+                                                                snapshot
+                                                                    .data![
+                                                                        index]
+                                                                    .userId
+                                                                    .toInt())
+                                                            .then((value) {
+                                                          viewModel.list!.then(
+                                                              (value) => value
+                                                                  .removeAt(
+                                                                      index));
                                                           setState(() {});
                                                         });
                                                       },
@@ -172,15 +268,23 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                               );
                                             },
                                             child: Container(
-                                              padding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 15, vertical: 10),
                                               decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(50),
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
                                                 border: Border.all(
                                                   width: 2,
                                                   color: Color(0xFF4395A1),
                                                 ),
                                               ),
-                                              child: Text("Remove",style: TextStyle(color: Color(0xFF4395A1),fontWeight: FontWeight.bold),),
+                                              child: Text(
+                                                "Remove",
+                                                style: TextStyle(
+                                                    color: Color(0xFF4395A1),
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -205,6 +309,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                         }
                       }),
                 ),
+                Spacer(),
                 Align(
                   alignment: FractionalOffset.bottomCenter,
                   child: SizedBox(
@@ -295,7 +400,7 @@ class RowView extends StatelessWidget {
       width: double.infinity,
       height: 50,
       child: Padding(
-        padding: const EdgeInsets.only(left: 18.0, right: 10.0,bottom: 10),
+        padding: const EdgeInsets.only(left: 18.0, right: 10.0, bottom: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -303,20 +408,15 @@ class RowView extends StatelessWidget {
             Expanded(
               child: Container(
                 height: 50,
-                margin: EdgeInsets.only(
-                    right: 20),
+                margin: EdgeInsets.only(right: 20),
                 decoration: BoxDecoration(
                   color: Color(0xFF4395A1),
-                  borderRadius:
-                  BorderRadius.circular(
-                      50),
+                  borderRadius: BorderRadius.circular(50),
                 ),
                 child: Center(
                   child: Text(
                     '$name',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14),
+                    style: TextStyle(color: Colors.white, fontSize: 14),
                   ),
                 ),
               ),
@@ -324,7 +424,7 @@ class RowView extends StatelessWidget {
             InkWell(
               onTap: () {},
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16,vertical: 10),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
                   border: Border.all(
@@ -332,7 +432,11 @@ class RowView extends StatelessWidget {
                     color: Color(0xFF4395A1),
                   ),
                 ),
-                child: Text("Profiles",style: TextStyle(color: Color(0xFF4395A1),fontWeight: FontWeight.bold),),
+                child: Text(
+                  "Profiles",
+                  style: TextStyle(
+                      color: Color(0xFF4395A1), fontWeight: FontWeight.bold),
+                ),
               ),
             ),
           ],

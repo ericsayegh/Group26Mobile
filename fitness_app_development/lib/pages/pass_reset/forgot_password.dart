@@ -57,121 +57,123 @@ class _ForgotState extends State<Forgot> {
             ),
           ),
           //Text("Free Runner",style: TextStyle(color: Colors.white,fontSize: 24,fontFamily: "Constantia",fontWeight: FontWeight.w500),),
-          Container(
-            margin: EdgeInsets.only(top: Get.height / 4.8, left: 20, right: 20),
-            padding: EdgeInsets.symmetric(horizontal: 30),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(35),
-              boxShadow: [
-                BoxShadow(
-                  color: Color(0xFF4695A2).withOpacity(0.5),
-                  offset: Offset(0, 0),
-                  blurRadius: 5,
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(height: 90),
-                Text(
-                  "Password\nRecovery",
-                  style: TextStyle(
-                      color: Color(0xFF4695A2),
-                      fontSize: 31,
-                      fontWeight: FontWeight.w600),
-                ),
-                SizedBox(height: 100),
-                Row(
-                  children: [
-                    Container(
-                      width: Get.width/1.7,
-                      child: Text(
-                        "Please enter the email associated with your account",
-                        style: TextStyle(
-                          color: Colors.black.withOpacity(0.5),
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 12),
-                Container(
-                  height: 55,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(50),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          offset: Offset(0, 0),
-                          blurRadius: 3,
+          SingleChildScrollView(
+            child: Container(
+              margin: EdgeInsets.only(top: Get.height / 4.8, left: 20, right: 20),
+              padding: EdgeInsets.symmetric(horizontal: 30),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(35),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xFF4695A2).withOpacity(0.5),
+                    offset: Offset(0, 0),
+                    blurRadius: 5,
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 90),
+                  Text(
+                    "Password\nRecovery",
+                    style: TextStyle(
+                        color: Color(0xFF4695A2),
+                        fontSize: 31,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  SizedBox(height: 100),
+                  Row(
+                    children: [
+                      Container(
+                        width: Get.width/1.7,
+                        child: Text(
+                          "Please enter the email associated with your account",
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.5),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600),
                         ),
-                      ]),
-                  child: Center(
-                    child: TextField(
-                      controller: emailController,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.only(left: 20),
-                          hintText: "Email Address",
-                          hintStyle: TextStyle(color: Color(0xFF4695A2))),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 12),
+                  Container(
+                    height: 55,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(50),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            offset: Offset(0, 0),
+                            blurRadius: 3,
+                          ),
+                        ]),
+                    child: Center(
+                      child: TextField(
+                        controller: emailController,
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.only(left: 20),
+                            hintText: "Email Address",
+                            hintStyle: TextStyle(color: Color(0xFF4695A2))),
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 60),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: (){
-                        String email = emailController.text;
-                        GetAPI.sendPasswordEmail(email);
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Forgot2()));
-                      },
-                      child: Container(
-                        height: 45,
-                        width: 120,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          gradient: LinearGradient(colors: [
-                            Color(0xFF4297FE),
-                            Color(0xFF76DDFF),
-                          ]),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Reset",
-                            style: TextStyle(color: Colors.white,fontSize: 15),
+                  SizedBox(height: 60),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: (){
+                          String email = emailController.text;
+                          GetAPI.sendPasswordEmail(email);
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Forgot2()));
+                        },
+                        child: Container(
+                          height: 45,
+                          width: 120,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            gradient: LinearGradient(colors: [
+                              Color(0xFF4297FE),
+                              Color(0xFF76DDFF),
+                            ]),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Reset",
+                              style: TextStyle(color: Colors.white,fontSize: 15),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    InkWell(
-                      onTap: (){
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-                      },
-                      child: Container(
-                        height: 45,
-                        width: 120,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: Colors.white,
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Cancel",
-                            style: TextStyle(color: Color(0xFF7AB2BB),fontSize: 15),
+                      InkWell(
+                        onTap: (){
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                        },
+                        child: Container(
+                          height: 45,
+                          width: 120,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: Colors.white,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Cancel",
+                              style: TextStyle(color: Color(0xFF7AB2BB),fontSize: 15),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: (Get.height/4.6)),
-              ],
+                    ],
+                  ),
+                  SizedBox(height: (Get.height/4.6)),
+                ],
+              ),
             ),
           ),
         ],
