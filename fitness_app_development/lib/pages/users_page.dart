@@ -4,11 +4,12 @@ import 'package:fitness_app_development/friends_util/friends_provider.dart';
 import 'package:fitness_app_development/friends_util/screen_progress_loader.dart';
 import 'package:fitness_app_development/friends_util/searchBar.dart';
 import 'package:fitness_app_development/friends_util/search_friend_response.dart';
+import 'package:fitness_app_development/pages/home_page/home_screen.dart';
 import 'package:fitness_app_development/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'home_page.dart';
+import 'home_page2.dart';
 
 
 
@@ -54,7 +55,7 @@ class _UsersScreenState extends State<UsersScreen> {
             title: Text('Search'),
             leading: new IconButton(
               onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
               },
               icon: new Icon(Icons.arrow_back, color: Colors.orange),
             ),

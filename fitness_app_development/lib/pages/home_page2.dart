@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:fitness_app_development/pages/get_run_name.dart';
+import 'package:fitness_app_development/pages/home_page/home_screen.dart';
 import 'package:fitness_app_development/pages/old_run.dart';
 import 'package:fitness_app_development/pages/settings.dart';
 import 'package:fitness_app_development/pages/user_profile.dart';
@@ -364,7 +365,7 @@ class _HomeState extends State<Home> {
                                       onPressed: () {
                                         print('${GlobalData.resultObjs[0].coordinates[0][0]},${GlobalData.resultObjs[0].coordinates[0][1]}');
                                         print('${GlobalData.resultObjs[0].coordinates[3][0]},${GlobalData.resultObjs[0].coordinates[3][1]}');
-                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
                                       },
                                       icon: Icon(Icons.home),
                                       iconSize: (MediaQuery.of(context).size.height) * .06,

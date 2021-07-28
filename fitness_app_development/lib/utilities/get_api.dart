@@ -24,6 +24,7 @@ class GetAPI{
           'password': '$password'}),
 
     );
+    print(res);
     if(res.statusCode == 200) return res.body;
     return 'null';
   }

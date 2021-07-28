@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:fitness_app_development/friends_util/search_friend_response.dart';
 import 'package:fitness_app_development/friends_util/searchBar.dart';
 import 'package:fitness_app_development/friends_util/friends_provider.dart';
+import 'package:fitness_app_development/pages/home_page/home_screen.dart';
 import 'package:fitness_app_development/pages/run_sequence/start_run.dart';
 import 'package:fitness_app_development/pages/user_profile.dart';
 import 'package:fitness_app_development/pages/users_page.dart';
@@ -10,7 +11,7 @@ import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'home_page.dart';
+import 'home_page2.dart';
 
 class FriendsScreen extends StatefulWidget {
   const FriendsScreen({Key? key}) : super(key: key);
@@ -64,7 +65,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
         leading: new IconButton(
           onPressed: () {
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => Home()));
+                context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
           icon: new Icon(Icons.arrow_back, color: Colors.orange),
         ),
@@ -206,7 +207,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Home()));
+                                        builder: (context) => HomeScreen()));
                               },
                               icon: Icon(Icons.home),
                               iconSize:

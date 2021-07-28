@@ -12,7 +12,7 @@ import 'package:fitness_app_development/utilities/pref_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'home_page.dart';
+import 'home_page2.dart';
 
 class Settings extends StatefulWidget {
   @override

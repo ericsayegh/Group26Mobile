@@ -1,13 +1,14 @@
 
 import 'dart:collection';
 
+import 'package:fitness_app_development/pages/home_page/home_screen.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:fitness_app_development/pages/register_page.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/results.dart';
 import 'package:fitness_app_development/utilities/results_runs.dart';
 import 'package:flutter/material.dart';
-import 'package:fitness_app_development/pages/home_page.dart';
+import 'package:fitness_app_development/pages/home_page2.dart';
 import 'dart:convert';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -171,7 +172,7 @@ class _LoginState extends State<Login> {
                                 await getRunData();
                                 await getLeaderboardData();
 
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
 
                               }catch(e) {
                                 print(e);

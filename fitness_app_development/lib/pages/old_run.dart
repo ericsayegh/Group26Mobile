@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:fitness_app_development/friends_util/constants.dart';
+import 'package:fitness_app_development/pages/home_page/home_screen.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/personal_run_data.dart';
@@ -8,7 +9,7 @@ import 'package:fitness_app_development/utilities/results.dart';
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
-import 'home_page.dart';
+import 'home_page2.dart';
 
 
 class OldRun extends StatefulWidget {
@@ -93,7 +94,7 @@ class _OldRunState extends State<OldRun> {
           onPressed: () async {
             await getTotalData();
             Navigator.of(context).popUntil((route) => route.isFirst);
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
           icon: new Icon(Icons.arrow_back, color: Colors.black),
         ),

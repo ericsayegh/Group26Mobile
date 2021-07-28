@@ -1,11 +1,12 @@
 import 'dart:convert';
 
+import 'package:fitness_app_development/pages/home_page/home_screen.dart';
 import 'package:fitness_app_development/pages/settings.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
 
-import 'home_page.dart';
+import 'home_page2.dart';
 
 //WORK IN PROGRESS
 
@@ -121,7 +122,7 @@ class _ChangeNameState extends State<ChangeName> {
                             }
 
                             print(jsonObject);
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
                           } catch(e)
                           {
                             print(e);
