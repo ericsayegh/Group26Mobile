@@ -168,11 +168,11 @@ class _LoginState extends State<Login> {
                               try {
                                 myController1.clear();
                                 myController2.clear();
-                                await getTotalData();
-                                await getRunData();
-                                await getLeaderboardData();
+                                //await getTotalData();
+                                //await getRunData();
+                                //await getLeaderboardData();
 
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                                //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
 
                               }catch(e) {
                                 print(e);
@@ -241,7 +241,6 @@ class _LoginState extends State<Login> {
   Future<void> getLeaderboardData() async {
     var ret = await GetAPI.searchUsers();
     GlobalData.distance = [];
-    Map<int,double> userDistance = new Map();
 
 
     var resultObjsJson = jsonDecode(ret.body)['results'] as List;

@@ -10,6 +10,7 @@ import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:fitness_app_development/utilities/pref_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gravatar/flutter_gravatar.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'friends.dart';
@@ -26,10 +27,10 @@ class _UserState extends State<User> {
   int fitnessLevel = 0;
   String username = '';
   int runCompleted = 0;
-  String email = 'placeholder@gmail.com';
+  String? email = GlobalData.email;
   XFile? fileImg;
-
-
+  String? _email;
+  Gravatar? _gravatar;
   @override
   void initState() {
     refreshImage();
@@ -38,7 +39,30 @@ class _UserState extends State<User> {
     changeRunsCompleted();
     changeEmail();
 
+
+    if(isEmail(email!) == false){
+      _email = "$email@gmail.com";
+    }else if(email == null){
+      _email = "example@gmail.com";
+    }else{
+      _email = email; }
+    _gravatar = Gravatar(_email);
+
     super.initState();
+
+
+
+  }
+
+  bool isEmail(String em) {
+
+    String p = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+
+    RegExp regExp = new RegExp(p);
+
+    return regExp.hasMatch(em);
+
+
   }
 
   Future<void> refreshImage() async {
@@ -77,12 +101,13 @@ class _UserState extends State<User> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
 
-                  Center(
-                    child: CircleAvatar(
-                      backgroundImage: getImage(),
-                      radius: (MediaQuery.of(context).size.width) * .2,
+                  if (_gravatar != null)
+                    Center(
+                      child: CircleAvatar( // can add link to users profile pictures for this
+                        backgroundImage: NetworkImage(_gravatar!.imageUrl()),
+                        radius: 60,
+                      ),
                     ),
-                  ),
                   Divider(
                     height: 30,
                     color: Colors.grey[800],
@@ -203,13 +228,16 @@ class _UserState extends State<User> {
                                   color: Color(0xFF5B5B5B),
                                 ),
                                 SizedBox(width: 10.0),
-                                Text(
-                                    '${(GlobalData.email == '' ? "null" : "${GlobalData.email}")}',
-                                    style: TextStyle(
-                                      color: Color(0xFF4395A1),
-                                      fontSize: 28,
-                                      letterSpacing: 1.0,
-                                    )
+                                FittedBox(
+                                  fit: BoxFit.fitWidth,
+                                  child: Text(
+                                      '${(GlobalData.email == '' ? "null" : "${GlobalData.email}")}',
+                                      style: TextStyle(
+                                        color: Color(0xFF4395A1),
+                                        fontSize: 28,
+                                        letterSpacing: 1.0,
+                                      )
+                                  ),
                                 ),
                               ],
                             ),
@@ -226,7 +254,7 @@ class _UserState extends State<User> {
             ),
           ),
           Container(
-            height: MediaQuery.of(context).size.height/15,
+            //height: MediaQuery.of(context).size.height/15,
             decoration: BoxDecoration(
               color: Colors.blue[200],
             ),
@@ -303,10 +331,7 @@ class _UserState extends State<User> {
   Future<void> changeEmail() async {
 
     String search = '';
-    search = GlobalData.fullName;
-
-
-    await GetAPI.searchUsers(search: search);
+    search = GlobalData.email!;
 
 
 

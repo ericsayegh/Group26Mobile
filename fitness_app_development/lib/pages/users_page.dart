@@ -124,11 +124,17 @@ class _UsersScreenState extends State<UsersScreen> {
                                         num userID =
                                             snapshot.data![index].userId;
                                         var userName =
-                                            snapshot.data![index].fullName;
+                                            snapshot.data![index].login;
                                         var userEmail =
                                             snapshot.data![index].email;
+                                        var fullName =
+                                            snapshot.data![index].fullName;
                                         var totalRun =
                                             snapshot.data![index].totalRuns;
+                                        var totalTime =
+                                            snapshot.data![index].totalTime;
+                                        var totalDistance =
+                                            snapshot.data![index].totalDistance;
 
                                         return Container(
                                           width: double.infinity,
@@ -224,8 +230,15 @@ class _UsersScreenState extends State<UsersScreen> {
                                                                         userName,
                                                                     userEmail:
                                                                         userEmail,
+                                                                    fullName:
+                                                                        fullName,
                                                                     totalRun:
-                                                                        totalRun)));
+                                                                        totalRun,
+                                                                    totalDistance:
+                                                                        totalDistance,
+                                                                    totalTime:
+                                                                        totalTime,
+                                                                )));
                                                   },
                                                   child: Container(
                                                     padding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),

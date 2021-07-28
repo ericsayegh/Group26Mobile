@@ -30,37 +30,49 @@ class Result {
     required this.id,
     required this.email,
     required this.userId,
+    required this.login,
     required this.firstName,
     required this.lastName,
     required this.fullName,
     required this.totalRuns,
+    required this.totalTime,
+    required this.totalDistance,
   });
 
   String id;
   String email;
+  String login;
   num userId;
   String firstName;
   String lastName;
   String fullName;
   num totalRuns;
+  num totalTime;
+  num totalDistance;
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
       id: json["_id"],
       email: json["Email"],
       userId: json["UserId"],
+      login: json["Login"],
       firstName: json["FirstName"],
       lastName: json["LastName"],
       fullName: json["FullName"],
-      totalRuns:json['TotalRuns']
+      totalRuns:json['TotalRuns'],
+      totalDistance : json['TotalDistance'],
+      totalTime : json['TotalTime'],
   );
 
   Map<String, dynamic> toJson() => {
     "_id": id,
     "Email": email,
     "UserId": userId,
+    "Login" : login,
     "FirstName": firstName,
     "LastName": lastName,
     "FullName": fullName,
-    'TotalRuns':totalRuns
+    'TotalRuns' : totalRuns,
+    'TotalDistance' : totalDistance,
+    'TotalTime' : totalTime,
   };
 }

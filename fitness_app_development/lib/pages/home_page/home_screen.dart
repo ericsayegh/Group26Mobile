@@ -10,6 +10,7 @@ import 'package:fitness_app_development/utilities/personal_run_data.dart';
 import 'package:fitness_app_development/utilities/pref_service.dart';
 import 'package:fitness_app_development/utilities/results_runs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gravatar/flutter_gravatar.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -29,18 +30,40 @@ class _HomeScreenState extends State<HomeScreen> {
   int totalTIme = 0, newTime = 0;
   List<GetResults2> resultObjs = [];
   XFile? fileImg;
+  String? _email;
+  Gravatar? _gravatar;
+
 
   @override
   void initState() {
-    refreshImage();
     changeText();
     changeTotalRuns();
     changeTotalDistance();
     changeTotalTime();
     changeTime();
+
+    if(isEmail(GlobalData.email!) == false){
+      _email = "${GlobalData.email}@gmail.com";
+    }else if(GlobalData.email == null){
+      _email = "example@gmail.com";
+    }else{
+      _email = GlobalData.email; }
+    _gravatar = Gravatar(_email);
+
+
+
     super.initState();
   }
+  bool isEmail(String em) {
 
+    String p = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+
+    RegExp regExp = new RegExp(p);
+
+    return regExp.hasMatch(em);
+
+
+  }
 
   void changeTime(){
 
@@ -58,50 +81,53 @@ class _HomeScreenState extends State<HomeScreen> {
 
   }
 
-  Future<void> refreshImage() async {
-    String? imagePath = await PrefService.getProfileImage();
-    if(imagePath != null){
-      fileImg = XFile(imagePath);
-      setState(() {});
-    }
-  }
 
-  ImageProvider getImage(){
-    if(fileImg == null){
-      return AssetImage('assets/images/profile_picture.jpeg');
-    }else{
-      return FileImage(File(fileImg!.path));
-    }
-  }
+
+
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          margin: EdgeInsets.only(
-            left: 5,
-            top: 20,
-            right: 5,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: [0.5, 1],
+                  colors: [Colors.cyan, Colors.blueAccent.shade700])
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              topProfile(),
-              SizedBox(height: 20),
-              topActivity(),
-              SizedBox(height: 20),
-              Center(
-                child: Text(
-                  "Leader Board",
-                  style: TextStyle(fontSize: 12),
+              Container(
+
+                margin: EdgeInsets.only(
+                  left: 5,
+                  top: 20,
+                  right: 5,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    topProfile(),
+                    SizedBox(height: 20),
+                    topActivity(),
+                    SizedBox(height: 20),
+                    Center(
+                      child: Text(
+                        "Leader Board",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                    Divider(color: Colors.teal, thickness: 1.5),
+                    leaderBoard(),
+                    Divider(color: Colors.teal, thickness: 1.5),
+                    SizedBox(height: 15),
+                    userList(),
+
+                  ],
                 ),
               ),
-              Divider(color: Colors.teal, thickness: 1.5),
-              leaderBoard(),
-              Divider(color: Colors.teal, thickness: 1.5),
-              SizedBox(height: 15),
-              userList(),
               Expanded(
                 child: Align(
                   alignment:  FractionalOffset.bottomCenter,
@@ -168,6 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
+
       ),
     );
   }
@@ -179,7 +206,22 @@ class _HomeScreenState extends State<HomeScreen> {
           Icons.account_circle,
           size: 55,
         ),*/
-        IconButton(
+
+        if (_gravatar != null)
+          IconButton(
+              icon: CircleAvatar( // can add link to users profile pictures for this
+                backgroundImage: NetworkImage(_gravatar!.imageUrl()),
+                radius: 40,
+              ),
+              iconSize: 55,
+              onPressed: () {
+                Get.off(() => User());
+
+              }
+
+
+          ),
+        /*IconButton(
             icon: CircleAvatar( // can add link to users profile pictures for this
               backgroundImage: getImage(),
               radius: 40,
@@ -189,13 +231,13 @@ class _HomeScreenState extends State<HomeScreen> {
               Get.off(() => User());
 
             }
-        ),
+        ),*/
         SizedBox(width: 5),
         Text(
           "${GlobalData.fullName}",
           style: TextStyle(
-            color: Colors.teal,
-            fontSize: 18,
+            color: Colors.black,
+            fontSize: 25,
             fontWeight: FontWeight.w500,
           ),
         )
@@ -211,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
           margin: EdgeInsets.only(right: 7, bottom: 5),
           padding: EdgeInsets.symmetric(vertical: 9, horizontal: 10),
           decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.blue.shade700,
               boxShadow: [
                 BoxShadow(
                   color: Colors.teal.withOpacity(0.2),
@@ -244,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
           margin: EdgeInsets.only(right: 7, bottom: 5),
           padding: EdgeInsets.symmetric(vertical: 9, horizontal: 10),
           decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.blue.shade700,
               boxShadow: [
                 BoxShadow(
                   color: Colors.teal.withOpacity(0.2),
@@ -277,7 +319,7 @@ class _HomeScreenState extends State<HomeScreen> {
           margin: EdgeInsets.only(right: 7, bottom: 5),
           padding: EdgeInsets.symmetric(vertical: 9, horizontal: 10),
           decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.blue.shade700,
               boxShadow: [
                 BoxShadow(
                   color: Colors.teal.withOpacity(0.2),
@@ -312,7 +354,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget leaderBoard() {
     return Container(
-      height: 30,
+      height: 40,
       child: ListView.builder(
         itemCount: GlobalData.resultObjsBoo.length,
         shrinkWrap: true,
@@ -331,15 +373,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text('${index+ 1}.',style: const TextStyle(
+                      fontSize: 20,
                       color: Colors.white,
                     ),),
                     SizedBox(width: 10),
                     Text('${GlobalData.resultObjsBoo[GlobalData.orginalIndex[index]].fullName}',style: const TextStyle(
+                      fontSize: 20,
                       color: Colors.white,
                     ),),
                     SizedBox(width: 10),
                     Text(GlobalData.resultObjsBoo[GlobalData.orginalIndex[index]].TotalDistance.toStringAsFixed(2) + ' Mi',style: const TextStyle(
-
+                      fontSize: 20,
                       color: Colors.white,
                     ),),
                   ]
@@ -354,7 +398,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget userList() {
-    return Expanded(
+    return Container(
+      height: Get.height * .55,
       child: ListView.builder(
         shrinkWrap: true,
         itemCount: GlobalData.resultObjs.length,

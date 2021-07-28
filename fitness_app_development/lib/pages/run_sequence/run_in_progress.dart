@@ -180,10 +180,13 @@ class _RunInProgressState extends State<RunInProgress> {
             Column(
               children: [
                 SizedBox(height: 20),
-                Text('${TimerData.runName}',style: const TextStyle(
-                  fontSize: 50.0,
-                  fontWeight: FontWeight.bold,
-                ),),
+                FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Text('${TimerData.runName}',style: const TextStyle(
+                    fontSize: 50.0,
+                    fontWeight: FontWeight.bold,
+                  ),),
+                ),
                 SizedBox(height: 15),
                 Divider(
                   height: 20,
@@ -221,7 +224,7 @@ class _RunInProgressState extends State<RunInProgress> {
                   fontSize: 80.0,
                   fontWeight: FontWeight.bold,
                 ),),
-                Text(totalDistanceInMIles.toStringAsFixed(2),style: const TextStyle(
+                Text('${totalDistanceInMIles.toStringAsFixed(2)} Mi',style: const TextStyle(
                   fontSize: 50.0,
                   fontWeight: FontWeight.bold,
                 ),),
@@ -269,11 +272,8 @@ class _RunInProgressState extends State<RunInProgress> {
                       TimerData.longitude = lon;
                       TimerData.pace = pace;
 
-                      print('lat + $lat');
-                      print('lon + $lon');
                       String hi = jsonEncode(coords);
-                      print("hi");
-                      print(hi);
+
                       TimerData.hi = hi;
                       TimerData.cordies = List.from(coordsForMap);
 

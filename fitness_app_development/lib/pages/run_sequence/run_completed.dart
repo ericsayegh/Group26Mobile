@@ -42,11 +42,22 @@ class _CompletedState extends State<Completed> {
     pace = TimerData.pace!;
     totalDistance = TimerData.totalDistance!;
 
-    if(pace!=0){
-      paceT = pace.toStringAsFixed(2);
+    double minutes = pace.floorToDouble();
+
+    double deciSeconds = pace - minutes;
+
+    double seconds = deciSeconds*60.0;
+
+    int minutesInt = minutes.toInt();
+    int secondsInt = seconds.toInt();
+
+    if(secondsInt < 10){
+      paceT ='$minutesInt:0$secondsInt';
+    }
+    else{
+      paceT ='$minutesInt:$secondsInt';
     }
 
-    print('$coords');
 
     super.initState();
   }
@@ -99,7 +110,7 @@ class _CompletedState extends State<Completed> {
           child: Column(
             children: [
               SizedBox(
-                height: (MediaQuery.of(context).size.height) * .45,
+                height: (MediaQuery.of(context).size.height) * .5,
                 child: MapboxMap(
                     accessToken: mapBoxApiKey,
                     initialCameraPosition: CameraPosition(
@@ -204,17 +215,20 @@ class _CompletedState extends State<Completed> {
 
               ),
 
-              Text('${TimerData.runName}',style: const TextStyle(
-                fontSize: 50.0,
-                fontWeight: FontWeight.bold,
-              ),),
+              FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text('${TimerData.runName}',style: const TextStyle(
+                  fontSize: 50.0,
+                  fontWeight: FontWeight.bold,
+                ),),
+              ),
               Divider(
                 height: 20,
                 thickness: 2,
                 color: Colors.black,
               ),
               Text('Time',style: const TextStyle(
-                fontSize: 40.0,
+                fontSize: 30.0,
                 fontWeight: FontWeight.bold,
               ),),
               Text(
@@ -231,10 +245,10 @@ class _CompletedState extends State<Completed> {
                 color: Colors.black,
               ),
               Text('Distance',style: const TextStyle(
-                fontSize: 40.0,
+                fontSize: 30.0,
                 fontWeight: FontWeight.bold,
               ),),
-              Text(totalDistance.toStringAsFixed(2),style: const TextStyle(
+              Text('${totalDistance.toStringAsFixed(2)} Mi',style: const TextStyle(
                 fontSize: 25.0,
                 fontWeight: FontWeight.bold,
               ),),
@@ -245,7 +259,7 @@ class _CompletedState extends State<Completed> {
                 color: Colors.black,
               ),
               Text('Pace',style: const TextStyle(
-                fontSize: 40.0,
+                fontSize: 30.0,
                 fontWeight: FontWeight.bold,
               ),),
               Text(paceT,style: const TextStyle(

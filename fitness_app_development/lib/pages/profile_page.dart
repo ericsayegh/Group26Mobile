@@ -6,12 +6,21 @@ import 'package:flutter_gravatar/utils.dart';
 class ProfilePage extends StatefulWidget {
   final String? userName;
   final String? userEmail;
+  final String? fullName;
   final num? totalRun;
+  final num? totalDistance;
+  final num? totalTime;
 
   ProfilePage(
       {@required this.userName,
         @required this.userEmail,
-        @required this.totalRun});
+        @required this.fullName,
+        @required this.totalRun,
+        @required this.totalDistance,
+        @required this.totalTime,
+
+
+      });
 
   _UserState createState() => _UserState();
 }
@@ -32,6 +41,9 @@ class _UserState extends State<ProfilePage> {
       _email = widget.userEmail;
     }
     _gravatar = Gravatar(_email!);
+
+    super.initState();
+
   }
 
   bool isEmail(String em) {
@@ -59,13 +71,10 @@ class _UserState extends State<ProfilePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (_gravatar != null)
-              Container(
-                child: Column(
-                  children: [
-                    //TODO: Resize photo for gravatar
-
-                    Image.network(_gravatar!.imageUrl(size: 150)),
-                  ],
+              Center(
+                child: CircleAvatar( // can add link to users profile pictures for this
+                  backgroundImage: NetworkImage(_gravatar!.imageUrl()),
+                  radius: 60,
                 ),
               ),
             Divider(
@@ -85,31 +94,86 @@ class _UserState extends State<ProfilePage> {
                     fontSize: 28.0,
                     fontWeight: FontWeight.bold)),
             SizedBox(height: 30),
-            Text('Fitness Level',
+            Text(
+                'Full Name',
                 style: TextStyle(
                   color: Color(0xFF5B5B5B),
                   letterSpacing: 2.0,
-                )),
-            SizedBox(height: 10),
-            Text('3',
+                )
+            ),
+            Text(
+                '${widget.fullName}',
                 style: TextStyle(
-                    color: Color(0xFF4395A1),
-                    letterSpacing: 2.0,
-                    fontSize: 28.0,
-                    fontWeight: FontWeight.bold)),
+                  color: Color(0xFF4395A1),
+                  letterSpacing: 2.0,
+                  fontSize: 28.0,
+
+                )
+            ),
             SizedBox(height: 30),
-            Text('Runs Completed',
+
+            Text(
+                'Total Runs',
                 style: TextStyle(
                   color: Color(0xFF5B5B5B),
                   letterSpacing: 2.0,
-                )),
+                )
+            ),
             SizedBox(height: 10),
-            Text('${widget.totalRun}',
+            Text(
+                '${widget.totalRun}',
                 style: TextStyle(
-                    color: Color(0xFF4395A1),
-                    letterSpacing: 2.0,
-                    fontSize: 28.0,
-                    fontWeight: FontWeight.bold)),
+                  color: Color(0xFF4395A1),
+                  letterSpacing: 2.0,
+                  fontSize: 28.0,
+
+                )
+            ),
+            SizedBox(height: 30),
+            Text(
+                'Total Distance',
+                style: TextStyle(
+                  color: Color(0xFF5B5B5B),
+                  letterSpacing: 2.0,
+                )
+            ),
+            SizedBox(height: 10),
+            if(widget.totalDistance! < .01)
+              Text('0.0',style: TextStyle(
+                color: Color(0xFF4395A1),
+                letterSpacing: 2.0,
+                fontSize: 28.0,
+
+              ) )
+              else
+              Text(
+                '${widget.totalDistance}',
+                style: TextStyle(
+                  color: Color(0xFF4395A1),
+                  letterSpacing: 2.0,
+                  fontSize: 28.0,
+
+                )
+            ),
+            SizedBox(height: 30),
+            Text(
+                'Total Time',
+                style: TextStyle(
+                  color: Color(0xFF5B5B5B),
+                  letterSpacing: 2.0,
+                )
+            ),
+            SizedBox(height: 10),
+            Text(
+                '${widget.totalTime}',
+                style: TextStyle(
+                  color: Color(0xFF4395A1),
+                  letterSpacing: 2.0,
+                  fontSize: 28.0,
+
+                )
+            ),
+
             SizedBox(height: 30),
             Row(
               children: [

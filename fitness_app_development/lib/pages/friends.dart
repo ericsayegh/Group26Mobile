@@ -178,12 +178,24 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                                                 userName: snapshot
                                                                     .data![
                                                                         index]
-                                                                    .fullName,
+                                                                    .login,
                                                                 userEmail:
                                                                     snapshot
                                                                         .data![
                                                                             index]
                                                                         .email,
+                                                                fullName: snapshot
+                                                                    .data![
+                                                                index]
+                                                                    .fullName,
+                                                                totalTime: snapshot
+                                                                    .data![
+                                                                index]
+                                                                    .totalTime,
+                                                                totalDistance: snapshot
+                                                                    .data![
+                                                                index]
+                                                                    .totalDistance,
                                                                 totalRun: snapshot
                                                                     .data![
                                                                         index]

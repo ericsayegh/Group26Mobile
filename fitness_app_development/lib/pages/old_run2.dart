@@ -222,13 +222,13 @@ class _OldRun2State extends State<OldRun2> {
                   child: Column(
                     children: [
                       Text('Time',style: const TextStyle(
-                        fontSize: 40.0,
+                        fontSize: 30.0,
                         fontWeight: FontWeight.bold,
                       ),),
                       Text(
                         '$_displayTime',
                         style: const TextStyle(
-                          fontSize: 40.0,
+                          fontSize: 25.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -239,11 +239,11 @@ class _OldRun2State extends State<OldRun2> {
                         color: Colors.black,
                       ),
                       Text('Distance',style: const TextStyle(
-                        fontSize: 40.0,
+                        fontSize: 30.0,
                         fontWeight: FontWeight.bold,
                       ),),
                       Text(totalDistance.toStringAsFixed(2) + ' Mi',style: const TextStyle(
-                        fontSize: 40.0,
+                        fontSize: 25.0,
                         fontWeight: FontWeight.bold,
                       ),),
                       SizedBox(height: 20),
@@ -253,11 +253,11 @@ class _OldRun2State extends State<OldRun2> {
                         color: Colors.black,
                       ),
                       Text('Pace',style: const TextStyle(
-                        fontSize: 40.0,
+                        fontSize: 30.0,
                         fontWeight: FontWeight.bold,
                       ),),
                       Text('$paceT',style: const TextStyle(
-                        fontSize: 40.0,
+                        fontSize: 25.0,
                         fontWeight: FontWeight.bold,
                       ),),
                     ],

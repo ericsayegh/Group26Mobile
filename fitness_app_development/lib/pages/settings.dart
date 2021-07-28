@@ -11,6 +11,7 @@ import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/pref_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gravatar/flutter_gravatar.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -25,14 +26,34 @@ class _SettingsState extends State<Settings> {
   String username = '';
   XFile? fileImg;
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
+  String? _email;
+  Gravatar? _gravatar;
   @override
   void initState() {
     refreshImage();
     changeUser();
+
+
+    if(isEmail(GlobalData.email!) == false){
+      _email = "${GlobalData.email}@gmail.com";
+    }else if(GlobalData.email == null){
+      _email = "example@gmail.com";
+    }else{
+      _email = GlobalData.email; }
+    _gravatar = Gravatar(_email);
+
     super.initState();
   }
+  bool isEmail(String em) {
 
+    String p = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+
+    RegExp regExp = new RegExp(p);
+
+    return regExp.hasMatch(em);
+
+
+  }
   Future<void> refreshImage() async {
     String? imagePath = await PrefService.getProfileImage();
     if (imagePath != null) {
@@ -71,32 +92,14 @@ class _SettingsState extends State<Settings> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 30.0),
-                Center(
-                  child: CircleAvatar(
-                    // can add link to users profile pictures for this
-                    radius: 40.0,
-                    backgroundImage: getImage(),
+                if (_gravatar != null)
+                  Center(
+                    child: CircleAvatar( // can add link to users profile pictures for this
+                      backgroundImage: NetworkImage(_gravatar!.imageUrl()),
+                      radius: 60,
+                    ),
                   ),
-                ),
-                Center(
-                  child: TextButton(
-                    onPressed: () async {
-                      /*XFile? file = await ImagePicker()
-                          .pickImage(source: ImageSource.gallery);
 
-                      if (file != null) {
-                        PrefService.setProfileImage(file.path);
-                        refreshImage();
-                      }*/
-                      openBottomSheet();
-                    },
-                    child: Text("Change Profile Picture",
-                        style: TextStyle(
-                            color: Colors.grey[800],
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15)),
-                  ),
-                ),
                 Divider(),
                 Column(
                   children: [

@@ -23,11 +23,14 @@ class _StartRunState extends State<StartRun> {
     //final _isMinutes = true;
     return Scaffold(
       appBar: AppBar(
-        title: Text('${TimerData.runName}', style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 20
-        )),
+        title: FittedBox(
+          fit: BoxFit.fitWidth,
+          child: Text('${TimerData.runName}', style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 20
+          )),
+        ),
         leading: new IconButton(
           onPressed: () {
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
@@ -99,7 +102,7 @@ class _StartRunState extends State<StartRun> {
                   fontSize: 80.0,
                   fontWeight: FontWeight.bold,
                 ),),
-                Text('0:00', style: const TextStyle(
+                Text('0:00 Mi', style: const TextStyle(
                   fontSize: 50.0,
                   fontWeight: FontWeight.bold,
                 ),),
