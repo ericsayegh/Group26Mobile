@@ -22,9 +22,9 @@ class _CompletedState extends State<Completed> {
   String _displayTime = '';
   double totalDistance = 0.0;
   double pace = 0.0;
- 
-  
-  
+
+
+
   final Map<String, dynamic> coords = {
     "latitude" : TimerData.latitude,
     "longitude" : TimerData.longitude,
@@ -97,70 +97,103 @@ class _CompletedState extends State<Completed> {
               SizedBox(
                 height: (MediaQuery.of(context).size.height) * .45,
                 child: MapboxMap(
-                  accessToken: mapBoxApiKey,
-                  initialCameraPosition: CameraPosition(
-                  zoom: 5,
-                  target: LatLng(TimerData.latitude[0], TimerData.longitude[0]),
-                  ),
-                  onMapCreated: (MapboxMapController controller) async {
-                    // Acquire current location (returns the LatLng instance)
-                    // You can either use the moveCamera or animateCamera, but the former
-                    // causes a sudden movement from the initial to 'new' camera position,
-                    // while animateCamera gives a smooth animated transition
-                    await controller.animateCamera(
-
-                      CameraUpdate.newLatLng(LatLng(TimerData.latitude[TimerData.latitude.length - 1], TimerData.longitude[TimerData.latitude.length - 1])),
+                    accessToken: mapBoxApiKey,
+                    initialCameraPosition: CameraPosition(
+                      zoom: 15,
+                      target: LatLng(TimerData.latitude[0], TimerData.longitude[0]),
+                    ),
+                    onMapCreated: (MapboxMapController controller) async {
 
 
-                    );
-
-                    controller.addLine(
-                      LineOptions(
-                        geometry: TimerData.cordies,
-
-                          lineColor: "#ff0000",
-                          lineWidth: 14.0,
-                          lineOpacity: 0.5,
-                          draggable: true,
-                      ),
-
-                    );
-
-                    //Add a circle denoting current user location
-                    await controller.addCircle(
-                      CircleOptions(
-                        circleRadius: 8.0,
-                        circleColor: '#006992',
-                        circleOpacity: 0.8,
-
-                        // YOU NEED TO PROVIDE THIS FIELD!!!
-                        // Otherwise, you'll get a silent exception somewhere in the stack
-                        // trace, but the parameter is never marked as @required, so you'll
-                        // never know unless you check the stack trace
-                        geometry: LatLng(TimerData.latitude[0], TimerData.longitude[0]),
-                        draggable: false,
-                      ),
-
-                    );
 
 
-                    await controller.addCircle(
-                      CircleOptions(
-                        circleRadius: 8.0,
-                        circleColor: '#006992',
-                        circleOpacity: 0.8,
+                      // Acquire current location (returns the LatLng instance)
+                      // You can either use the moveCamera or animateCamera, but the former
+                      // causes a sudden movement from the initial to 'new' camera position,
+                      // while animateCamera gives a smooth animated transition
+                      await controller.animateCamera(
 
-                        // YOU NEED TO PROVIDE THIS FIELD!!!
-                        // Otherwise, you'll get a silent exception somewhere in the stack
-                        // trace, but the parameter is never marked as @required, so you'll
-                        // never know unless you check the stack trace
-                        geometry: LatLng(TimerData.latitude[TimerData.latitude.length - 1], TimerData.longitude[TimerData.latitude.length - 1]),
-                        draggable: false,
-                      ),
+                        CameraUpdate.newLatLng(LatLng(TimerData.latitude[TimerData.latitude.length - 1], TimerData.longitude[TimerData.latitude.length - 1])),
 
-                    );
 
-                  }
+                      );
+
+
+                      controller.addLine(
+                        LineOptions(
+                          geometry: TimerData.cordies,
+
+                          lineColor: "#c402b7",
+                          lineWidth: 7.0,
+                          //lineOpacity: .8,
+                          draggable: false,
+                        ),
+
+                      );
+
+                      await controller.addSymbol(
+
+                        SymbolOptions(
+                          textField: 'Start',
+                          textColor: "#0e4707",
+                          textSize: 35,
+                          zIndex: 5,
+                          textOffset: Offset.fromDirection(5.0),
+                          geometry: LatLng(TimerData.latitude[0], TimerData.longitude[0]),
+                        ),
+
+                      );
+
+                      await controller.addCircle(
+                        CircleOptions(
+                          circleRadius: 8.0,
+                          circleColor: '#0e4707',
+                          //circleOpacity: 0.8,
+
+                          // YOU NEED TO PROVIDE THIS FIELD!!!
+                          // Otherwise, you'll get a silent exception somewhere in the stack
+                          // trace, but the parameter is never marked as @required, so you'll
+                          // never know unless you check the stack trace
+                          geometry: LatLng(TimerData.latitude[0], TimerData.longitude[0]),
+                          draggable: false,
+                        ),
+
+                      );
+
+
+                      await controller.addCircle(
+                        CircleOptions(
+                          circleRadius: 8.0,
+                          circleColor: '#c40202',
+                          //circleOpacity: 0.8,
+
+                          // YOU NEED TO PROVIDE THIS FIELD!!!
+                          // Otherwise, you'll get a silent exception somewhere in the stack
+                          // trace, but the parameter is never marked as @required, so you'll
+                          // never know unless you check the stack trace
+                          geometry: LatLng(TimerData.latitude[TimerData.latitude.length - 1], TimerData.longitude[TimerData.latitude.length - 1]),
+                          draggable: false,
+                        ),
+                      );
+
+
+                      await controller.addSymbol(
+
+                        SymbolOptions(
+                          textField: 'End',
+                          textColor: "#c40202",
+                          textSize: 35,
+                          zIndex: 5,
+                          textOffset: Offset.fromDirection(5.0),
+                          geometry: LatLng(TimerData.latitude[TimerData.latitude.length - 1], TimerData.longitude[TimerData.latitude.length - 1]),
+                        ),
+
+                      );
+
+
+
+
+                    }
                 ),
 
 
@@ -218,7 +251,7 @@ class _CompletedState extends State<Completed> {
 
 
 
-             /*
+              /*
               Divider(
                 height: 20,
                 thickness: 2,

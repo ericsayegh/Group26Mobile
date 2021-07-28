@@ -68,8 +68,6 @@ class _OldRunState extends State<OldRun> {
     _displayTime = '${min}:${st}${sec}';
 
 
-
-
     super.initState();
   }
 
@@ -117,7 +115,7 @@ class _OldRunState extends State<OldRun> {
                 child: MapboxMap(
                     accessToken: mapBoxApiKey,
                     initialCameraPosition: CameraPosition(
-                      zoom: 13,
+                      zoom: 15,
                       target: LatLng(GlobalData.resultObjs[RunData.index].coordinates[0][1], GlobalData.resultObjs[RunData.index].coordinates[0][0]),
                     ),
                     onMapCreated: (MapboxMapController controller) async {
@@ -135,21 +133,32 @@ class _OldRunState extends State<OldRun> {
                         LineOptions(
                           geometry: cordies,
 
-                          lineColor: "#ff0000",
-                          lineWidth: 9.0,
-                          lineOpacity: .8,
+                          lineColor: "#c402b7",
+                          lineWidth: 7.0,
+                          //lineOpacity: .8,
                           draggable: false,
                         ),
 
                       );
 
+                      await controller.addSymbol(
 
+                        SymbolOptions(
+                          textField: 'Start',
+                          textColor: "#0e4707",
+                          textSize: 35,
+                          zIndex: 5,
+                          textOffset: Offset.fromDirection(5.0),
+                          geometry: LatLng(GlobalData.resultObjs[RunData.index].coordinates[0][1], GlobalData.resultObjs[RunData.index].coordinates[0][0]),
+                        ),
+
+                      );
                       //Add a circle denoting current user location
                       await controller.addCircle(
                         CircleOptions(
                           circleRadius: 8.0,
-                          circleColor: '#006992',
-                          circleOpacity: 0.8,
+                          circleColor: '#0e4707',
+                          //circleOpacity: 0.8,
 
                           // YOU NEED TO PROVIDE THIS FIELD!!!
                           // Otherwise, you'll get a silent exception somewhere in the stack
@@ -165,8 +174,8 @@ class _OldRunState extends State<OldRun> {
                       await controller.addCircle(
                         CircleOptions(
                           circleRadius: 8.0,
-                          circleColor: '#006992',
-                          circleOpacity: 0.8,
+                          circleColor: '#c40202',
+                          //circleOpacity: 0.8,
 
                           // YOU NEED TO PROVIDE THIS FIELD!!!
                           // Otherwise, you'll get a silent exception somewhere in the stack
@@ -174,6 +183,19 @@ class _OldRunState extends State<OldRun> {
                           // never know unless you check the stack trace
                           geometry: LatLng(GlobalData.resultObjs[RunData.index].coordinates[GlobalData.resultObjs[RunData.index].coordinates.length-1][1], GlobalData.resultObjs[RunData.index].coordinates[GlobalData.resultObjs[RunData.index].coordinates.length-1][0]),
                           draggable: false,
+                        ),
+                      );
+
+
+                      await controller.addSymbol(
+
+                        SymbolOptions(
+                          textField: 'End',
+                          textColor: "#c40202",
+                          textSize: 35,
+                          zIndex: 5,
+                          textOffset: Offset.fromDirection(5.0),
+                          geometry: LatLng(GlobalData.resultObjs[RunData.index].coordinates[GlobalData.resultObjs[RunData.index].coordinates.length-1][1], GlobalData.resultObjs[RunData.index].coordinates[GlobalData.resultObjs[RunData.index].coordinates.length-1][0]),
                         ),
 
                       );
