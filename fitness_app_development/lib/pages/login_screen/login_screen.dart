@@ -45,11 +45,11 @@ class LoginScreenState extends State<LoginScreen> {
                     child: Image.asset(AssetRes.backGroundImage,fit: BoxFit.cover,),
                   ),
                 ),
-                Text("My Fitness App",style: TextStyle(color: Colors.white,fontSize: 24,fontFamily: "Constantia",fontWeight: FontWeight.w500),),
+                Text("Free Runner",style: TextStyle(color: Colors.white,fontSize: 24,fontFamily: "Constantia",fontWeight: FontWeight.w500),),
               ],
             ),
           ),
-          //Text("My Fitness App",style: TextStyle(color: Colors.white,fontSize: 24,fontFamily: "Constantia",fontWeight: FontWeight.w500),),
+          //Text("Free Runner",style: TextStyle(color: Colors.white,fontSize: 24,fontFamily: "Constantia",fontWeight: FontWeight.w500),),
           SingleChildScrollView(
             child: LoginFieldBox(
               nameController: model!.nameController,

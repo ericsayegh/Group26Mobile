@@ -49,7 +49,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 Text(
-                  "My Fitness App",
+                  "Free Runner",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 30,
@@ -59,7 +59,7 @@ class RegisterScreenState extends State<RegisterScreen> {
               ],
             ),
           ),
-          //Text("My Fitness App",style: TextStyle(color: Colors.white,fontSize: 24,fontFamily: "Constantia",fontWeight: FontWeight.w500),),
+          //Text("Free Runner",style: TextStyle(color: Colors.white,fontSize: 24,fontFamily: "Constantia",fontWeight: FontWeight.w500),),
           SingleChildScrollView(
             child: RegisterFieldBox(
               registerTap: model!.onRegisterTap,

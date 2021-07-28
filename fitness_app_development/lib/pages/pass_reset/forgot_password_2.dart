@@ -1,5 +1,6 @@
 
 import 'package:fitness_app_development/pages/login_page.dart';
+import 'package:fitness_app_development/pages/login_screen/login_screen.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
 
@@ -115,14 +116,14 @@ class _Forgot2State extends State<Forgot2> {
                         var ret = GetAPI.passwordreset(passkey, pass);
                         print(ret);
                         Navigator.of(context).popUntil((route) => route.isFirst);
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
                       },
                       child: Text('Submit'),
                     ),
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).popUntil((route) => route.isFirst);
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
                       },
                       child: Text('Cancel'),
                     ),

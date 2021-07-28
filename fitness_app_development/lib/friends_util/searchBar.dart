@@ -8,7 +8,12 @@ class SearchBar extends StatelessWidget {
 
   final TextEditingController eCtrl = new TextEditingController();
 
-  SearchBar({Key? key,@required this.hintText, @required this.onTextReadyForSearch, @required this.onChangeTextForSearch}) : super(key: key);
+  SearchBar(
+      {Key? key,
+      @required this.hintText,
+      @required this.onTextReadyForSearch,
+      @required this.onChangeTextForSearch})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +22,24 @@ class SearchBar extends StatelessWidget {
         Expanded(
           child: TextFormField(
             cursorColor: Colors.blue,
-
             decoration: InputDecoration(
               fillColor: Colors.white,
               filled: true,
 
               hintText: hintText,
               hintStyle: TextStyle(color: Colors.black26),
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50),
+                borderSide: BorderSide(
+                  color: Color(0xFF4395A1),
+                  width: 10,
+                ),
+              ),
               //border: InputBorder.none,
               //focusedBorder: InputBorder.none,
             ),
             controller: eCtrl,
-            onChanged: (text){
+            onChanged: (text) {
               print("on text change $text");
               onChangeTextForSearch!(text);
             },
@@ -38,7 +48,6 @@ class SearchBar extends StatelessWidget {
             },
           ),
         ),
-
       ],
     );
   }

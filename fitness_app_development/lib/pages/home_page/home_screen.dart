@@ -1,7 +1,10 @@
 import 'dart:io';
 
-import 'package:fitness_app_development/pages/old_run.dart';
+import 'package:fitness_app_development/pages/friends.dart';
+import 'package:fitness_app_development/pages/get_run_name.dart';
+import 'package:fitness_app_development/pages/old_run2.dart';
 import 'package:fitness_app_development/pages/user_profile.dart';
+import 'package:fitness_app_development/pages/users_page.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/personal_run_data.dart';
 import 'package:fitness_app_development/utilities/pref_service.dart';
@@ -79,7 +82,70 @@ class _HomeScreenState extends State<HomeScreen> {
               leaderBoard(),
               Divider(color: Colors.teal, thickness: 1.5),
               SizedBox(height: 15),
-              userList()
+              userList(),
+              Expanded(
+                child: Align(
+                  alignment:  FractionalOffset.bottomCenter,
+                  child: SizedBox(
+                    height: (MediaQuery.of(context).size.height) * .077,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.blue[200],
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              print('${GlobalData.resultObjs[0].coordinates[0][0]},${GlobalData.resultObjs[0].coordinates[0][1]}');
+                              print('${GlobalData.resultObjs[0].coordinates[3][0]},${GlobalData.resultObjs[0].coordinates[3][1]}');
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                            },
+                            icon: Icon(Icons.home),
+                            iconSize: (MediaQuery.of(context).size.height) * .06,
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UsersScreen()));
+                            },
+                            icon: Icon(Icons.search),
+                            iconSize: (MediaQuery.of(context).size.height) * .06,
+
+                          ),
+                          FloatingActionButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GetRunName()));
+                            },
+                            child: Icon(Icons.add),
+                            backgroundColor: Colors.green,
+                            elevation: 10,
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FriendsScreen()));
+                            },
+                            icon: Icon(Icons.contact_page_rounded),
+                            iconSize: (MediaQuery.of(context).size.height) * .06,
+
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => User()));
+                            },
+                            icon: Icon(Icons.portrait_rounded),
+                            iconSize: (MediaQuery.of(context).size.height) * .06,
+
+                          ),
+
+                        ],
+                      ),
+                    ),
+
+
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -278,7 +344,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: (){
               RunData.index = index;
               print(index);
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OldRun()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OldRun2()));
             },
             child: Container(
               margin: EdgeInsets.symmetric(vertical: 10,horizontal: 10),

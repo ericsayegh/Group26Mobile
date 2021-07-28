@@ -52,19 +52,19 @@ class _UserState extends State<User> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[900],
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('MyFitnessApp'),
+
+        title: Text('MyFitnessApp',style: TextStyle(color: Colors.black),),
         centerTitle: true,
-        backgroundColor: Colors.grey[850],
-        elevation: 0.0,
+        backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () {
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
 
           },
-          icon: Icon(Icons.arrow_back, color: Colors.orange),
+          icon: Icon(Icons.arrow_back, color: Colors.black),
         ),
       ),
 
@@ -109,17 +109,16 @@ class _UserState extends State<User> {
                             Text(
                                 'USERNAME',
                                 style: TextStyle(
-                                  color: Colors.grey,
+                                  color: Color(0xFF5B5B5B),
                                   letterSpacing: 2.0,
                                 )
                             ),
                             Text(
                                 '${GlobalData.userName}',
                                 style: TextStyle(
-                                    color: Colors.amberAccent[200],
+                                    color: Color(0xFF4395A1),
                                     letterSpacing: 2.0,
                                     fontSize: 28.0,
-                                    fontWeight: FontWeight.bold
 
                                 )
                             ),
@@ -127,17 +126,16 @@ class _UserState extends State<User> {
                             Text(
                                 'Full Name',
                                 style: TextStyle(
-                                  color: Colors.grey,
+                                  color: Color(0xFF5B5B5B),
                                   letterSpacing: 2.0,
                                 )
                             ),
                             Text(
                                 '${GlobalData.fullName}',
                                 style: TextStyle(
-                                    color: Colors.amberAccent[200],
+                                    color: Color(0xFF4395A1),
                                     letterSpacing: 2.0,
                                     fontSize: 28.0,
-                                    fontWeight: FontWeight.bold
 
                                 )
                             ),
@@ -145,7 +143,7 @@ class _UserState extends State<User> {
                             Text(
                                 'Total Runs',
                                 style: TextStyle(
-                                  color: Colors.grey,
+                                  color: Color(0xFF5B5B5B),
                                   letterSpacing: 2.0,
                                 )
                             ),
@@ -153,10 +151,9 @@ class _UserState extends State<User> {
                             Text(
                                 '${GlobalData.totalRuns}',
                                 style: TextStyle(
-                                    color: Colors.amberAccent[200],
+                                    color: Color(0xFF4395A1),
                                     letterSpacing: 2.0,
                                     fontSize: 28.0,
-                                    fontWeight: FontWeight.bold
 
                                 )
                             ),
@@ -164,7 +161,7 @@ class _UserState extends State<User> {
                             Text(
                                 'Total Distance',
                                 style: TextStyle(
-                                  color: Colors.grey,
+                                  color: Color(0xFF5B5B5B),
                                   letterSpacing: 2.0,
                                 )
                             ),
@@ -172,10 +169,9 @@ class _UserState extends State<User> {
                             Text(
                                 '${GlobalData.totalDistance!.toStringAsFixed(4)}',
                                 style: TextStyle(
-                                    color: Colors.amberAccent[200],
+                                    color: Color(0xFF4395A1),
                                     letterSpacing: 2.0,
                                     fontSize: 28.0,
-                                    fontWeight: FontWeight.bold
 
                                 )
                             ),
@@ -183,7 +179,7 @@ class _UserState extends State<User> {
                             Text(
                                 'Total Time',
                                 style: TextStyle(
-                                  color: Colors.grey,
+                                  color: Color(0xFF5B5B5B),
                                   letterSpacing: 2.0,
                                 )
                             ),
@@ -191,27 +187,27 @@ class _UserState extends State<User> {
                             Text(
                                 '${GlobalData.totalTime}',
                                 style: TextStyle(
-                                    color: Colors.amberAccent[200],
+                                    color: Color(0xFF4395A1),
                                     letterSpacing: 2.0,
                                     fontSize: 28.0,
-                                    fontWeight: FontWeight.bold
 
                                 )
                             ),
 
                             SizedBox(height: 30),
                             Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Icon(
                                   Icons.email,
-                                  color: Colors.grey[400],
+                                  color: Color(0xFF5B5B5B),
                                 ),
                                 SizedBox(width: 10.0),
                                 Text(
                                     '${(GlobalData.email == '' ? "null" : "${GlobalData.email}")}',
                                     style: TextStyle(
-                                      color: Colors.grey[400],
-                                      fontSize: 18,
+                                      color: Color(0xFF4395A1),
+                                      fontSize: 28,
                                       letterSpacing: 1.0,
                                     )
                                 ),

@@ -1,4 +1,5 @@
 import 'package:fitness_app_development/pages/login_page.dart';
+import 'package:fitness_app_development/pages/login_screen/login_screen.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
 
@@ -98,7 +99,7 @@ class _VerifyState extends State<Verify> {
 
                         String pin = myController1.text;
                         GetAPI.verify(pin);
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
                       },
                       child: Text('Enter'),
                     ),

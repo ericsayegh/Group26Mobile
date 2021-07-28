@@ -82,7 +82,7 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      'My Fitness App',
+                      'Free Runner',
                       style: TextStyle(
                         fontSize: 30.0,
                         fontWeight: FontWeight.bold,

@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:fitness_app_development/pages/get_run_name.dart';
 import 'package:fitness_app_development/pages/home_page/home_screen.dart';
-import 'package:fitness_app_development/pages/old_run.dart';
+import 'package:fitness_app_development/pages/old_run2.dart';
 import 'package:fitness_app_development/pages/settings.dart';
 import 'package:fitness_app_development/pages/user_profile.dart';
 import 'package:fitness_app_development/pages/users_page.dart';
@@ -323,7 +323,7 @@ class _HomeState extends State<Home> {
                                           RunData.index = index;
                                           print(index);
 
-                                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OldRun()));
+                                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OldRun2()));
 
                                       },
                                        tileColor: Colors.lightBlueAccent.shade700,

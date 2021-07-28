@@ -12,13 +12,13 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 import 'home_page2.dart';
 
 
-class OldRun extends StatefulWidget {
+class OldRun2 extends StatefulWidget {
 
   @override
-  _OldRunState createState() => _OldRunState();
+  _OldRun2State createState() => _OldRun2State();
 }
 
-class _OldRunState extends State<OldRun> {
+class _OldRun2State extends State<OldRun2> {
 
   String _displayTime = '';
   double totalDistance = 0.0;

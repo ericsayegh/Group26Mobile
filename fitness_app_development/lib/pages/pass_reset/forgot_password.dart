@@ -1,8 +1,11 @@
 
 import 'package:fitness_app_development/pages/login_page.dart';
+import 'package:fitness_app_development/pages/login_screen/login_screen.dart';
 import 'package:fitness_app_development/pages/pass_reset/forgot_password_2.dart';
+import 'package:fitness_app_development/utilities/asset_res.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 
 //WORK IN PROGRESS
@@ -25,81 +28,154 @@ class _ForgotState extends State<Forgot> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-        body: Stack(
-          children: [
-            Container(
-              height: double.infinity,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  image: const DecorationImage(
-                    image: NetworkImage('https://www.verywellfit.com/thmb/LeBe7RNtzbJwyKRmH8ditmJ1NKg=/1500x1020/filters:no_upscale():max_bytes(150000):strip_icc()/Snapwire-Running-27-66babd0b2be44d9595f99d03fd5827fd.jpg'),
-                    fit: BoxFit.cover,
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+          Container(
+            height: Get.height,
+            width: Get.width,
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            child: Stack(
+              alignment: AlignmentDirectional(0,0),
+              children: [
+                Container(
+                  height: Get.height/4,
+                  width: Get.width,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(25),
+                      bottomRight: Radius.circular(25),
+                    ),
+                    child: Image.asset(AssetRes.backGroundImage,fit: BoxFit.cover,),
                   ),
-                  border: Border.all(
-                    color: Colors.blue,
-                    width: 8,
-                  )
-              ),
+                ),
+                Text("Free Runner",style: TextStyle(color: Colors.white,fontSize: 24,fontFamily: "Constantia",fontWeight: FontWeight.w500),),
+              ],
             ),
-            Container(
-              child: SingleChildScrollView(
-                physics: AlwaysScrollableScrollPhysics(),
-                padding: EdgeInsets.symmetric(vertical: 80.0, horizontal: 40.0),
-
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+          ),
+          //Text("Free Runner",style: TextStyle(color: Colors.white,fontSize: 24,fontFamily: "Constantia",fontWeight: FontWeight.w500),),
+          Container(
+            margin: EdgeInsets.only(top: Get.height / 4.8, left: 20, right: 20),
+            padding: EdgeInsets.symmetric(horizontal: 30),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(35),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xFF4695A2).withOpacity(0.5),
+                  offset: Offset(0, 0),
+                  blurRadius: 5,
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(height: 90),
+                Text(
+                  "Password\nRecovery",
+                  style: TextStyle(
+                      color: Color(0xFF4695A2),
+                      fontSize: 31,
+                      fontWeight: FontWeight.w600),
+                ),
+                SizedBox(height: 100),
+                Row(
                   children: [
-                    Text(
-                      'Fitness APP',
-                      style: TextStyle(
-
+                    Container(
+                      width: Get.width/1.7,
+                      child: Text(
+                        "Please enter the email associated with your account",
+                        style: TextStyle(
+                          color: Colors.black.withOpacity(0.5),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
-                    Text(
-                      'Password Recovery',
-                      style: TextStyle(
-
-                      ),
-                    ),
-                    SizedBox(height: 200),
-
-                    Text(
-                      'Please enter the email associated with your account',
-                      style: TextStyle(
-
-                      ),
-                    ),
-                    TextField(
+                  ],
+                ),
+                SizedBox(height: 12),
+                Container(
+                  height: 55,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(50),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          offset: Offset(0, 0),
+                          blurRadius: 3,
+                        ),
+                      ]),
+                  child: Center(
+                    child: TextField(
                       controller: emailController,
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Email Address',
-                      ),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.only(left: 20),
+                          hintText: "Email Address",
+                          hintStyle: TextStyle(color: Color(0xFF4695A2))),
                     ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () async { // connect to the reset password api or whatever here
+                  ),
+                ),
+                SizedBox(height: 60),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: (){
                         String email = emailController.text;
                         GetAPI.sendPasswordEmail(email);
                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Forgot2()));
                       },
-                      child: Text('Reset'),
+                      child: Container(
+                        height: 45,
+                        width: 120,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          gradient: LinearGradient(colors: [
+                            Color(0xFF4297FE),
+                            Color(0xFF76DDFF),
+                          ]),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Reset",
+                            style: TextStyle(color: Colors.white,fontSize: 15),
+                          ),
+                        ),
+                      ),
                     ),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
-                        },
-                        child: Text('Cancel'),
+                    InkWell(
+                      onTap: (){
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                      },
+                      child: Container(
+                        height: 45,
+                        width: 120,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: Colors.white,
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(color: Color(0xFF7AB2BB),fontSize: 15),
+                          ),
+                        ),
+                      ),
                     ),
-
                   ],
                 ),
-              ),
-
+                SizedBox(height: (Get.height/4.6)),
+              ],
             ),
-          ],
-        )
+          ),
+        ],
+      ),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:fitness_app_development/pages/change_name.dart';
 import 'package:fitness_app_development/pages/change_pass.dart';
 import 'package:fitness_app_development/pages/change_username.dart';
 import 'package:fitness_app_development/pages/login_page.dart';
+import 'package:fitness_app_development/pages/login_screen/login_screen.dart';
 import 'package:fitness_app_development/pages/user_profile.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
@@ -185,7 +186,7 @@ class _SettingsState extends State<Settings> {
                           GlobalData.fullName = '';
                           GlobalData.totalRuns = 0;
                           Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => Login()));
+                              MaterialPageRoute(builder: (context) => LoginScreen()));
                         },
                       ),
                       ListTile(
@@ -210,7 +211,7 @@ class _SettingsState extends State<Settings> {
                           GlobalData.fullName = '';
                           GlobalData.totalRuns = 0;
                           Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => Login()));
+                              MaterialPageRoute(builder: (context) => LoginScreen()));
                           //var jsonObject = json.decode(ret.body);
                           //print(jsonObject);
                         },

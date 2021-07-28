@@ -62,12 +62,13 @@ class _FriendsScreenState extends State<FriendsScreen> {
         elevation: 0.0,
         title: Text("Friends Page"),
         centerTitle: true,
+        backgroundColor: Color(0xFF4294A2),
         leading: new IconButton(
           onPressed: () {
             Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
-          icon: new Icon(Icons.arrow_back, color: Colors.orange),
+          icon: new Icon(Icons.arrow_back, color: Colors.white),
         ),
       ),
       body: ChangeNotifierProvider(
@@ -76,11 +77,13 @@ class _FriendsScreenState extends State<FriendsScreen> {
             height: double.infinity,
             width: double.infinity,
             decoration: BoxDecoration(
-                gradient: LinearGradient(
+              color: Colors.white,
+                /*gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     stops: [0.5, 1],
-                    colors: [Colors.cyan, Colors.blueAccent.shade700])),
+                    colors: [Colors.cyan, Colors.blueAccent.shade700])*/
+            ),
             child: Column(
               children: [
                 SizedBox(
@@ -121,57 +124,70 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                 style: TextStyle(color: Colors.red));
                           } else if (snapshot.hasData) {
                             print("data length L ${snapshot.data!.length}");
-                            return ListView.builder(
-                                shrinkWrap: true,
-                                physics: AlwaysScrollableScrollPhysics(),
-                                itemCount: snapshot.data!.length,
-                                itemBuilder: (BuildContext bc, int index) {
-                                  return Row(
-                                    children: [
-                                      Expanded(
-                                          child: RowView(
-                                              "${snapshot.data![index].fullName}")),
-                                      Padding(
-                                        padding: const EdgeInsets.only(right: 10),
-                                        child: ElevatedButton(
-                                          onPressed: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (context) => AlertDialog(
-                                                title: Text("Confirmation!"),
-                                                content: Text(
-                                                    "Are you sure you want to remove this friend?"),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                      GetAPI.removefriend(snapshot.data![index].userId.toInt()).then((value){
-                                                        viewModel.list!.then((value) => value.removeAt(index));
-                                                        setState(() {});
-                                                      });
-                                                    },
-                                                    child: Text(
-                                                      'Yes',
+                            return Expanded(
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: AlwaysScrollableScrollPhysics(),
+                                  itemCount: snapshot.data!.length,
+                                  itemBuilder: (BuildContext bc, int index) {
+                                    return Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                            child: RowView(
+                                                "${snapshot.data![index].fullName}")),
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 10),
+                                          child: InkWell(
+                                            onTap: () {
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) => AlertDialog(
+                                                  title: Text("Confirmation!"),
+                                                  content: Text(
+                                                      "Are you sure you want to remove this friend?"),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                        GetAPI.removefriend(snapshot.data![index].userId.toInt()).then((value){
+                                                          viewModel.list!.then((value) => value.removeAt(index));
+                                                          setState(() {});
+                                                        });
+                                                      },
+                                                      child: Text(
+                                                        'Yes',
+                                                      ),
                                                     ),
-                                                  ),
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: Text(
-                                                      'No',
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Text(
+                                                        'No',
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                            child: Container(
+                                              padding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(50),
+                                                border: Border.all(
+                                                  width: 2,
+                                                  color: Color(0xFF4395A1),
+                                                ),
                                               ),
-                                            );
-                                          },
-                                          child: Text("Remove"),
+                                              child: Text("Remove",style: TextStyle(color: Color(0xFF4395A1),fontWeight: FontWeight.bold),),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  );
-                                });
+                                      ],
+                                    );
+                                  }),
+                            );
                           } else {
                             return Text(
                               "No results",
@@ -189,76 +205,74 @@ class _FriendsScreenState extends State<FriendsScreen> {
                         }
                       }),
                 ),
-                Expanded(
-                  child: Align(
-                    alignment: FractionalOffset.bottomCenter,
-                    child: SizedBox(
-                      height: (MediaQuery.of(context).size.height) * .077,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.blue[200],
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => HomeScreen()));
-                              },
-                              icon: Icon(Icons.home),
-                              iconSize:
-                                  (MediaQuery.of(context).size.height) * .06,
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => UsersScreen()));
-                              },
-                              icon: Icon(Icons.search),
-                              iconSize:
-                                  (MediaQuery.of(context).size.height) * .06,
-                            ),
-                            FloatingActionButton(
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => StartRun()));
-                              },
-                              child: Icon(Icons.add),
-                              backgroundColor: Colors.green,
-                              elevation: 10,
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => FriendsScreen()));
-                              },
-                              icon: Icon(Icons.contact_page_rounded),
-                              iconSize:
-                                  (MediaQuery.of(context).size.height) * .06,
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => User()));
-                              },
-                              icon: Icon(Icons.portrait_rounded),
-                              iconSize:
-                                  (MediaQuery.of(context).size.height) * .06,
-                            ),
-                          ],
-                        ),
+                Align(
+                  alignment: FractionalOffset.bottomCenter,
+                  child: SizedBox(
+                    height: (MediaQuery.of(context).size.height) * .077,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.blue[200],
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeScreen()));
+                            },
+                            icon: Icon(Icons.home),
+                            iconSize:
+                                (MediaQuery.of(context).size.height) * .06,
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => UsersScreen()));
+                            },
+                            icon: Icon(Icons.search),
+                            iconSize:
+                                (MediaQuery.of(context).size.height) * .06,
+                          ),
+                          FloatingActionButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => StartRun()));
+                            },
+                            child: Icon(Icons.add),
+                            backgroundColor: Colors.green,
+                            elevation: 10,
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => FriendsScreen()));
+                            },
+                            icon: Icon(Icons.contact_page_rounded),
+                            iconSize:
+                                (MediaQuery.of(context).size.height) * .06,
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => User()));
+                            },
+                            icon: Icon(Icons.portrait_rounded),
+                            iconSize:
+                                (MediaQuery.of(context).size.height) * .06,
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -281,23 +295,45 @@ class RowView extends StatelessWidget {
       width: double.infinity,
       height: 50,
       child: Padding(
-        padding: const EdgeInsets.only(left: 18.0, right: 18.0),
+        padding: const EdgeInsets.only(left: 18.0, right: 10.0,bottom: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: Text(
-                name,
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30),
+              child: Container(
+                height: 50,
+                margin: EdgeInsets.only(
+                    right: 20),
+                decoration: BoxDecoration(
+                  color: Color(0xFF4395A1),
+                  borderRadius:
+                  BorderRadius.circular(
+                      50),
+                ),
+                child: Center(
+                  child: Text(
+                    '$name',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14),
+                  ),
+                ),
               ),
             ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text("Profile"),
+            InkWell(
+              onTap: () {},
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16,vertical: 10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(
+                    width: 2,
+                    color: Color(0xFF4395A1),
+                  ),
+                ),
+                child: Text("Profiles",style: TextStyle(color: Color(0xFF4395A1),fontWeight: FontWeight.bold),),
+              ),
             ),
           ],
         ),
