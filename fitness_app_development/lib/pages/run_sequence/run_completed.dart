@@ -23,6 +23,7 @@ class _CompletedState extends State<Completed> {
   String _displayTime = '';
   double totalDistance = 0.0;
   double pace = 0.0;
+  String paceT = '0:00';
 
 
 
@@ -41,7 +42,9 @@ class _CompletedState extends State<Completed> {
     pace = TimerData.pace!;
     totalDistance = TimerData.totalDistance!;
 
-
+    if(pace!=0){
+      paceT = pace.toStringAsFixed(2);
+    }
 
     print('$coords');
 
@@ -245,7 +248,7 @@ class _CompletedState extends State<Completed> {
                 fontSize: 40.0,
                 fontWeight: FontWeight.bold,
               ),),
-              Text(pace.toStringAsFixed(2),style: const TextStyle(
+              Text(paceT,style: const TextStyle(
                 fontSize: 40.0,
                 fontWeight: FontWeight.bold,
               ),),

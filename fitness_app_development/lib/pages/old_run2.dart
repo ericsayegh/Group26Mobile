@@ -21,8 +21,8 @@ class OldRun2 extends StatefulWidget {
 class _OldRun2State extends State<OldRun2> {
 
   String _displayTime = '';
-  double totalDistance = 0.0;
-  double pace = 0.0;
+  dynamic totalDistance = 0.0;
+  dynamic pace = 0.0;
   String paceT = '';
   String runName = '';
 

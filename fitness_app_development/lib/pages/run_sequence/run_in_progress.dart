@@ -54,10 +54,10 @@ class _RunInProgressState extends State<RunInProgress> {
 
 
     _stopWatchTimer.onExecute.add(StopWatchExecute.start);
-    _getPositionSubscription = Geolocator.getPositionStream(intervalDuration: Duration(seconds: 4), desiredAccuracy: LocationAccuracy.best).listen((position) {
+    _getPositionSubscription = Geolocator.getPositionStream(intervalDuration: Duration(seconds: 1), desiredAccuracy: LocationAccuracy.best).listen((position) {
 
 
-
+      /*
       Random random = new Random();
       int randomNumber = random.nextInt(6000000);
       int randomNumber2 = random.nextInt(30000);
@@ -74,7 +74,7 @@ class _RunInProgressState extends State<RunInProgress> {
         randomNumber2 *= -1;
       }
       else randomNumber2 *= 1;
-
+      */
       userLocation = position;
       lat[i] = 0.0;
       lon[i] = 0.0;
@@ -87,7 +87,7 @@ class _RunInProgressState extends State<RunInProgress> {
           i++;
       }
       else{
-
+        /*
         totalDistance = Geolocator.distanceBetween(lat[i-1]!, lon[i-1]!, userLocation.latitude - (randomNumber * .000000007), userLocation.longitude- (randomNumber2 * .000001));
 
         lat[i] = userLocation.latitude - (randomNumber * .000000007);
@@ -95,27 +95,40 @@ class _RunInProgressState extends State<RunInProgress> {
         coords.add(Coords(userLocation.latitude - (randomNumber * .000000007), userLocation.longitude- (randomNumber2 * .000001)));
         coordsForMap.add(LatLng(userLocation.latitude - (randomNumber * .000000007), userLocation.longitude- (randomNumber2 * .000001)));
         i++;
+        */
+        totalDistance = Geolocator.distanceBetween(lat[i-1]!, lon[i-1]!, userLocation.latitude, userLocation.longitude);
+
+        lat[i] = userLocation.latitude;
+        lon[i] = userLocation.longitude;
+        coords.add(Coords(userLocation.latitude, userLocation.longitude));
+        coordsForMap.add(LatLng(userLocation.latitude, userLocation.longitude));
+        i++;
+
       }
       setState(() {
         totalDistanceInMIles += getDistanceInMiles(totalDistance);
-        pace = _stopWatchTimer.rawTime.value / (totalDistanceInMIles*60000);
+        if(totalDistanceInMIles != 0){
+
+          pace = _stopWatchTimer.rawTime.value / (totalDistanceInMIles*60000);
 
 
-        double minutes = pace.floorToDouble();
+          double minutes = pace.floorToDouble();
 
-        double deciSeconds = pace - minutes;
+          double deciSeconds = pace - minutes;
 
-        double seconds = deciSeconds*60.0;
+          double seconds = deciSeconds*60.0;
 
-        minutesInt = minutes.toInt();
-        secondsInt = seconds.toInt();
+          minutesInt = minutes.toInt();
+          secondsInt = seconds.toInt();
 
-        if(secondsInt < 10){
-          paceT ='$minutesInt:0$secondsInt';
-        }
-        else{
-          paceT ='$minutesInt:$secondsInt';
-        }
+          if(secondsInt < 10){
+            paceT ='$minutesInt:0$secondsInt';
+          }
+          else{
+            paceT ='$minutesInt:$secondsInt';
+          }
+        } else paceT = '0:00';
+
 
 
       });

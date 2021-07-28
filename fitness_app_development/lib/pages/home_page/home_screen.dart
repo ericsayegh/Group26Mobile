@@ -22,6 +22,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String userName = '';
+  String _displayTime = '0';
   String newUserName = '';
   int totalRuns = 0, newRun = 0;
   double totalDistance = 0, newDistance = 0;
@@ -36,7 +37,25 @@ class _HomeScreenState extends State<HomeScreen> {
     changeTotalRuns();
     changeTotalDistance();
     changeTotalTime();
+    changeTime();
     super.initState();
+  }
+
+
+  void changeTime(){
+
+    var milli = totalTIme;
+    var min = ((milli) / 60000).floor();
+    var sec = ((milli % 60000) / 1000).toStringAsFixed(2);
+    var st = '';
+    if ((milli % 60000) / 1000 < 10) {
+      st = '0';
+    } else st = '';
+
+    setState(() {
+      _displayTime = '${min}:${st}${sec}';
+    });
+
   }
 
   Future<void> refreshImage() async {
@@ -245,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Text(
-                totalDistance.toStringAsFixed(2),
+                '${totalDistance.toStringAsFixed(2)} Mi',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
@@ -278,7 +297,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Text(
-                "${totalTIme}",
+                "$_displayTime",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
