@@ -185,7 +185,7 @@ class _UserState extends State<User> {
                             ),
                             SizedBox(height: 10),
                             Text(
-                                '${GlobalData.totalTime}',
+                                '${GlobalData.formattedTime}',
                                 style: TextStyle(
                                     color: Color(0xFF4395A1),
                                     letterSpacing: 2.0,

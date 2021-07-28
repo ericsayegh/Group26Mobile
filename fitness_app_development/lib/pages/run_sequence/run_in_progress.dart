@@ -206,7 +206,7 @@ class _RunInProgressState extends State<RunInProgress> {
                       return Text(
                         displayTime,
                         style: const TextStyle(
-                          fontSize: 80.0,
+                          fontSize: 50.0,
                           fontWeight: FontWeight.bold,
                         ),
                       );
@@ -222,7 +222,7 @@ class _RunInProgressState extends State<RunInProgress> {
                   fontWeight: FontWeight.bold,
                 ),),
                 Text(totalDistanceInMIles.toStringAsFixed(2),style: const TextStyle(
-                  fontSize: 80.0,
+                  fontSize: 50.0,
                   fontWeight: FontWeight.bold,
                 ),),
                 //Text('Latitude: $lat'),
@@ -238,7 +238,7 @@ class _RunInProgressState extends State<RunInProgress> {
                   fontWeight: FontWeight.bold,
                 ),),
                 Text(paceT,style: const TextStyle(
-                  fontSize: 80.0,
+                  fontSize: 50.0,
                   fontWeight: FontWeight.bold,
                 ),),
                 SizedBox(height: 20),

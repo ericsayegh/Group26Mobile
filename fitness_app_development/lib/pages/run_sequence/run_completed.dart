@@ -220,7 +220,7 @@ class _CompletedState extends State<Completed> {
               Text(
                 _displayTime,
                 style: const TextStyle(
-                  fontSize: 40.0,
+                  fontSize: 25.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -235,7 +235,7 @@ class _CompletedState extends State<Completed> {
                 fontWeight: FontWeight.bold,
               ),),
               Text(totalDistance.toStringAsFixed(2),style: const TextStyle(
-                fontSize: 40.0,
+                fontSize: 25.0,
                 fontWeight: FontWeight.bold,
               ),),
               SizedBox(height: 20),
@@ -249,7 +249,7 @@ class _CompletedState extends State<Completed> {
                 fontWeight: FontWeight.bold,
               ),),
               Text(paceT,style: const TextStyle(
-                fontSize: 40.0,
+                fontSize: 25.0,
                 fontWeight: FontWeight.bold,
               ),),
 

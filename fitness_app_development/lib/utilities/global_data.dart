@@ -12,6 +12,7 @@ class GlobalData
   static int? totalRuns;
   static double? totalDistance;
   static int? totalTime;
+  static late String formattedTime;
   static late List<GetResults2> resultObjs;
   static late List<GetResults> resultObjsBoo;
   static late List<double> distance;

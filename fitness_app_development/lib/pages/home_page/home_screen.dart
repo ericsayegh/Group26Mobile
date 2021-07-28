@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if ((milli % 60000) / 1000 < 10) {
       st = '0';
     } else st = '';
-
+    GlobalData.formattedTime = '${min}:${st}${sec}';
     setState(() {
       _displayTime = '${min}:${st}${sec}';
     });

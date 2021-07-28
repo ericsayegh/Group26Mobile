@@ -69,7 +69,7 @@ class _StartRunState extends State<StartRun> {
                 ),),
 
                 Text('0:00.00',style: const TextStyle(
-                  fontSize: 80.0,
+                  fontSize: 50.0,
                   fontWeight: FontWeight.bold,
                 ),),
                 // StreamBuilder<int>(
@@ -100,7 +100,7 @@ class _StartRunState extends State<StartRun> {
                   fontWeight: FontWeight.bold,
                 ),),
                 Text('0:00', style: const TextStyle(
-                  fontSize: 80.0,
+                  fontSize: 50.0,
                   fontWeight: FontWeight.bold,
                 ),),
                 SizedBox(height: 20),
@@ -114,7 +114,7 @@ class _StartRunState extends State<StartRun> {
                   fontWeight: FontWeight.bold,
                 ),),
                 Text('0:00', style: const TextStyle(
-                  fontSize: 80.0,
+                  fontSize: 50.0,
                   fontWeight: FontWeight.bold,
                 ),),
                 SizedBox(height: 20),
