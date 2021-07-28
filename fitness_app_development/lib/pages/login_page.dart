@@ -230,6 +230,7 @@ class _LoginState extends State<Login> {
       GlobalData.totalDistance = resultObjs[0].TotalDistance;
       GlobalData.totalRuns = resultObjs[0].TotalRuns;
       GlobalData.totalTime = resultObjs[0].TotalTime;
+      GlobalData.email = resultObjs[0].email;
     }catch(e){
       print(e);
     }

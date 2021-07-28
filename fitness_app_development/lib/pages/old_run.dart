@@ -57,6 +57,15 @@ class _OldRunState extends State<OldRun> {
     else{
       paceT ='$minutesInt:$secondsInt';
     }
+    var milli = GlobalData.resultObjs[RunData.index].time;
+    var min = ((milli) / 60000).floor();
+    var sec = ((milli % 60000) / 1000).toStringAsFixed(2);
+    var st = '';
+    if ((milli % 60000) / 1000 < 10) {
+      st = '0';
+    } else st = '';
+
+    _displayTime = '${min}:${st}${sec}';
 
 
 
