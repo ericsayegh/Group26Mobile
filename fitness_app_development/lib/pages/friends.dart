@@ -80,11 +80,6 @@ class _FriendsScreenState extends State<FriendsScreen> {
             width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.white,
-              /*gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    stops: [0.5, 1],
-                    colors: [Colors.cyan, Colors.blueAccent.shade700])*/
             ),
             child: Column(
               children: [
@@ -122,8 +117,10 @@ class _FriendsScreenState extends State<FriendsScreen> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           if (snapshot.hasError) {
-                            return Text("${snapshot.error}",
-                                style: TextStyle(color: Colors.red));
+                            return Expanded(
+                              child: Text("${snapshot.error}",
+                                  style: TextStyle(color: Colors.red)),
+                            );
                           } else if (snapshot.hasData) {
                             print("data length L ${snapshot.data!.length}");
                             return Expanded(
@@ -293,92 +290,92 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                   }),
                             );
                           } else {
-                            return Text(
-                              "No results",
-                              style: TextStyle(color: Colors.red),
+                            return Expanded(
+                              child: Text(
+                                "No results",
+                                style: TextStyle(color: Colors.red),
+                              ),
                             );
                           }
                         } else if (snapshot.connectionState ==
                             ConnectionState.none) {
-                          return Container();
+                          return Expanded(child: Container());
                         } else {
-                          return Center(
-                              child: CircularProgressIndicator(
-                            backgroundColor: Colors.red,
-                          ));
+                          return Expanded(
+                            child: Center(
+                                child: CircularProgressIndicator(
+                              backgroundColor: Colors.red,
+                            )),
+                          );
                         }
                       }),
                 ),
-                Spacer(),
-                Align(
-                  alignment: FractionalOffset.bottomCenter,
-                  child: SizedBox(
-                    height: (MediaQuery.of(context).size.height) * .077,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.blue[200],
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomeScreen()));
-                            },
-                            icon: Icon(Icons.home),
-                            iconSize:
-                                (MediaQuery.of(context).size.height) * .06,
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => UsersScreen()));
-                            },
-                            icon: Icon(Icons.search),
-                            iconSize:
-                                (MediaQuery.of(context).size.height) * .06,
-                          ),
-                          FloatingActionButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => StartRun()));
-                            },
-                            child: Icon(Icons.add),
-                            backgroundColor: Colors.green,
-                            elevation: 10,
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => FriendsScreen()));
-                            },
-                            icon: Icon(Icons.contact_page_rounded),
-                            iconSize:
-                                (MediaQuery.of(context).size.height) * .06,
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => User()));
-                            },
-                            icon: Icon(Icons.portrait_rounded),
-                            iconSize:
-                                (MediaQuery.of(context).size.height) * .06,
-                          ),
-                        ],
-                      ),
+                SizedBox(
+                  height: (MediaQuery.of(context).size.height) * .077,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.blue[200],
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomeScreen()));
+                          },
+                          icon: Icon(Icons.home),
+                          iconSize:
+                              (MediaQuery.of(context).size.height) * .06,
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => UsersScreen()));
+                          },
+                          icon: Icon(Icons.search),
+                          iconSize:
+                              (MediaQuery.of(context).size.height) * .06,
+                        ),
+                        FloatingActionButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => StartRun()));
+                          },
+                          child: Icon(Icons.add),
+                          backgroundColor: Colors.green,
+                          elevation: 10,
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FriendsScreen()));
+                          },
+                          icon: Icon(Icons.contact_page_rounded),
+                          iconSize:
+                              (MediaQuery.of(context).size.height) * .06,
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => User()));
+                          },
+                          icon: Icon(Icons.portrait_rounded),
+                          iconSize:
+                              (MediaQuery.of(context).size.height) * .06,
+                        ),
+                      ],
                     ),
                   ),
                 )

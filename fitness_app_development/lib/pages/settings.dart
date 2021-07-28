@@ -101,15 +101,17 @@ class _SettingsState extends State<Settings> {
                 Column(
                   children: [
                     InkWell(
-                      onTap: (){
+                      onTap: () {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ChangeEmail()));
                       },
                       child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-                        padding: EdgeInsets.symmetric(vertical: 3,horizontal: 10),
+                        margin:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 3, horizontal: 10),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20),
@@ -139,15 +141,17 @@ class _SettingsState extends State<Settings> {
                       ),
                     ),
                     InkWell(
-                      onTap: (){
+                      onTap: () {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ChangeName()));
                       },
                       child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-                        padding: EdgeInsets.symmetric(vertical: 3,horizontal: 10),
+                        margin:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 3, horizontal: 10),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20),
@@ -177,15 +181,17 @@ class _SettingsState extends State<Settings> {
                       ),
                     ),
                     InkWell(
-                      onTap: (){
+                      onTap: () {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ChangeUserName()));
                       },
                       child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-                        padding: EdgeInsets.symmetric(vertical: 3,horizontal: 10),
+                        margin:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 3, horizontal: 10),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20),
@@ -215,15 +221,17 @@ class _SettingsState extends State<Settings> {
                       ),
                     ),
                     InkWell(
-                      onTap: (){
+                      onTap: () {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ChangePass()));
                       },
                       child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-                        padding: EdgeInsets.symmetric(vertical: 3,horizontal: 10),
+                        margin:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 3, horizontal: 10),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20),
@@ -253,7 +261,7 @@ class _SettingsState extends State<Settings> {
                       ),
                     ),
                     InkWell(
-                      onTap: (){
+                      onTap: () {
                         GlobalData.userId = -1;
                         GlobalData.userName = '';
                         GlobalData.firstName = '';
@@ -269,8 +277,10 @@ class _SettingsState extends State<Settings> {
                                 builder: (context) => LoginScreen()));
                       },
                       child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-                        padding: EdgeInsets.symmetric(vertical: 3,horizontal: 10),
+                        margin:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 3, horizontal: 10),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20),
@@ -301,24 +311,47 @@ class _SettingsState extends State<Settings> {
                     ),
                     InkWell(
                       onTap: () async {
-                        await GetAPI.deleteUsers();
-                        GlobalData.userId = -1;
-                        GlobalData.userName = '';
-                        GlobalData.firstName = '';
-                        GlobalData.lastName = '';
-                        GlobalData.email = '';
-                        GlobalData.totalDistance = 0;
-                        GlobalData.totalTime = 0;
-                        GlobalData.fullName = '';
-                        GlobalData.totalRuns = 0;
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()));
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text("Confirmation"),
+                                  content: Text("Are you sure you want to delete this user?"),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () async {
+                                        Navigator.pop(context);
+                                        await GetAPI.deleteUsers();
+                                        GlobalData.userId = -1;
+                                        GlobalData.userName = '';
+                                        GlobalData.firstName = '';
+                                        GlobalData.lastName = '';
+                                        GlobalData.email = '';
+                                        GlobalData.totalDistance = 0;
+                                        GlobalData.totalTime = 0;
+                                        GlobalData.fullName = '';
+                                        GlobalData.totalRuns = 0;
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LoginScreen()));
+                                      },
+                                      child: Text("Yes"),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text("No"),
+                                    ),
+                                  ],
+                                ));
                       },
                       child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-                        padding: EdgeInsets.symmetric(vertical: 3,horizontal: 10),
+                        margin:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 3, horizontal: 10),
                         decoration: BoxDecoration(
                             color: Colors.red,
                             borderRadius: BorderRadius.circular(20),
@@ -326,7 +359,11 @@ class _SettingsState extends State<Settings> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.clear, size: 30,color: Colors.white,),
+                            Icon(
+                              Icons.clear,
+                              size: 30,
+                              color: Colors.white,
+                            ),
                             Container(
                               padding: EdgeInsets.only(left: 10),
                               width: Get.width * 0.39,
@@ -342,7 +379,11 @@ class _SettingsState extends State<Settings> {
                               ),
                             ),
                             Spacer(),
-                            Icon(Icons.chevron_right_outlined, size: 30,color: Colors.white,)
+                            Icon(
+                              Icons.chevron_right_outlined,
+                              size: 30,
+                              color: Colors.white,
+                            )
                           ],
                         ),
                       ),
@@ -355,8 +396,8 @@ class _SettingsState extends State<Settings> {
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 20)),
-                      trailing: Icon(Icons.keyboard_arrow_right,
-                          color: Colors.white),
+                      trailing:
+                          Icon(Icons.keyboard_arrow_right, color: Colors.white),
                       onTap: () async {
                         await GetAPI.deleteUsers();
                         GlobalData.userId = -1;
