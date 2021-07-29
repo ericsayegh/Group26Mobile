@@ -34,7 +34,7 @@ class _UserState extends State<ProfilePage> {
     /// default values to use in displaying
 
     if(isEmail(widget.userEmail!) == false){
-      _email = "${widget.userEmail}";
+      _email = "example@gmail.com";
     }else if(widget.userEmail == null){
       _email = "example@gmail.com";
     }else{
@@ -147,7 +147,7 @@ class _UserState extends State<ProfilePage> {
               ) )
               else
               Text(
-                '${widget.totalDistance}',
+                widget.totalDistance!.toStringAsFixed(4),
                 style: TextStyle(
                   color: Color(0xFF4395A1),
                   letterSpacing: 2.0,
@@ -175,20 +175,23 @@ class _UserState extends State<ProfilePage> {
             ),
 
             SizedBox(height: 30),
-            Row(
-              children: [
-                Icon(
-                  Icons.email,
-                  color: Color(0xFF5B5B5B),
-                ),
-                SizedBox(width: 10.0),
-                Text('${widget.userEmail}',
-                    style: TextStyle(
-                      color: Color(0xFF4395A1),
-                      fontSize: 18,
-                      letterSpacing: 1.0,
-                    )),
-              ],
+            FittedBox(
+              fit: BoxFit.fitWidth,
+              child: Row(
+                children: [
+                  Text('${widget.userEmail}',
+                      style: TextStyle(
+                        color: Color(0xFF4395A1),
+                        fontSize: 18,
+                        letterSpacing: 1.0,
+                      )),
+                  Icon(
+                    Icons.email,
+                    color: Color(0xFF5B5B5B),
+                  ),
+                  SizedBox(width: 10.0),
+                ],
+              ),
             ),
             SizedBox(height: 30),
           ],

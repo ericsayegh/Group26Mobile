@@ -1,6 +1,6 @@
 class GetResults {
 
-  late String id;
+  late dynamic id;
   late String email;
   late int userId;
   late String firstName;

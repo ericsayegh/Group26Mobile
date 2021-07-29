@@ -328,19 +328,43 @@ class GetAPI{
     return res;
   }
 
-  static Future<http.Response> searchfriend(String name) async {
+
+  static Future<http.Response> searchFriends() async {
     var res;
     int userId = GlobalData.userId;
 
-
     res = await http.post(
-        Uri.parse('$SERVER_IP/searchfriends'),
+        Uri.parse('$SERVER_IP/searchfriendsleaderboard'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, String>{
           'userId' : '$userId',
-          'search' : '$name',
+          'search' : '',
+        })
+    );
+
+    if(res.statusCode == 200){
+      print(res.statusCode);
+      return res;
+
+    }
+    return res;
+  }
+
+  static Future<http.Response> listfriend() async {
+    var res;
+    int userId = GlobalData.userId;
+    var jwt = await storage.read(key: "jwt");
+
+    res = await http.post(
+        Uri.parse('$SERVER_IP/listfriends'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'userId' : '$userId',
+          'jwtToken' : '$jwt',
         })
     );
 

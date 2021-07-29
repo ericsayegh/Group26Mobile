@@ -1,6 +1,7 @@
 import 'package:fitness_app_development/pages/home_page/home_screen.dart';
 import 'package:fitness_app_development/pages/run_sequence/run_in_progress.dart';
 import 'package:fitness_app_development/run_sequence_util/timer_data.dart';
+import 'package:fitness_app_development/utilities/get_lb_data.dart';
 import 'package:flutter/material.dart';
 
 
@@ -32,7 +33,11 @@ class _StartRunState extends State<StartRun> {
           )),
         ),
         leading: new IconButton(
-          onPressed: () {
+          onPressed: () async {
+            await Leaderboard.getTotalData();
+            await Leaderboard.getRunData();
+            await Leaderboard.getLeaderboardData();
+            Navigator.of(context).popUntil((route) => route.isFirst);
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
           icon: new Icon(Icons.arrow_back, color: Colors.black),

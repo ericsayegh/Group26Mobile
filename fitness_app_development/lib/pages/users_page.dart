@@ -6,6 +6,7 @@ import 'package:fitness_app_development/friends_util/searchBar.dart';
 import 'package:fitness_app_development/friends_util/search_friend_response.dart';
 import 'package:fitness_app_development/pages/home_page/home_screen.dart';
 import 'package:fitness_app_development/pages/profile_page.dart';
+import 'package:fitness_app_development/utilities/get_lb_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -50,11 +51,14 @@ class _UsersScreenState extends State<UsersScreen> {
             title: Text('Search'),
             backgroundColor: Color(0xFF4294A2),
             leading: new IconButton(
-              onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
+              onPressed: () async {
+                await Leaderboard.getTotalData();
+                await Leaderboard.getRunData();
+                await Leaderboard.getLeaderboardData();
+                Navigator.of(context).popUntil((route) => route.isFirst);
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
               },
-              icon: new Icon(Icons.arrow_back, color: Colors.white),
+              icon: new Icon(Icons.arrow_back, color: Colors.black),
             ),
           ),
           body: ChangeNotifierProvider(

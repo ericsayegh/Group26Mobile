@@ -2,6 +2,7 @@ import 'package:fitness_app_development/pages/login_page.dart';
 import 'package:fitness_app_development/pages/login_screen/login_screen.dart';
 import 'package:fitness_app_development/utilities/asset_res.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
+import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -187,7 +188,7 @@ class _VerifyState extends State<Verify> {
                     padding: EdgeInsets.only(left: 15),
                     width: Get.width / 1.7,
                     child: Text(
-                      "Please, enter the pin code that was sent to email@email.com",
+                      "Please, enter the pin code that was sent to ${GlobalData.email}",
                       style: TextStyle(color: Color(0xFF5B5B5B), fontSize: 13),
                     ),
                   ),

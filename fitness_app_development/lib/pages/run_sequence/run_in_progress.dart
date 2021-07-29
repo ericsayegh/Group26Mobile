@@ -52,7 +52,6 @@ class _RunInProgressState extends State<RunInProgress> {
     super.initState();
 
 
-
     _stopWatchTimer.onExecute.add(StopWatchExecute.start);
     _getPositionSubscription = Geolocator.getPositionStream(intervalDuration: Duration(seconds: 1), desiredAccuracy: LocationAccuracy.best).listen((position) {
 
@@ -194,7 +193,7 @@ class _RunInProgressState extends State<RunInProgress> {
                   color: Colors.black,
                 ),
                 Text('Time',style: const TextStyle(
-                  fontSize: 80.0,
+                  fontSize: 68.0,
                   fontWeight: FontWeight.bold,
                 ),),
                 StreamBuilder<int>(
@@ -221,7 +220,7 @@ class _RunInProgressState extends State<RunInProgress> {
                   color: Colors.black,
                 ),
                 Text('Distance',style: const TextStyle(
-                  fontSize: 80.0,
+                  fontSize: 68.0,
                   fontWeight: FontWeight.bold,
                 ),),
                 Text('${totalDistanceInMIles.toStringAsFixed(2)} Mi',style: const TextStyle(
@@ -237,7 +236,7 @@ class _RunInProgressState extends State<RunInProgress> {
                   color: Colors.black,
                 ),
                 Text('Pace',style: const TextStyle(
-                  fontSize: 80.0,
+                  fontSize: 68.0,
                   fontWeight: FontWeight.bold,
                 ),),
                 Text(paceT,style: const TextStyle(
@@ -276,7 +275,6 @@ class _RunInProgressState extends State<RunInProgress> {
 
                       TimerData.hi = hi;
                       TimerData.cordies = List.from(coordsForMap);
-
                       await GetAPI.addRun();
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) => Completed()));

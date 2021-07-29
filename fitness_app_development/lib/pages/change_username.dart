@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:fitness_app_development/pages/home_page/home_screen.dart';
 import 'package:fitness_app_development/pages/settings.dart';
 import 'package:fitness_app_development/utilities/asset_res.dart';
+import 'package:fitness_app_development/utilities/get_lb_data.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:flutter/material.dart';
@@ -124,6 +125,9 @@ class _ChangeUserNameState extends State<ChangeUserName> {
                           GlobalData.userName = username;
                           var jsonObject = json.decode(ret.body);
                           print(jsonObject);
+                          await Leaderboard.getTotalData();
+                          await Leaderboard.getRunData();
+                          await Leaderboard.getLeaderboardData();
                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
                         } catch(e)
                         {

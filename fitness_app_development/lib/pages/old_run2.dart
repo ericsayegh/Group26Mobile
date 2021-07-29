@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:fitness_app_development/friends_util/constants.dart';
 import 'package:fitness_app_development/pages/home_page/home_screen.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
+import 'package:fitness_app_development/utilities/get_lb_data.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/personal_run_data.dart';
 import 'package:fitness_app_development/utilities/results.dart';
@@ -92,7 +93,9 @@ class _OldRun2State extends State<OldRun2> {
         )),
         leading: new IconButton(
           onPressed: () async {
-            await getTotalData();
+            await Leaderboard.getTotalData();
+            await Leaderboard.getRunData();
+            await Leaderboard.getLeaderboardData();
             Navigator.of(context).popUntil((route) => route.isFirst);
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },

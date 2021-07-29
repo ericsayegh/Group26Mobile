@@ -8,6 +8,7 @@ import 'package:fitness_app_development/pages/pass_reset/forgot_password.dart';
 import 'package:fitness_app_development/pages/register_page.dart';
 import 'package:fitness_app_development/pages/register_screen/register_screen.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
+import 'package:fitness_app_development/utilities/get_lb_data.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/results.dart';
 import 'package:fitness_app_development/utilities/results_runs.dart';
@@ -86,9 +87,9 @@ class LoginScreenViewModel{
     try {
       nameController.clear();
       pwdController.clear();
-      await getTotalData();
-      await getRunData();
-      await getLeaderboardData();
+      await Leaderboard.getTotalData();
+      await Leaderboard.getRunData();
+      await Leaderboard.getLeaderboardData();
 
       Get.offAll(() => HomeScreen());
 
@@ -109,82 +110,12 @@ class LoginScreenViewModel{
     GlobalData.fullName = firstName + ' ' + lastName;
 
   }
-  Future<void> getTotalData() async {
-    var ret = await GetAPI.searchUsers(search: GlobalData.firstName!);
-    var resultObjsJson = jsonDecode(ret.body)['results'] as List;
-    List<GetResults> resultObjs = resultObjsJson.map((resultJson) => GetResults.fromJson(resultJson)).toList();
-
-    try{
-      GlobalData.totalDistance = resultObjs[0].TotalDistance;
-      GlobalData.totalRuns = resultObjs[0].TotalRuns;
-      GlobalData.totalTime = resultObjs[0].TotalTime;
-      GlobalData.email = resultObjs[0].email;
-    }catch(e){
-      print(e);
-    }
-  }
-
-
-  Future<void> getLeaderboardData() async {
-    var ret = await GetAPI.searchUsers();
-    GlobalData.distance = [];
-    Map<int,double> userDistance = new Map();
-
-
-    var resultObjsJson = jsonDecode(ret.body)['results'] as List;
-    List<GetResults> resultObjs = resultObjsJson.map((resultJson) => GetResults.fromJson(resultJson)).toList();
-    GlobalData.resultObjsBoo = List.from(resultObjs);
-    try{
-      for(int i =0; i<resultObjs.length;i++){
-        GlobalData.distance.add(resultObjs[i].TotalDistance);
-      }
-      int i = 0;
-      Map<int, double> map = Map.fromIterable(
-          GlobalData.distance,
-          key: (k) => resultObjs[i++].userId,
-          value: (v) => v
-      );
-
-      var sortedEntries = map.entries.toList()..sort((e1, e2) {
-        var diff = e2.value.compareTo(e1.value);
-        if (diff == 0) diff = e2.key.compareTo(e1.key);
-        return diff;
-      });
-      //print(map);
-
-
-      GlobalData.userIdInOrder = [];
-      GlobalData.orginalIndex = [];
-      print(sortedEntries);
-      for(int j=0; j<sortedEntries.length;j++){
-        GlobalData.userIdInOrder.add(sortedEntries[j].key);
-      }
-      for(int j=0; j<GlobalData.userIdInOrder.length;j++){
-        for(int i=0;i<resultObjs.length;i++){
-          if(GlobalData.userIdInOrder[j] == resultObjs[i].userId){
-            GlobalData.orginalIndex.add(i);
-          }
-        }
-      }
-      print('${GlobalData.userIdInOrder} ,${GlobalData.orginalIndex} ');
-      print(GlobalData.resultObjsBoo[GlobalData.orginalIndex[0]].TotalDistance);
-
-      //print(map);
-      // print('this${GlobalData.distance}');
-
-    }catch(e){
-      print(e);
-    }
-  }
 
 
 
-  Future<void> getRunData() async {
-    var ret = await GetAPI.searchRun();
-    var resultObjsJson = jsonDecode(ret.body)['results'] as List;
-    GlobalData.resultObjs  = resultObjsJson.map((resultJson) => GetResults2.fromJson(resultJson)).toList();
 
-    print('${GlobalData.resultObjs} this');
 
-  }
+
+
+
 }

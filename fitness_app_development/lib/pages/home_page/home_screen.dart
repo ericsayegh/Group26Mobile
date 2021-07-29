@@ -1,13 +1,18 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:fitness_app_development/pages/friends.dart';
 import 'package:fitness_app_development/pages/get_run_name.dart';
 import 'package:fitness_app_development/pages/old_run2.dart';
+import 'package:fitness_app_development/pages/settings.dart';
 import 'package:fitness_app_development/pages/user_profile.dart';
 import 'package:fitness_app_development/pages/users_page.dart';
+import 'package:fitness_app_development/utilities/get_api.dart';
+import 'package:fitness_app_development/utilities/get_lb_data.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/personal_run_data.dart';
 import 'package:fitness_app_development/utilities/pref_service.dart';
+import 'package:fitness_app_development/utilities/results.dart';
 import 'package:fitness_app_development/utilities/results_runs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gravatar/flutter_gravatar.dart';
@@ -32,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
   XFile? fileImg;
   String? _email;
   Gravatar? _gravatar;
-
+  String email = '';
 
   @override
   void initState() {
@@ -42,12 +47,13 @@ class _HomeScreenState extends State<HomeScreen> {
     changeTotalTime();
     changeTime();
 
-    if(isEmail(GlobalData.email!) == false){
-      _email = "${GlobalData.email}";
-    }else if(GlobalData.email == null){
+    email = GlobalData.email!;
+    if(isEmail(email) == false){
+      _email = "example@gmail.com";
+    }else if(email == null){
       _email = "example@gmail.com";
     }else{
-      _email = GlobalData.email; }
+      _email = email; }
     _gravatar = Gravatar(_email);
 
 
@@ -142,9 +148,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           IconButton(
-                            onPressed: () {
-                              print('${GlobalData.resultObjs[0].coordinates[0][0]},${GlobalData.resultObjs[0].coordinates[0][1]}');
-                              print('${GlobalData.resultObjs[0].coordinates[3][0]},${GlobalData.resultObjs[0].coordinates[3][1]}');
+                            onPressed: () async {
+                              await Leaderboard.getLeaderboardData();
+                              await Leaderboard.getRunData();
+                              await Leaderboard.getTotalData();
                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
                             },
                             icon: Icon(Icons.home),
@@ -240,7 +247,20 @@ class _HomeScreenState extends State<HomeScreen> {
             fontSize: 25,
             fontWeight: FontWeight.w500,
           ),
-        )
+        ),
+
+        SizedBox(width: 175),
+        IconButton(
+            icon: Icon(Icons.settings),
+            iconSize: 55,
+            onPressed: () {
+              Get.off(() => Settings());
+
+            }
+
+
+        ),
+
       ],
     );
   }
@@ -360,7 +380,7 @@ class _HomeScreenState extends State<HomeScreen> {
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) {
-          if(GlobalData.resultObjsBoo[GlobalData.orginalIndex[index]].TotalDistance > .01 ){
+          if(GlobalData.resultObjsBoo[GlobalData.orginalIndex[index]].TotalDistance > .01 || GlobalData.resultObjsBoo[GlobalData.orginalIndex[index]].userId == GlobalData.userId){
             return Container(
               margin: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
               padding: EdgeInsets.symmetric(vertical: 3, horizontal: 5),
@@ -476,4 +496,8 @@ class _HomeScreenState extends State<HomeScreen> {
       totalTIme = GlobalData.totalTime!;
     });
   }
+
+
+
+
 }

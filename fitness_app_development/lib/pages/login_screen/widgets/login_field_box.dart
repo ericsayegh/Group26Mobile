@@ -89,6 +89,7 @@ class LoginFieldBox extends StatelessWidget {
                 ]),
             child: Center(
               child: TextField(
+                obscureText: true,
                 focusNode: pwdFocus,
                 controller: pwdController,
                 decoration: InputDecoration(

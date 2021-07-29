@@ -2,6 +2,7 @@ import 'package:fitness_app_development/pages/home_page/home_screen.dart';
 import 'package:fitness_app_development/pages/settings.dart';
 import 'package:fitness_app_development/utilities/asset_res.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
+import 'package:fitness_app_development/utilities/get_lb_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -142,6 +143,9 @@ class _ChangePassState extends State<ChangePass> {
                       String newPass = newPassController.text;
                       if(oldPass != "" && newPass != ""){
                         await GetAPI.editPassword(oldPass, newPass);
+                        await Leaderboard.getTotalData();
+                        await Leaderboard.getRunData();
+                        await Leaderboard.getLeaderboardData();
                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
                       }
                     },

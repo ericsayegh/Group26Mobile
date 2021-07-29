@@ -4,6 +4,7 @@ import 'package:fitness_app_development/friends_util/constants.dart';
 import 'package:fitness_app_development/pages/home_page/home_screen.dart';
 import 'package:fitness_app_development/run_sequence_util/timer_data.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
+import 'package:fitness_app_development/utilities/get_lb_data.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/results.dart';
 import 'package:fitness_app_development/utilities/results_runs.dart';
@@ -90,8 +91,9 @@ class _CompletedState extends State<Completed> {
         )),
         leading: new IconButton(
           onPressed: () async {
-            await getTotalData();
-            await getRunData();
+            await Leaderboard.getTotalData();
+            await Leaderboard.getRunData();
+            await Leaderboard.getLeaderboardData();
             Navigator.of(context).popUntil((route) => route.isFirst);
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
@@ -304,30 +306,7 @@ class _CompletedState extends State<Completed> {
     );
   }
 
-  Future<void> getTotalData() async {
-    var ret = await GetAPI.searchUsers(search: GlobalData.firstName!);
-
-
-    var resultObjsJson = jsonDecode(ret.body)['results'] as List;
-    List<GetResults> resultObjs = resultObjsJson.map((resultJson) => GetResults.fromJson(resultJson)).toList();
-
-
-    GlobalData.totalDistance = resultObjs[0].TotalDistance;
-    GlobalData.totalRuns = resultObjs[0].TotalRuns;
-    GlobalData.totalTime = resultObjs[0].TotalTime;
 
 
 
-
-  }
-
-  Future<void> getRunData() async {
-    var ret = await GetAPI.searchRun();
-
-    var resultObjsJson = jsonDecode(ret.body)['results'] as List;
-    GlobalData.resultObjs  = resultObjsJson.map((resultJson) => GetResults2.fromJson(resultJson)).toList();
-
-    print('${GlobalData.resultObjs} this');
-
-  }
 }

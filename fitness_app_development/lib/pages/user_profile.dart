@@ -5,6 +5,7 @@ import 'package:fitness_app_development/pages/home_page/home_screen.dart';
 import 'package:fitness_app_development/pages/run_sequence/start_run.dart';
 import 'package:fitness_app_development/pages/settings.dart';
 import 'package:fitness_app_development/pages/users_page.dart';
+import 'package:fitness_app_development/utilities/get_lb_data.dart';
 import 'package:fitness_app_development/utilities/global_data.dart';
 import 'package:fitness_app_development/utilities/get_api.dart';
 import 'package:fitness_app_development/utilities/pref_service.dart';
@@ -41,7 +42,7 @@ class _UserState extends State<User> {
 
 
     if(isEmail(email!) == false){
-      _email = "$email";
+      _email = "example@gmail.com";
     }else if(email == null){
       _email = "example@gmail.com";
     }else{
@@ -82,13 +83,15 @@ class _UserState extends State<User> {
         title: Text('MyFitnessApp',style: TextStyle(color: Colors.black),),
         centerTitle: true,
         backgroundColor: Colors.white,
-        leading: IconButton(
-          onPressed: () {
+        leading: new IconButton(
+          onPressed: () async {
+            await Leaderboard.getTotalData();
+            await Leaderboard.getRunData();
+            await Leaderboard.getLeaderboardData();
+            Navigator.of(context).popUntil((route) => route.isFirst);
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
-
           },
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: new Icon(Icons.arrow_back, color: Colors.black),
         ),
       ),
 

@@ -15,6 +15,7 @@ import 'package:flutter_gravatar/flutter_gravatar.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'home_page/home_screen.dart';
 import 'home_page2.dart';
 
 class Settings extends StatefulWidget {
@@ -35,7 +36,7 @@ class _SettingsState extends State<Settings> {
 
 
     if(isEmail(GlobalData.email!) == false){
-      _email = "${GlobalData.email}";
+      _email = "example@gmail.com";
     }else if(GlobalData.email == null){
       _email = "example@gmail.com";
     }else{
@@ -68,12 +69,12 @@ class _SettingsState extends State<Settings> {
       backgroundColor: Colors.white,
       key: scaffoldKey,
       appBar: AppBar(
-        title: Text('Edit Password'),
+        title: Text('Settings'),
         backgroundColor: Color(0xFF4294A2),
         leading: new IconButton(
           onPressed: () {
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => User()));
+                context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
           icon: new Icon(Icons.arrow_back, color: Colors.white),
         ),
