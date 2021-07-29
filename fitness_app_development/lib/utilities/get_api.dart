@@ -176,7 +176,7 @@ class GetAPI{
   //WORKING
   static Future<http.Response> sendPasswordEmail(String email) async {
     var res;
-
+    print(email);
     res = await http.post(
         Uri.parse('$SERVER_IP/sendpasswordemail'),
         headers: <String, String>{
