@@ -34,7 +34,7 @@ class _UserState extends State<ProfilePage> {
     /// default values to use in displaying
 
     if(isEmail(widget.userEmail!) == false){
-      _email = "${widget.userEmail}@gmail.com";
+      _email = "${widget.userEmail}";
     }else if(widget.userEmail == null){
       _email = "example@gmail.com";
     }else{

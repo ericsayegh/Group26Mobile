@@ -35,7 +35,7 @@ class _SettingsState extends State<Settings> {
 
 
     if(isEmail(GlobalData.email!) == false){
-      _email = "${GlobalData.email}@gmail.com";
+      _email = "${GlobalData.email}";
     }else if(GlobalData.email == null){
       _email = "example@gmail.com";
     }else{

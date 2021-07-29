@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
     changeTime();
 
     if(isEmail(GlobalData.email!) == false){
-      _email = "${GlobalData.email}@gmail.com";
+      _email = "${GlobalData.email}";
     }else if(GlobalData.email == null){
       _email = "example@gmail.com";
     }else{
@@ -399,7 +399,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget userList() {
     return Container(
-      height: Get.height * .55,
+      height: Get.height * .51,
       child: ListView.builder(
         shrinkWrap: true,
         itemCount: GlobalData.resultObjs.length,

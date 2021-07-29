@@ -163,7 +163,7 @@ class _UsersScreenState extends State<UsersScreen> {
                                                     ),
                                                     child: Center(
                                                       child: Text(
-                                                        '$userName',
+                                                        '$fullName',
                                                         style: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 14),

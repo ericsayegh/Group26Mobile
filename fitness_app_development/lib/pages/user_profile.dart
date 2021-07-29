@@ -41,7 +41,7 @@ class _UserState extends State<User> {
 
 
     if(isEmail(email!) == false){
-      _email = "$email@gmail.com";
+      _email = "$email";
     }else if(email == null){
       _email = "example@gmail.com";
     }else{

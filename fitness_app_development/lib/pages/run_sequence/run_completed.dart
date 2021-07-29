@@ -218,7 +218,7 @@ class _CompletedState extends State<Completed> {
               FittedBox(
                 fit: BoxFit.fitWidth,
                 child: Text('${TimerData.runName}',style: const TextStyle(
-                  fontSize: 50.0,
+                  fontSize: 30.0,
                   fontWeight: FontWeight.bold,
                 ),),
               ),
