@@ -11,7 +11,7 @@ class LoginFieldBox extends StatelessWidget {
   late VoidCallback forgotPwdTap;
   late VoidCallback loginTap;
   late VoidCallback registerTap;
-
+  var ret;
   LoginFieldBox({
     required this.nameFocus,
     required this.nameController,
@@ -117,6 +117,7 @@ class LoginFieldBox extends StatelessWidget {
               )
             ],
           ),
+          if(ret == 'null')Text('Incorrect username or password, please try again.'),
           SizedBox(height: 40),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

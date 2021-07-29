@@ -84,7 +84,7 @@ class _CompletedState extends State<Completed> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.cyan.shade600,
-        title: Text('Back to home page', style: TextStyle(
+        title: Text('${TimerData.runName}', style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: 20
@@ -120,8 +120,6 @@ class _CompletedState extends State<Completed> {
                       target: LatLng(TimerData.latitude[0], TimerData.longitude[0]),
                     ),
                     onMapCreated: (MapboxMapController controller) async {
-
-
 
 
                       // Acquire current location (returns the LatLng instance)
@@ -217,18 +215,7 @@ class _CompletedState extends State<Completed> {
 
               ),
 
-              FittedBox(
-                fit: BoxFit.fitWidth,
-                child: Text('${TimerData.runName}',style: const TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.bold,
-                ),),
-              ),
-              Divider(
-                height: 20,
-                thickness: 2,
-                color: Colors.black,
-              ),
+              SizedBox(height: 10),
               Text('Time',style: const TextStyle(
                 fontSize: 30.0,
                 fontWeight: FontWeight.bold,

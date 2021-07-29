@@ -249,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
 
-        SizedBox(width: 175),
+        SizedBox(width: 120),
         IconButton(
             icon: Icon(Icons.settings),
             iconSize: 55,
